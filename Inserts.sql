@@ -50,6 +50,8 @@ VALUES
   (1,'Erica','Ingram','Jun 16, 1992','luctus.vulputate@aol.com','(832) 236-5414','Ireland'),
   (1,'Zenaida','Allen','Sep 1, 1962','felis.ullamcorper@aol.ca','(453) 557-3821','Sweden'),
   (1,'Jacob','Holt','Apr 22, 1989','duis.a@aol.org','(455) 442-3788','Ukraine');
+GO;
+
 INSERT INTO [Person] (Per_ID,Fname,Lname,Birth,Email,Phone,Nationality)
 VALUES
   (1,'Rebecca','Hammond','Oct 18, 1990','eu@google.org','1-927-364-5649','Pakistan'),
@@ -102,7 +104,7 @@ VALUES
   (1,'Felicia','Cote','Sep 1, 1987','lorem.lorem@hotmail.couk','(133) 522-8726','Australia'),
   (1,'Miranda','Cameron','Jan 24, 1962','euismod@protonmail.com','1-426-472-1187','United States'),
   (1,'Mara','Clarke','Jan 15, 1951','erat.in@protonmail.edu','1-896-147-0526','Austria');
-
+GO;
 
 INSERT INTO SpaceCompany (Comp_ID,[Name],Acronym,Country)
 VALUES
@@ -111,17 +113,20 @@ VALUES
 	(3, 'Heróis do Espaço','EE','Portugal'),
 	(4, 'Samsung Voyager','SV','South Korea'),
 	(5, 'Outer Vladimir','Vlad','South Korea');
+GO;
 
 INSERT INTO PrivateSpaceCompany (Comp_ID,CEO)
 VALUES
 	(3,1),
 	(5,2);
+GO;
 
 INSERT INTO PublicSpaceCompany (Comp_ID,Gov)
 VALUES
 	(2,'EUA'),
 	(1,'France'),
 	(4,'South Korea');
+GO;
 
 INSERT INTO Program(Prog_ID, [Name], Company)
 VALUES
@@ -133,6 +138,7 @@ VALUES
 	(6,'Apollo Soyuz Test Project',5),
 	(7,'Space Shuttle Era',4),
 	(7,'Space Station Era',3);
+GO;
 
 INSERT INTO Mission(Mission_ID,Budget,[Description],Beg_Date,Conc_date)
 VALUES
@@ -146,6 +152,7 @@ VALUES
 	(8,256,'Race to the edge of the Outer Rim', 'Feb 15, 2019','Nov 15, 2022'),
 	(9,60,'Rescue of Lucy', 'Mar 8, 2026',NULL),
 	(10,35000,'Mars Dome Construction', 'Jun 26, 2023',NULL);
+GO;
 
 INSERT INTO ProgramHasMission(Prog_ID,Mission_ID)
 VALUES
@@ -159,6 +166,7 @@ VALUES
 	(8,4),
 	(9,3),
 	(10,2);
+GO;
 
 INSERT INTO [Event](Event_ID, [Name], [Date], [Status], Mission_ID)
 VALUES
@@ -166,6 +174,7 @@ VALUES
 	(2,'Limping','Jan 4, 2022','Main Ship presents structural problems.',3),
 	(3,'Catastrophe','Apr 2, 2020','2 Research Ships have been sucked by the BlackHole.',6),
 	(4,'Mechanical Problem','Jun 27, 2019','Main Ship Cooling System shows failure. Extending termination date by 2 weeks to solve issue.',4);
+GO;
 
 INSERT INTO Vehicle(Veh_ID, [Name], [Owner], Size, Mass, Manufacturer, [Description], [Status], [Location])
 VALUES
@@ -180,6 +189,7 @@ VALUES
 	(12,'Mark VIII',4,'medium', 25400, 'Webbs Development','Reliable Voyager', 'Standby',NULL),
 	(13,'Mark IX',5,'medium', 24400, 'Markle Projects','Reliable Voyager', 'Standby','Jupiter'),
 	(14,'Syrios',1,'large', 35400, 'Webbs Development','Reliable Voyager', 'Standby',NULL);
+GO;
 
 INSERT INTO LaunchVehicle(Veh_ID, Launch_Cost, Dev_Cost,Fuel,[Type],[Range],[Load])
 VALUES
@@ -192,6 +202,7 @@ VALUES
 	(12,90,380,'C3','Outer Atmosphere Propeller', 2500,NULL),
 	(13,110,600,'B3','Inner Atmosphere Propeller', 3000,NULL),
 	(14,200,2500,'A1','Outer Atmosphere Propeller', 5000,NULL);
+GO;
 
 INSERT INTO LaunchSite(LaunchS_ID,[Location], Comp_ID, [Name])
 VALUES
@@ -205,6 +216,7 @@ VALUES
 	(8,'China',3,'Grounding Propelling'),
 	(9,'France',3,'Nasdar'),
 	(10,'Germany',4,'KASJHS');
+GO;
 
 INSERT INTO Launch(Launch_ID, Mission_ID, LaunchS_ID, LaunchV_ID)
 VALUES
@@ -212,7 +224,7 @@ VALUES
 	(2,1,2,3)
 	(3,3,1,2)
 	(4,4,4,1)
-
+GO;
 
 INSERT INTO Astronaut(Per_ID, Num_Missions)
 VALUES
@@ -246,6 +258,7 @@ VALUES
 	(28,60),
 	(29,10),
 	(30,45);
+GO;
 
 INSERT INTO Speciality([Name],[Description])
 VALUES
@@ -255,6 +268,7 @@ VALUES
 	('Psychologist','A psychologist supports the mental well-being of the crew during long-duration missions. They provide counseling, monitor psychological health, and develop strategies to cope with the psychological challenges of space travel'),
 	('Mechanical Engineer','Mechanical Engineers play a crucial role in maintaining and troubleshooting the spacecrafts systems, such as life support, power, propulsion, and communication. They possess knowledge in mechanical, electrical, and aerospace engineering'),
 	('Software Engineer','Useless Engineer who loves to go on missions so he can look at the stars');
+GO;
 
 INSERT INTO Crew(Crew_ID, Supervisor)
 VALUES
@@ -265,6 +279,7 @@ VALUES
 	(5,26),
 	(6,30),
 	(7,29);
+GO;
 
 INSERT INTO CrewHasAstronaut(Crew_ID, Ast_ID,[Role])
 VALUES
@@ -308,6 +323,7 @@ VALUES
 	(7,7,'Researcher'),
 	(7,14,'Researcher'),
 	(7,19,'Comms');
+GO;
 
 INSERT INTO PersonHasSpeciality(Per_ID, Speciality)
 VALUES 
@@ -357,3 +373,31 @@ VALUES
   (34,'Psychologist'),
   (69,'Software Engineer'),
   (9,'EVA Specialist');
+GO;
+
+INSERT INTO [SpaceStation] ([Craft_ID],[Min_Capacity],[Max_Capacity],[Norad_ID],[Orbit_Type],[Perigee],[Apogee],[Inclination],[Period],[Latitude],[Longitude],[Altitude],[Speed])
+VALUES
+	(1,1,10,1,'LOW',150,250,55.22,'8:00:00.00',60,60,200,400),
+	(2,2,5,2,'LOW',200,300,60.60,'17:00:00.00',60,120,250,300),
+	(3,0,5,3,'LOW',250,350,10.255,'23:00:00.00',20,20,400,250)
+GO;
+
+INSERT INTO [Module] ([Type],[Description],[Status],Craft_ID)
+VALUES
+  ('SUPPORT','dolor. Donec fringilla. Donec feugiat metus sit amet ante. Vivamus','FAILURE',3),
+  ('QoL','sed, est. Nunc laoreet lectus','FAILURE',3),
+  ('QoL','ac, eleifend vitae, erat.','FAULT',3),
+  ('RESEARCH','non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit','OK',3),
+  ('RESEARCH','vitae erat vel pede blandit congue.','OK',3),
+  ('SUPPORT','augue malesuada malesuada. Integer','FAILURE',3),
+  ('UTLITY','justo nec ante. Maecenas mi','FAILURE',2),
+  ('RESEARCH','Nunc ut erat. Sed nunc est, mollis non, cursus','FAULT',2),
+  ('QoL','dictum. Phasellus in','FAULT',3),
+  ('SUPPORT','vitae dolor. Donec fringilla. Donec','OK',1),
+  ('RESEARCH','Fusce mollis. Duis sit amet diam','FAULT',1),
+  ('RESEARCH','rutrum magna.','FAULT',1),
+  ('RESEARCH','bibendum ullamcorper. Duis cursus, diam','FAULT',3),
+  ('RESEARCH','magna et ipsum cursus','FAILURE',1),
+  ('SUPPORT','rutrum urna, nec luctus felis purus ac tellus. Suspendisse','FAILURE',3),
+  ('UTLITY','natoque penatibus','OK',2);
+GO;
