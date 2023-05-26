@@ -2,7 +2,7 @@ USE [SPACE];
 GO
 
 CREATE TABLE Person(
-	Per_ID INT NOT NULL PRIMARY KEY,
+	Per_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	Fname varchar(32) NOT NULL,
 	Lname varchar(32) NOT NULL,
 	Birth date NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Person(
 GO
 
 CREATE TABLE SpaceCompany(
-	 Comp_ID INT NOT NULL PRIMARY KEY,
+	 Comp_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	 [Name] varchar(100) NOT NULL,
 	 Acronym varchar,
 	 Country varchar(100) NOT NULL
@@ -36,14 +36,14 @@ CREATE TABLE PublicSpaceCompany(
 GO
 
 CREATE TABLE Program(
-	Prog_ID INT NOT NULL PRIMARY KEY,
+	Prog_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	[Name] varchar(50),
 	Company INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID)
 );
 GO
 
 CREATE TABLE Mission(
-	Mission_ID INT NOT NULL PRIMARY KEY,
+	Mission_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	Budget money NOT NULL,
 	[Description] varchar(400),
 	Beg_Date date NOT NULL,
@@ -59,16 +59,17 @@ CREATE TABLE ProgramHasMission(
 GO
 
 CREATE TABLE [Event](
-	Event_ID INT NOT NULL PRIMARY KEY,
+	Event_ID INT NOT NULL identity(1,1),
 	[Name] varchar(100) NOT NULL,
 	[Date] date NOT NULL,
 	[Status] varchar(400) NOT NULL,
 	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID)
+	PRIMARY KEY(Event_ID,Mission_ID)
 );
 GO
 
 CREATE TABLE Vehicle(
-	Veh_ID INT NOT NULL PRIMARY KEY,
+	Veh_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	[Name] varchar(50) NOT NULL,
 	[Owner] INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
 	Size varchar(30),
@@ -93,7 +94,7 @@ CREATE TABLE LaunchVehicle(
 GO
 
 CREATE TABLE LaunchSite(
-	LaunchS_ID INT NOT NULL PRIMARY KEY,
+	LaunchS_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	[Location] varchar(150) NOT NULL,
 	Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
 	[Name] varchar(100)
@@ -101,7 +102,7 @@ CREATE TABLE LaunchSite(
 GO
 
 CREATE TABLE Launch(
-	Launch_ID INT NOT NULL PRIMARY KEY,
+	Launch_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
 	LaunchS_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchSite(LaunchS_ID),
 	LaunchV_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchVehicle(Veh_ID)
@@ -123,7 +124,7 @@ CREATE TABLE Speciality(
 GO
 
 CREATE TABLE Crew(
-	Crew_ID INT NOT NULL PRIMARY KEY,
+	Crew_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	Supervisor INT NOT NULL FOREIGN KEY REFERENCES Astronaut(Per_ID)
 );
 GO
