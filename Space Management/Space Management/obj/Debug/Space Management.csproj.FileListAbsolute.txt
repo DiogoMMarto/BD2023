@@ -1,0 +1,14 @@
+C:\Users\tiago\source\repos\Space Management\Space Management\bin\Debug\Space Management.exe.config
+C:\Users\tiago\source\repos\Space Management\Space Management\bin\Debug\Space Management.exe
+C:\Users\tiago\source\repos\Space Management\Space Management\bin\Debug\Space Management.pdb
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space Management.csproj.AssemblyReference.cache
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.Properties.Resources.resources
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space Management.csproj.GenerateResource.cache
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space Management.csproj.CoreCompileInputs.cache
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space Management.exe
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space Management.pdb
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.CreateCompany.resources
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.Astronaut.resources
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.Form1.resources
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.ManageCompany.resources
+C:\Users\tiago\source\repos\Space Management\Space Management\obj\Debug\Space_Management.Testes.resources
