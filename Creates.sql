@@ -1,13 +1,13 @@
-USE [SPACE];
+USE PFinal;
 GO
 
 CREATE TABLE Person(
-	Per_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	Per_ID int NOT NULL PRIMARY KEY identity(1,1),
 	Fname varchar(32) NOT NULL,
 	Lname varchar(32) NOT NULL,
 	Birth date NOT NULL,
 	Email varchar(100),
-	Phone INT,
+	Phone varchar(30),
 	Nationality varchar(100) NOT NULL
 );
 GO
@@ -15,7 +15,7 @@ GO
 CREATE TABLE SpaceCompany(
 	 Comp_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	 [Name] varchar(100) NOT NULL,
-	 Acronym varchar,
+	 Acronym varchar(10),
 	 Country varchar(100) NOT NULL
 );
 GO
@@ -53,8 +53,8 @@ GO
 
 CREATE TABLE ProgramHasMission(
 	Prog_ID INT NOT NULL FOREIGN KEY REFERENCES Program(Prog_ID),
-	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID)
-	PRIMARY KEY (Prog_ID,Mission_ID)
+	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
+	PRIMARY KEY (Prog_ID,Mission_ID),
 );
 GO
 
