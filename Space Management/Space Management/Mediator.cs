@@ -14,7 +14,7 @@ namespace Space_Management
 
         private static SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source= localhost\\NORTHWIND;integrated security=true;initial catalog=SPACE");
+            return new SqlConnection("data source= localhost\\NORTHWIND;integrated security=true;initial catalog=PFinal");
         }
 
         private static bool verifySGBDConnection()
@@ -30,28 +30,35 @@ namespace Space_Management
         public static List<Company> loadCompanies(String type="Any",String name="", String country="")
         {
             List<Company> companies = new List<Company>();
-            int Comp_ID;
-            String Name;
-            String Country;
-            String Owner;
-            String Type;
-            String Acronym;
             if (!verifySGBDConnection())
                 return companies;
 
-            SqlCommand cmd = new SqlCommand("SELECT S.Comp_ID, [Name],Acronym,Country,Gov,CEO FROM (SpaceCompany As S FULL JOIN PublicSpaceCompany As Pub ON S.Comp_ID=Pub.Comp_ID)FULL JOIN PrivateSpaceCompany AS Priv ON S.Comp_ID=Priv.Comp_ID", cn);
+            String priv = "default";
+            String pub = "default";
+
+            if(type.Equals("Public"))
+                priv = "0";
+
+            if(type.Equals("Private"))
+                pub = "0";
+
+            name = name + "'%'";
+            country = country + "'%'";
+
+            String command = "SELECT * FROM getSpaceAgency("+priv+","+pub+","+country+","+name+")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                if (reader["Gov"].Equals("NULL")) Type = "Public";
-                else Type = "Private";
-                Name = reader["Name"].ToString();
-                Country = reader["Country"].ToString();
-                if(Type.Equals("Public")) Owner = reader["Gov"].ToString();
-                else Owner = reader["CEO"].ToString();
-                if (reader["Acronym"] != null) Acronym = reader["Acronym"].ToString();
-                else Acronym = "";
-                Comp_ID = int.Parse(reader["Comp_ID"].ToString());
+
+                int Comp_ID=int.Parse(reader["Comp_ID"].ToString());
+                String Name = reader["Name"].ToString();
+                String Country= reader["Country"].ToString();
+                String Owner=reader["Owner"].ToString();
+                String Type=reader["Type"].ToString();
+                String Acronym=reader["Acronym"].ToString();
+
                 Company current = new Company(Comp_ID, Name, Country, Owner, Type, Acronym);
                 companies.Add(current);
             }
@@ -62,15 +69,10 @@ namespace Space_Management
         {
             if (!verifySGBDConnection())
                 return false;
-            SqlCommand cmd =new SqlCommand($"INSERT INTO SpaceCompany  (Name,Country,Acronym) VALUES ('{comp.Name}','{comp.Country}','{comp.Acronym}');",cn);
+            
+            SqlCommand cmd =new SqlCommand("EXEC addCompany '" + comp.Name +"','"+comp.Country+"','"+comp.Acronym+"','"+comp.Type+"','"+comp.Owner+"';",cn);
             cmd.ExecuteNonQuery();
-            cmd = new SqlCommand("SELECT TOP 1 Comp_ID FROM SpaceCompany ORDER BY Comp_ID DESC", cn);
-            int id = (int)cmd.ExecuteScalar();
-            if (comp.Type.Equals("Public"))
-                cmd=new SqlCommand($"INSERT INTO PublicSpaceCompany (Comp_ID,Gov) VALUES ('{id}','{comp.Owner}')",cn);
-            else
-                cmd=new SqlCommand($"INSERT INTO PrivateSpaceCompany (Comp_ID,CEO) VALUES ('{id}','{int.Parse(comp.Owner)}')",cn);
-            cmd.ExecuteNonQuery();
+
             cn.Close();
 
             return true;

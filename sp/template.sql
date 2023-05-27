@@ -1,23 +1,11 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
+USE PFinal
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
+
 CREATE PROCEDURE <Procedure_Name, sysname, ProcedureName> 
 	-- Add the parameters for the stored procedure here
 	<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
@@ -33,7 +21,7 @@ BEGIN
 			
 
 
-		COMMIT TRANSACTION
+		COMMIT 
 	END TRY
 	BEGIN CATCH 
 		IF (@@TRANCOUNT > 0)
@@ -41,13 +29,6 @@ BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
 			END 
-		SELECT
-			ERROR_NUMBER() AS ErrorNumber,
-			ERROR_SEVERITY() AS ErrorSeverity,
-			ERROR_STATE() AS ErrorState,
-			ERROR_PROCEDURE() AS ErrorProcedure,
-			ERROR_LINE() AS ErrorLine,
-			ERROR_MESSAGE() AS ErrorMessage
 	END CATCH
 END
 GO

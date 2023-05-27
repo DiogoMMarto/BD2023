@@ -1,3 +1,260 @@
+DROP DATABASE PFinal
+GO
+
+CREATE DATABASE PFinal
+GO
+
+USE PFinal;
+GO
+
+CREATE TABLE Person(
+	Per_ID int NOT NULL PRIMARY KEY identity(1,1),
+	Fname varchar(32) NOT NULL,
+	Lname varchar(32) NOT NULL,
+	Birth date NOT NULL,
+	Email varchar(100),
+	Phone varchar(30),
+	Nationality varchar(100) NOT NULL
+);
+GO
+
+CREATE TABLE CEO (
+	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID) ,
+	PRIMARY KEY (Per_ID)
+)
+
+CREATE TABLE SpaceCompany(
+	 Comp_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	 [Name] varchar(100) NOT NULL,
+	 Acronym varchar(10),
+	 Country varchar(100) NOT NULL
+);
+GO
+
+CREATE TABLE PrivateSpaceCompany(
+	 Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
+	 CEO INT NOT NULL FOREIGN KEY REFERENCES CEO(Per_ID),
+	 PRIMARY KEY (Comp_ID)
+);
+GO
+
+CREATE TABLE PublicSpaceCompany(
+	 Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
+	 Gov varchar(100) NOT NULL,
+	 PRIMARY KEY (Comp_ID)
+
+);
+GO
+
+CREATE TABLE Program(
+	Prog_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	[Name] varchar(50),
+	Company INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID)
+);
+GO
+
+CREATE TABLE Mission(
+	Mission_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	Budget money NOT NULL,
+	[Description] varchar(400),
+	Beg_Date date NOT NULL,
+	Conc_Date date,
+);
+GO
+
+CREATE TABLE ProgramHasMission(
+	Prog_ID INT NOT NULL FOREIGN KEY REFERENCES Program(Prog_ID),
+	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
+	PRIMARY KEY (Prog_ID,Mission_ID),
+);
+GO
+
+CREATE TABLE [Event](
+	Event_ID INT NOT NULL identity(1,1),
+	[Name] varchar(100) NOT NULL,
+	[Date] date NOT NULL,
+	[Status] varchar(400) NOT NULL,
+	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID)
+	PRIMARY KEY(Event_ID,Mission_ID)
+);
+GO
+
+CREATE TABLE Vehicle(
+	Veh_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	[Name] varchar(50) NOT NULL,
+	[Owner] INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
+	Size varchar(30),
+	Mass INT,
+	Manufacturer varchar(50),
+	[Description] varchar(100),
+	[Status] varchar(400),
+	[Location] varchar(200)
+);
+GO
+
+CREATE TABLE LaunchVehicle(
+	Veh_ID INT NOT NULL FOREIGN KEY REFERENCES Vehicle(Veh_ID),
+	LaunchCost money,
+	DevCost money,
+	Fuel varchar(30) NOT NULL,
+	[Type] varchar(30),
+	[Range] INT,
+	[Load] varchar(100),
+	PRIMARY KEY(Veh_ID)
+);
+GO
+
+CREATE TABLE LaunchSite(
+	LaunchS_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	[Location] varchar(150) NOT NULL,
+	Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
+	[Name] varchar(100)
+);
+GO
+
+CREATE TABLE Launch(
+	Launch_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
+	LaunchS_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchSite(LaunchS_ID),
+	LaunchV_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchVehicle(Veh_ID)
+);
+GO
+
+
+CREATE TABLE Astronaut(
+	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
+	Num_Missions INT,
+	PRIMARY KEY(Per_ID)
+);
+GO
+
+CREATE TABLE Speciality(
+	[Name] varchar(50) NOT NULL PRIMARY KEY,
+	[Description] varchar(400) NOT NULL
+);
+GO
+
+CREATE TABLE Crew(
+	Crew_ID INT NOT NULL PRIMARY KEY identity(1,1),
+	Supervisor INT NOT NULL FOREIGN KEY REFERENCES Astronaut(Per_ID)
+);
+GO
+
+CREATE TABLE CrewHasAstronaut(
+	Crew_ID INT NOT NULL FOREIGN KEY REFERENCES Crew(Crew_ID),
+	Ast_ID INT NOT NULL FOREIGN KEY REFERENCES Astronaut(Per_ID),
+	[Role] varchar(100) NOT NULL,
+	PRIMARY KEY(Crew_ID,Ast_ID)
+);
+GO
+
+CREATE TABLE PersonHasSpeciality(
+	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
+	Speciality varchar(50) NOT NULL FOREIGN KEY REFERENCES Speciality([Name]),
+	PRIMARY KEY(Per_ID,Speciality)
+);
+GO
+
+CREATE TABLE [SpaceCraft] (
+	[Veh_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Vehicle(Veh_ID),
+	[Purpose] VARCHAR(64) NULL,
+	[Propulsion] VARCHAR(64) NULL,
+	[COSPAR_ID] VARCHAR(16) NOT NULL,
+	PRIMARY KEY([Veh_ID]),
+	UNIQUE(COSPAR_ID)
+);
+GO
+
+CREATE TABLE [Rover] (
+	[Veh_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Vehicle(Veh_ID),
+	[Purpose] VARCHAR(64) NULL,
+	[Autonomy] INTEGER NULL,
+	PRIMARY KEY([Veh_ID]),
+);
+GO
+
+CREATE TABLE [SpaceProbe] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Comm_Type] VARCHAR(32) NULL,
+	[Scope] VARCHAR(32) NULL,
+	PRIMARY KEY([Craft_ID]),
+);
+GO
+
+CREATE TABLE [Satelite] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Norad_ID] INTEGER NULL CHECK ([Norad_ID]>0),
+	[Orbit_Type] VARCHAR(8) NULL,
+	[Perigee] INTEGER NULL CHECK ([Perigee]>0),
+	[Apogee] INTEGER NULL CHECK ([Apogee]>0),
+	[Inclination] DECIMAL(8,5) NULL CHECK ([Inclination]>=0 AND [Inclination]<=180),
+	[Period] TIME NULL,
+	[Latitude] DECIMAL(8,5) NULL CHECK ([Latitude]>=0 AND [Latitude]<=90),
+	[Longitude] DECIMAL(8,5) NULL CHECK ([Longitude]>=0 AND [Longitude]<=180),
+	[Altitude] DECIMAL(8,2) NULL CHECK ([Altitude]>0),
+	[Speed] DECIMAL(16,4) NULL,
+	PRIMARY KEY([Craft_ID]),
+	UNIQUE(Norad_ID),
+	UNIQUE([Latitude],[Longitude],[Altitude]) --This is the position if this was not unique things would be in the location which would be very bad
+);
+GO
+
+CREATE TABLE [CrewedSpaceCraft] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Min_Capacity] INTEGER NOT NULL CHECK ([Min_Capacity]>0),
+	[Max_Capacity] INTEGER NOT NULL,
+	CHECK (Min_Capacity<=Max_Capacity),
+	PRIMARY KEY([Craft_ID]),
+);
+GO
+
+CREATE TABLE [SpaceStation] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Min_Capacity] INTEGER NOT NULL CHECK ([Min_Capacity]>0),
+	[Max_Capacity] INTEGER NOT NULL,
+	[Norad_ID] INTEGER NULL CHECK ([Norad_ID]>0),
+	[Orbit_Type] VARCHAR(8) NULL,
+	[Perigee] INTEGER NULL CHECK ([Perigee]>0),
+	[Apogee] INTEGER NULL CHECK ([Apogee]>0),
+	[Inclination] DECIMAL(8,5) NULL CHECK ([Inclination]>=0 AND [Inclination]<=180),
+	[Period] TIME NULL,
+	[Latitude] DECIMAL(8,5) NULL CHECK ([Latitude]>=0 AND [Latitude]<=90),
+	[Longitude] DECIMAL(8,5) NULL CHECK ([Longitude]>=0 AND [Longitude]<=180),
+	[Altitude] DECIMAL(8,2) NULL CHECK ([Altitude]>0),
+	[Speed] DECIMAL(16,4) NULL,
+	CHECK (Min_Capacity<=Max_Capacity),
+	PRIMARY KEY([Craft_ID]),
+	UNIQUE(Norad_ID),
+	UNIQUE([Latitude],[Longitude],[Altitude])
+);
+GO
+
+CREATE TABLE [Module] (
+    [Module_ID] INTEGER NOT NULL IDENTITY(1, 1),
+    [Type] VARCHAR(16) NULL,
+    [Description] VARCHAR(256) NULL,
+    [Status] VARCHAR(8) NOT NULL,
+    [Craft_ID] INTEGER NULL FOREIGN KEY REFERENCES SpaceStation(Craft_ID),
+    PRIMARY KEY ([Module_ID])
+);
+GO
+
+CREATE TABLE [LaunchHasSpacecraft] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Launch_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Launch(Launch_ID),
+	PRIMARY KEY([Craft_ID],[Launch_ID]),
+);
+GO
+
+CREATE TABLE [Payload] (
+	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
+	[Mission_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
+	[Crew_ID] INTEGER NULL,
+	[Rover_ID] INTEGER NULL,
+	PRIMARY KEY([Craft_ID],[Mission_ID]),
+);
+GO
+
 USE PFinal
 
 INSERT INTO [Person] (Fname,Lname,Birth,Email,Phone,Nationality)
@@ -108,7 +365,7 @@ VALUES
   ('Mara','Clarke','Jan 15, 1951','erat.in@protonmail.edu','1-896-147-0526','Austria');
 GO
 
-INSERT INTO [CEO] (Per_ID,Networth)
+INSERT INTO [CEO] (Per_ID)
 VALUES
 	(1),
 	(2);
@@ -754,3 +1011,98 @@ VALUES
 	(1027,9,NULL,NULL),
 	(1028,9,NULL,NULL),
 	(1099,8,6,NULL);
+
+USE PFinal;
+GO
+
+CREATE TRIGGER NoradNullPositionNullS ON [Satelite]
+INSTEAD OF INSERT,UPDATE
+AS
+BEGIN
+	IF (SELECT count(*) FROM inserted) = 1
+		BEGIN
+			DECLARE @norad as INTEGER;
+			DECLARE	@Orbit_Type as VARCHAR(8);
+			DECLARE @Perigee as INTEGER;
+			DECLARE @Apogee as INTEGER;
+			DECLARE @Inclination as DECIMAL(8,5);
+			DECLARE @Period as TIME;
+			DECLARE @Latitude as DECIMAL(8,5);
+			DECLARE @Longitude as DECIMAL(8,5);
+			DECLARE @Altitude as DECIMAL(8,2);
+			DECLARE @Speed as DECIMAL(16,4);
+
+			SELECT @norad=Norad_ID, @Orbit_Type=Orbit_Type,@Perigee=Perigee,@Apogee=Apogee,@Inclination=Inclination,@Period=[Period],
+				@Latitude=Latitude,@Longitude=Longitude,@Altitude=Altitude,@Speed=Speed FROM inserted;
+
+			IF (@norad) is null
+				IF (@Orbit_Type) is not null or (@Perigee) is not null or (@Apogee) is not null or (@Inclination) is not null or (@Period) is not null or (@Latitude) is not null or (@Longitude) is not null or (@Altitude) is not null or (@Speed) is not null
+					RAISERROR('Not allowed to have null norad id and non null value for any of the fields that define the position of the satelite.',16,1)
+				ELSE
+					INSERT INTO [Satelite] SELECT * FROM inserted;
+			ELSE
+				IF (@Orbit_Type) is null or (@Perigee) is null or (@Apogee) is null or (@Inclination) is null or (@Period) is null or (@Latitude) is null or (@Longitude) is null or (@Altitude) is null or (@Speed) is null
+					RAISERROR('Not allowed to have non null norad id and null value for any of the fields that define the position of the satelite.',16,1)
+				ELSE
+					INSERT INTO [Satelite] SELECT * FROM inserted;
+		END
+	END
+GO
+
+CREATE TRIGGER NoradNullPositionNullSS ON [SpaceStation]
+INSTEAD OF INSERT,UPDATE
+AS
+BEGIN
+	IF (SELECT count(*) FROM inserted) = 1
+		BEGIN
+			DECLARE @norad as INTEGER;
+			DECLARE	@Orbit_Type as VARCHAR(8);
+			DECLARE @Perigee as INTEGER;
+			DECLARE @Apogee as INTEGER;
+			DECLARE @Inclination as DECIMAL(8,5);
+			DECLARE @Period as TIME;
+			DECLARE @Latitude as DECIMAL(8,5);
+			DECLARE @Longitude as DECIMAL(8,5);
+			DECLARE @Altitude as DECIMAL(8,2);
+			DECLARE @Speed as DECIMAL(16,4);
+
+			SELECT @norad=Norad_ID, @Orbit_Type=Orbit_Type,@Perigee=Perigee,@Apogee=Apogee,@Inclination=Inclination,@Period=[Period],
+				@Latitude=Latitude,@Longitude=Longitude,@Altitude=Altitude,@Speed=Speed FROM inserted;
+
+			IF (@norad) is null
+				IF (@Orbit_Type) is not null or (@Perigee) is not null or (@Apogee) is not null or (@Inclination) is not null or (@Period) is not null or (@Latitude) is not null or (@Longitude) is not null or (@Altitude) is not null or (@Speed) is not null
+					RAISERROR('Not allowed to have null norad id and non null value for any of the fields that define the position of the satelite.',16,1)
+				ELSE
+					INSERT INTO [SpaceStation] SELECT * FROM inserted;
+			ELSE
+				IF (@Orbit_Type) is null or (@Perigee) is null or (@Apogee) is null or (@Inclination) is null or (@Period) is null or (@Latitude) is null or (@Longitude) is null or (@Altitude) is null or (@Speed) is null
+					RAISERROR('Not allowed to have non null norad id and null value for any of the fields that define the position of the satelite.',16,1)
+				ELSE
+					INSERT INTO [SpaceStation] SELECT * FROM inserted;
+	END
+END
+GO
+
+CREATE TRIGGER EmailOrPhone ON [Person]
+INSTEAD OF INSERT,UPDATE
+AS
+BEGIN
+	IF (SELECT count(*) FROM inserted) = 1
+		BEGIN
+			DECLARE @email as varchar(100);
+			DECLARE @phone as INTEGER;
+
+			SELECT @email = Email , @phone = Phone FROM inserted;
+
+			IF (@email) is null and (@phone) is null
+				RAISERROR('Person needs to have at least a phone number or an email.',16,1)
+			ELSE
+				BEGIN
+					INSERT INTO [Person] (Per_ID, Fname, Lname, Birth, Email, Phone, Nationality)
+					SELECT Per_ID, Fname, Lname, Birth, Email, Phone, Nationality
+					FROM inserted;
+				END
+		END
+END
+GO
+
