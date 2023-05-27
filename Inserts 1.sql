@@ -1,3 +1,6 @@
+USE PFinal
+GO
+
 INSERT INTO [Person] (Per_ID,Fname,Lname,Birth,Email,Phone,Nationality)
 VALUES
   (1,'Yetta','Pate','Jun 6, 1976','mauris.eu@outlook.com','1-329-800-1861','France'),

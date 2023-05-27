@@ -14,10 +14,8 @@ namespace Space_Management
 
         private static SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source= localhost;integrated security=true;initial catalog=PFinal");
+            return new SqlConnection("data source= localhost\\NORTHWIND;integrated security=true;initial catalog=SPACE");
         }
-
-
 
         private static bool verifySGBDConnection()
         {
