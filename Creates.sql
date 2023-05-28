@@ -120,7 +120,6 @@ GO
 
 CREATE TABLE Astronaut(
 	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
-	Num_Missions INT,
 	PRIMARY KEY(Per_ID)
 );
 GO

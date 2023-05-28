@@ -123,7 +123,6 @@ GO
 
 CREATE TABLE Astronaut(
 	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
-	Num_Missions INT,
 	PRIMARY KEY(Per_ID)
 );
 GO
@@ -249,8 +248,8 @@ GO
 CREATE TABLE [Payload] (
 	[Craft_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES SpaceCraft(Veh_ID),
 	[Mission_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
-	[Crew_ID] INTEGER NULL,
-	[Rover_ID] INTEGER NULL,
+	[Crew_ID] INTEGER NULL FOREIGN KEY REFERENCES Crew(Crew_ID),
+	[Rover_ID] INTEGER NULL FOREIGN KEY REFERENCES Rover(Veh_ID),
 	PRIMARY KEY([Craft_ID],[Mission_ID]),
 );
 GO
@@ -367,8 +366,8 @@ GO
 
 INSERT INTO [CEO] (Per_ID)
 VALUES
-	(1),
-	(2);
+	(31),
+	(32);
 
 INSERT INTO SpaceCompany ([Name],Acronym,Country)
 VALUES
@@ -381,8 +380,8 @@ GO
 
 INSERT INTO PrivateSpaceCompany (Comp_ID,CEO)
 VALUES
-	(3,1),
-	(5,2);
+	(3,31),
+	(5,32);
 GO
 
 INSERT INTO PublicSpaceCompany (Comp_ID,Gov)
@@ -596,38 +595,38 @@ VALUES
 	(4,4,9);
 GO
 
-INSERT INTO Astronaut(Per_ID, Num_Missions)
+INSERT INTO Astronaut(Per_ID)
 VALUES
-	(1,10),
-	(2,23),
-	(3,4),
-	(4,10),
-	(5,10),
-	(6,10),
-	(7,45),
-	(8,10),
-	(9,10),
-	(10,10),
-	(11,10),
-	(12,45),
-	(13,10),
-	(14,10),
-	(15,140),
-	(16,10),
-	(17,10),
-	(18,4),
-	(19,10),
-	(20,45),
-	(21,10),
-	(22,50),
-	(23,45),
-	(24,4),
-	(25,10),
-	(26,4),
-	(27,120),
-	(28,60),
-	(29,10),
-	(30,45);
+	(1),
+	(2),
+	(3),
+	(4),
+	(5),
+	(6),
+	(7),
+	(8),
+	(9),
+	(10),
+	(11),
+	(12),
+	(13),
+	(14),
+	(15),
+	(16),
+	(17),
+	(18),
+	(19),
+	(20),
+	(21),
+	(22),
+	(23),
+	(24),
+	(25),
+	(26),
+	(27),
+	(28),
+	(29),
+	(30);
 GO
 
 INSERT INTO Speciality([Name],[Description])
@@ -1105,4 +1104,23 @@ BEGIN
 		END
 END
 GO
+
+CREATE FUNCTION getNumMissions (@ID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @NumMissions INT;
+    
+    SELECT @NumMissions = COUNT(PL.Mission_ID)
+    FROM Person AS P
+    JOIN CrewHasAstronaut AS CA ON P.Per_ID = CA.Ast_ID
+    JOIN Crew AS C ON C.Crew_ID = CA.Crew_ID
+    JOIN Payload AS PL ON PL.Crew_ID = C.Crew_ID
+    WHERE P.Per_ID = @ID;
+    
+    RETURN @NumMissions;
+END
+GO
+
+ALTER TABLE Astronaut ADD Num_Mission AS dbo.getNumMissions(Per_ID);
 

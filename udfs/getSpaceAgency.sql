@@ -1,4 +1,4 @@
-DROP FUNCTION getSpaceAgency
+USE PFinal
 GO
 
 CREATE FUNCTION getSpaceAgency(

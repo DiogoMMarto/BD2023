@@ -124,8 +124,8 @@ GO
 
 INSERT INTO PrivateSpaceCompany (Comp_ID,CEO)
 VALUES
-	(3,1),
-	(5,2);
+	(3,99),
+	(5,98);
 GO
 
 INSERT INTO PublicSpaceCompany (Comp_ID,Gov)
