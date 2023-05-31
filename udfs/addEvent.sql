@@ -1,15 +1,11 @@
 USE PFinal
 GO
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE <Procedure_Name, sysname, ProcedureName> 
-	-- Add the parameters for the stored procedure here
-	<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
-	<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+CREATE PROCEDURE addEvent
+	@Mission_ID INT,
+	@Name varchar(100),
+	@Date date,
+	@Status varchar(400)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -19,7 +15,9 @@ BEGIN
     BEGIN TRY
 		BEGIN TRANSACTION 
 			
-
+			INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
+				VALUES
+				(@Name,@Date,@Status,@Mission_ID)
 
 		COMMIT 
 	END TRY

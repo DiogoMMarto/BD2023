@@ -1,3 +1,6 @@
+CREATE DATABASE PFinal
+GO
+
 USE PFinal;
 GO
 
@@ -12,6 +15,11 @@ CREATE TABLE Person(
 );
 GO
 
+CREATE TABLE CEO (
+	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID) ,
+	PRIMARY KEY (Per_ID)
+)
+
 CREATE TABLE SpaceCompany(
 	 Comp_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	 [Name] varchar(100) NOT NULL,
@@ -22,7 +30,7 @@ GO
 
 CREATE TABLE PrivateSpaceCompany(
 	 Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
-	 CEO INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
+	 CEO INT NOT NULL FOREIGN KEY REFERENCES CEO(Per_ID),
 	 PRIMARY KEY (Comp_ID)
 );
 GO
@@ -112,7 +120,6 @@ GO
 
 CREATE TABLE Astronaut(
 	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID),
-	Num_Missions INT,
 	PRIMARY KEY(Per_ID)
 );
 GO
@@ -147,9 +154,10 @@ GO
 CREATE TABLE [SpaceCraft] (
 	[Veh_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Vehicle(Veh_ID),
 	[Purpose] VARCHAR(64) NULL,
-	[Purpulsion] VARCHAR(32) NULL,
-	[COSPAR_ID] INTEGER NOT NULL,
+	[Propulsion] VARCHAR(64) NULL,
+	[COSPAR_ID] VARCHAR(16) NOT NULL,
 	PRIMARY KEY([Veh_ID]),
+	UNIQUE(COSPAR_ID)
 );
 GO
 
@@ -182,6 +190,7 @@ CREATE TABLE [Satelite] (
 	[Altitude] DECIMAL(8,2) NULL CHECK ([Altitude]>0),
 	[Speed] DECIMAL(16,4) NULL,
 	PRIMARY KEY([Craft_ID]),
+	UNIQUE(Norad_ID),
 	UNIQUE([Latitude],[Longitude],[Altitude]) --This is the position if this was not unique things would be in the location which would be very bad
 );
 GO
@@ -211,6 +220,7 @@ CREATE TABLE [SpaceStation] (
 	[Speed] DECIMAL(16,4) NULL,
 	CHECK (Min_Capacity<=Max_Capacity),
 	PRIMARY KEY([Craft_ID]),
+	UNIQUE(Norad_ID),
 	UNIQUE([Latitude],[Longitude],[Altitude])
 );
 GO
@@ -240,4 +250,5 @@ CREATE TABLE [Payload] (
 	PRIMARY KEY([Craft_ID],[Mission_ID]),
 );
 GO
+
 
