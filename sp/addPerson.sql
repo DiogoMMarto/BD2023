@@ -8,7 +8,8 @@ CREATE PROCEDURE addPerson
 	@Birth varchar(16) ,
 	@Email varchar(100) ,
 	@Phone varchar(30),
-	@Nationality varchar(100)
+	@Nationality varchar(100),
+	@Networth money = 0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -25,14 +26,14 @@ BEGIN
 			DECLARE @ID INT =  SCOPE_IDENTITY() 
 
 			IF @Type = 'CEO'
-			INSERT INTO CEO (Per_ID)
+			INSERT INTO CEO (Per_ID,Networth)
 			VALUES
-				(@ID)
+				(@ID,@Networth)
 			ELSE IF @Type = 'Austronaut'
 			INSERT INTO Astronaut(Per_ID)
 			VALUES
 				(@ID)
-			ELSE
+			ELSE IF @Type != 'None'
 				RAISERROR('Not a valid Person type.', 16, 1);
 		COMMIT 
 	END TRY

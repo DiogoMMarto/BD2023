@@ -20,6 +20,7 @@ GO
 
 CREATE TABLE CEO (
 	Per_ID INT NOT NULL FOREIGN KEY REFERENCES Person(Per_ID) ,
+	Networth money,
 	PRIMARY KEY (Per_ID)
 )
 
@@ -366,8 +367,8 @@ GO
 
 INSERT INTO [CEO] (Per_ID)
 VALUES
-	(31),
-	(32);
+	(31,10000000),
+	(32,20000000);
 
 INSERT INTO SpaceCompany ([Name],Acronym,Country)
 VALUES
