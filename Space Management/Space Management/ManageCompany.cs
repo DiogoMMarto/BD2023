@@ -96,5 +96,12 @@ namespace Space_Management
         {
 
         }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            Form1 home=(Form1)this.Tag;
+            home.Show();
+            this.Close();
+        }
     }
 }

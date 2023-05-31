@@ -41,7 +41,7 @@ namespace Space_Management
             if (!verifySGBDConnection())
                 return companies;
 
-            SqlCommand cmd = new SqlCommand("SELECT S.Comp_ID, [Name],Acronym,Country,Gov,CEO FROM (SpaceCompany As S FULL JOIN PublicSpaceCompany As Pub ON S.Comp_ID=Pub.Comp_ID)FULL JOIN PrivateSpaceCompany AS Priv ON S.Comp_ID=Priv.Comp_ID", cn);
+            SqlCommand cmd = new SqlCommand("CALL getSpaceCompany", cn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
