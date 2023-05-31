@@ -5,7 +5,7 @@ CREATE PROCEDURE addMission
 	@Budget money,
 	@Description varchar(400),
 	@beg_date date,
-	@Conc_date date
+	@Conc_date date=NULL
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
