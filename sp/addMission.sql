@@ -18,8 +18,7 @@ BEGIN
 			INSERT INTO Mission(Budget,[Description],Beg_Date,Conc_date)
 			VALUES
 				(@Budget,@Description,@beg_date,@Conc_date)
-
-			SET @id = SCOPE_IDENTITY()
+			SET @id=SCOPE_IDENTITY()
 		COMMIT 
 	END TRY
 	BEGIN CATCH 

@@ -13,6 +13,7 @@ namespace Space_Management
 {
     public partial class Form1 : Form
     {
+        private String type="Any";
         public Form1()
         {
             InitializeComponent();
@@ -46,6 +47,7 @@ namespace Space_Management
                
                 cbPublic.Checked = false;
                 cbAny.Checked = false;
+                this.type = "Private";
 
             }
         }
@@ -57,6 +59,8 @@ namespace Space_Management
 
                 cbPrivate.Checked = false;
                 cbAny.Checked = false;
+                this.type = "Public";
+
 
             }
         }
@@ -68,6 +72,8 @@ namespace Space_Management
 
                 cbPublic.Checked = false;
                 cbPrivate.Checked = false;
+                this.type = "Any";
+
 
             }
         }
@@ -134,6 +140,16 @@ namespace Space_Management
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            lbCompanies.Items.Clear();
+            List<Company> companies = Mediator.loadCompanies(this.type, this.tbName.Text, this.tbCountry.Text);
+            foreach (Company current in companies)
+            {
+                lbCompanies.Items.Add(current);
+            }
         }
     }
 }

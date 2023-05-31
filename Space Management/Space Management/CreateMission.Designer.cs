@@ -183,6 +183,7 @@ namespace Space_Management
             this.tbTitle.Size = new System.Drawing.Size(1232, 98);
             this.tbTitle.TabIndex = 80;
             this.tbTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
             // lbPrograms
             // 

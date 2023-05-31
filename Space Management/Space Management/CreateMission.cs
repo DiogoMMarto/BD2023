@@ -14,10 +14,9 @@ namespace Space_Management
     {
         private Company company;
         private int prog_ID;
-        public CreateMission(Company comp,int prog_ID=1)
+        public CreateMission(Company comp)
         {
             this.company = comp;
-            this.prog_ID = prog_ID;
             InitializeComponent();
         }
 
@@ -53,10 +52,10 @@ namespace Space_Management
         {
             
             Mission mission = new Mission(Double.Parse(this.tbBudget.Text), this.tbDescription.Text, this.tbBegDate.Text, this.tbFinishDate.Text);
-            Mediator.AddMission(mission);
-            Mediator.AddMissionToProgram(mission.Mission_ID, prog_ID);
-            Console.WriteLine("AQUI");
-            ManageCompany form = (ManageCompany)Tag;
+            int id=Mediator.AddMission(mission);
+            mission.Mission_ID = id;
+            Mediator.AddMissionToProgram(id, prog_ID);
+            ManageCompany form = (ManageCompany)this.Tag;
             form.refresh();
             form.Show();
             this.Close();
@@ -71,10 +70,15 @@ namespace Space_Management
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            ManageCompany form = (ManageCompany)Tag;
+            ManageCompany form = (ManageCompany)this.Tag;
             form.refresh();
             form.Show();
             this.Close();
+        }
+
+        private void tbTitle_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

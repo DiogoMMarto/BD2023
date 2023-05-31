@@ -59,6 +59,12 @@
     <Compile Include="CreateCompany.Designer.cs">
       <DependentUpon>CreateCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateMission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateMission.Designer.cs">
+      <DependentUpon>CreateMission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,8 +77,16 @@
     <Compile Include="ManageCompany.Designer.cs">
       <DependentUpon>ManageCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageMission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageMission.Designer.cs">
+      <DependentUpon>ManageMission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mediator.cs" />
+    <Compile Include="Mission.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Programa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testes.cs">
       <SubType>Form</SubType>
@@ -80,17 +94,25 @@
     <Compile Include="Testes.Designer.cs">
       <DependentUpon>Testes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Employee.cs" />
+    <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="Astronaut.resx">
       <DependentUpon>Astronaut.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateCompany.resx">
       <DependentUpon>CreateCompany.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreateMission.resx">
+      <DependentUpon>CreateMission.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageCompany.resx">
       <DependentUpon>ManageCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageMission.resx">
+      <DependentUpon>ManageMission.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,5 +143,6 @@
   <ItemGroup>
     <None Include="Resources\SpaceWallpaper.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
