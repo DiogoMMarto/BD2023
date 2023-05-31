@@ -1,12 +1,9 @@
 USE PFinal
 GO
 
-CREATE PROCEDURE addMission
-	@Budget money,
-	@Description varchar(400),
-	@beg_date date,
-	@Conc_date date=NULL,
-	@id INTEGER output
+CREATE PROCEDURE addMissionToProgram
+	@ProgramID INTEGER,
+	@MissionID INTEGER
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -15,11 +12,9 @@ BEGIN
 
     BEGIN TRY
 		BEGIN TRANSACTION 
-			INSERT INTO Mission(Budget,[Description],Beg_Date,Conc_date)
+			INSERT INTO ProgramHasMission(Prog_ID,Mission_ID)
 			VALUES
-				(@Budget,@Description,@beg_date,@Conc_date)
-
-			SET @id = SCOPE_IDENTITY()
+				(@ProgramID,@MissionID)
 		COMMIT 
 	END TRY
 	BEGIN CATCH 
