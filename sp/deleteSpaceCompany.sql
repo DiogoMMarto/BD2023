@@ -26,6 +26,10 @@ BEGIN
 
 			delete from PrivateSpaceCompany where Comp_ID = @id
 
+			UPDATE Vehicle
+			SET [Owner] = null
+			where [Owner] = @id
+
 			DECLARE @pid as int , @comp as int;
 
 			DECLARE C CURSOR FAST_FORWARD
