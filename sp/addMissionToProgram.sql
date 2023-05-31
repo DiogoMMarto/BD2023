@@ -2,8 +2,8 @@ USE PFinal
 GO
 
 CREATE PROCEDURE addMissionToProgram
-	@MissionID INTEGER,
-	@ProgramID INTEGER
+	@ProgramID INTEGER,
+	@MissionID INTEGER
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
