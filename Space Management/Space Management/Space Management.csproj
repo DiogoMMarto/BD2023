@@ -65,6 +65,12 @@
     <Compile Include="CreateMission.Designer.cs">
       <DependentUpon>CreateMission.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreatePayload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreatePayload.Designer.cs">
+      <DependentUpon>CreatePayload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,7 @@
       <DependentUpon>Testes.cs</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs" />
+    <Compile Include="Payload.cs" />
     <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="Astronaut.resx">
       <DependentUpon>Astronaut.cs</DependentUpon>
@@ -104,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateMission.resx">
       <DependentUpon>CreateMission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreatePayload.resx">
+      <DependentUpon>CreatePayload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

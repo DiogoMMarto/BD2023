@@ -48,7 +48,6 @@ namespace Space_Management
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.tbAcronym = new System.Windows.Forms.RichTextBox();
             this.tbVehicles = new System.Windows.Forms.RichTextBox();
-            this.overPicture = new System.Windows.Forms.PictureBox();
             this.groupOverview = new System.Windows.Forms.GroupBox();
             this.tbOwner = new System.Windows.Forms.RichTextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
@@ -73,11 +72,12 @@ namespace Space_Management
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.btnHome = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
+            this.overPicture = new System.Windows.Forms.PictureBox();
             this.groupOverview.SuspendLayout();
             this.groupMissions.SuspendLayout();
             this.groupStaff.SuspendLayout();
             this.groupVehicles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOverview
@@ -263,16 +263,6 @@ namespace Space_Management
             this.tbVehicles.TabIndex = 57;
             this.tbVehicles.Text = "";
             this.tbVehicles.Visible = false;
-            // 
-            // overPicture
-            // 
-            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
-            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.overPicture.Location = new System.Drawing.Point(1200, 144);
-            this.overPicture.Name = "overPicture";
-            this.overPicture.Size = new System.Drawing.Size(558, 587);
-            this.overPicture.TabIndex = 58;
-            this.overPicture.TabStop = false;
             // 
             // groupOverview
             // 
@@ -563,6 +553,16 @@ namespace Space_Management
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
+            // overPicture
+            // 
+            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
+            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.overPicture.Location = new System.Drawing.Point(1200, 144);
+            this.overPicture.Name = "overPicture";
+            this.overPicture.Size = new System.Drawing.Size(558, 587);
+            this.overPicture.TabIndex = 58;
+            this.overPicture.TabStop = false;
+            // 
             // ManageCompany
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -576,16 +576,15 @@ namespace Space_Management
             this.Controls.Add(this.btnVehicles);
             this.Controls.Add(this.btnMissions);
             this.Controls.Add(this.btnOverview);
-            this.Controls.Add(this.groupOverview);
             this.Controls.Add(this.groupVehicles);
             this.Controls.Add(this.groupStaff);
             this.Controls.Add(this.groupMissions);
+            this.Controls.Add(this.groupOverview);
             this.Name = "ManageCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageCompany";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ManageCompany_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
             this.groupOverview.ResumeLayout(false);
             this.groupOverview.PerformLayout();
             this.groupMissions.ResumeLayout(false);
@@ -594,6 +593,7 @@ namespace Space_Management
             this.groupStaff.PerformLayout();
             this.groupVehicles.ResumeLayout(false);
             this.groupVehicles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

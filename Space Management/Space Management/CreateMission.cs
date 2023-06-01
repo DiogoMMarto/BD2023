@@ -80,5 +80,9 @@ namespace Space_Management
         {
 
         }
+
+        private void tbFinishDate_TextChanged(object sender, EventArgs e)
+        {
+        }
     }
 }
