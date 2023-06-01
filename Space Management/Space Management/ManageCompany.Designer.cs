@@ -191,6 +191,7 @@ namespace Space_Management
             this.textBox5.Size = new System.Drawing.Size(421, 40);
             this.textBox5.TabIndex = 52;
             this.textBox5.Text = "Number of Employees:";
+            this.textBox5.Visible = false;
             // 
             // tbEmployees
             // 
@@ -200,6 +201,7 @@ namespace Space_Management
             this.tbEmployees.Size = new System.Drawing.Size(195, 32);
             this.tbEmployees.TabIndex = 53;
             this.tbEmployees.Text = "";
+            this.tbEmployees.Visible = false;
             // 
             // textBox6
             // 
@@ -210,6 +212,7 @@ namespace Space_Management
             this.textBox6.Size = new System.Drawing.Size(421, 40);
             this.textBox6.TabIndex = 54;
             this.textBox6.Text = "Number of Missions:";
+            this.textBox6.Visible = false;
             // 
             // tbMissions
             // 
@@ -219,6 +222,7 @@ namespace Space_Management
             this.tbMissions.Size = new System.Drawing.Size(195, 32);
             this.tbMissions.TabIndex = 55;
             this.tbMissions.Text = "";
+            this.tbMissions.Visible = false;
             // 
             // textBox7
             // 
@@ -229,6 +233,7 @@ namespace Space_Management
             this.textBox7.Size = new System.Drawing.Size(421, 40);
             this.textBox7.TabIndex = 56;
             this.textBox7.Text = "Number of Vehicles:";
+            this.textBox7.Visible = false;
             // 
             // textBox4
             // 
@@ -257,6 +262,7 @@ namespace Space_Management
             this.tbVehicles.Size = new System.Drawing.Size(195, 32);
             this.tbVehicles.TabIndex = 57;
             this.tbVehicles.Text = "";
+            this.tbVehicles.Visible = false;
             // 
             // overPicture
             // 
@@ -570,10 +576,10 @@ namespace Space_Management
             this.Controls.Add(this.btnVehicles);
             this.Controls.Add(this.btnMissions);
             this.Controls.Add(this.btnOverview);
-            this.Controls.Add(this.groupStaff);
-            this.Controls.Add(this.groupMissions);
             this.Controls.Add(this.groupOverview);
             this.Controls.Add(this.groupVehicles);
+            this.Controls.Add(this.groupStaff);
+            this.Controls.Add(this.groupMissions);
             this.Name = "ManageCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageCompany";

@@ -365,10 +365,10 @@ VALUES
   ('Mara','Clarke','Jan 15, 1951','erat.in@protonmail.edu','1-896-147-0526','Austria');
 GO
 
-INSERT INTO [CEO] (Per_ID)
+INSERT INTO [CEO] (Per_ID,Networth)
 VALUES
-	(31,10000000),
-	(32,20000000);
+	(31,10500000),
+	(32,90045400);
 
 INSERT INTO SpaceCompany ([Name],Acronym,Country)
 VALUES

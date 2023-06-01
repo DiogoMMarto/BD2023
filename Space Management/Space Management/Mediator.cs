@@ -72,6 +72,7 @@ namespace Space_Management
                 return false;
             
             SqlCommand cmd =new SqlCommand("EXEC addCompany '" + comp.Name +"','"+comp.Country+"','"+comp.Acronym+"','"+comp.Type+"','"+comp.Owner+"';",cn);
+            Console.WriteLine("EXEC addCompany '" + comp.Name + "','" + comp.Country + "','" + comp.Acronym + "','" + comp.Type + "','" + comp.Owner + "';");
             cmd.ExecuteNonQuery();
 
             cn.Close();
