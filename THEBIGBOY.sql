@@ -83,7 +83,7 @@ GO
 CREATE TABLE Vehicle(
 	Veh_ID INT NOT NULL PRIMARY KEY identity(1,1),
 	[Name] varchar(50) NOT NULL,
-	[Owner] INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
+	[Owner] INT FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
 	Size varchar(30),
 	Mass INT,
 	Manufacturer varchar(50),
@@ -115,7 +115,7 @@ GO
 
 CREATE TABLE Launch(
 	Launch_ID INT NOT NULL PRIMARY KEY identity(1,1),
-	Mission_ID INT NOT NULL FOREIGN KEY REFERENCES Mission(Mission_ID),
+	Mission_ID INT FOREIGN KEY REFERENCES Mission(Mission_ID),
 	LaunchS_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchSite(LaunchS_ID),
 	LaunchV_ID INT NOT NULL FOREIGN KEY REFERENCES LaunchVehicle(Veh_ID)
 );
@@ -195,7 +195,7 @@ CREATE TABLE [Satelite] (
 	[Speed] DECIMAL(16,4) NULL,
 	PRIMARY KEY([Craft_ID]),
 	UNIQUE(Norad_ID),
-	UNIQUE([Latitude],[Longitude],[Altitude]) --This is the position if this was not unique things would be in the location which would be very bad
+	UNIQUE([Latitude],[Longitude],[Altitude]) --This is the position if this was not unique things would be in the same location which would be very bad
 );
 GO
 
