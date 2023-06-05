@@ -7,6 +7,8 @@ CREATE PROCEDURE addMission
 	@beg_date date,
 	@Conc_date date=NULL,
 	@id INTEGER output
+	@Conc_date date=NULL,
+	@id INTEGER output
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from

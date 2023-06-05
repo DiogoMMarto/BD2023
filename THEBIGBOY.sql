@@ -590,10 +590,10 @@ GO
 
 INSERT INTO Launch( Mission_ID, LaunchS_ID, LaunchV_ID)
 VALUES
-	(2,3,6),
-	(1,2,7),
-	(3,1,8),
-	(4,4,9);
+	(2,3,6), --1
+	(1,2,7), --2
+	(3,1,8), --3
+	(4,4,9); --4
 GO
 
 INSERT INTO Astronaut(Per_ID)
@@ -1010,7 +1010,15 @@ VALUES
 	(1026,9,NULL,NULL),
 	(1027,9,NULL,NULL),
 	(1028,9,NULL,NULL),
-	(1099,8,6,NULL);
+	(1099,8,6,NULL),
+	(1,2,NULL,NULL),
+	(1099,1,NULL,NULL),
+	(1099,3,NULL,NULL),
+	(1000,3,NULL,NULL),
+	(1025,4,NULL,NULL),
+	(1026,4,NULL,NULL),
+	(1027,4,NULL,NULL),
+	(1028,4,NULL,NULL);
 
 USE PFinal;
 GO
