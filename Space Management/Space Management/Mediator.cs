@@ -170,6 +170,7 @@ namespace Space_Management
             while (reader.Read())
             {
                 int Comp_ID = (int)reader["Comp_ID"];
+                int Per_ID = (int)reader["Per_ID"];
                 String FName = reader["Fname"].ToString();
                 String LName = reader["Lname"].ToString();
                 String Birth = reader["Birth"].ToString();
@@ -177,11 +178,99 @@ namespace Space_Management
                 String Role = reader["Role"].ToString();
                 String Email = reader["Email"].ToString();
                 String Phone = reader["Phone"].ToString();
-                Employee current = new Employee(Comp_ID,FName,LName,Birth,Nationality,Role,Email,Phone);
+                Employee current = new Employee(Comp_ID, Per_ID, FName,LName,Birth,Nationality,Role,Email,Phone);
                 empregados.Add(current);
             }
             cn.Close();
             return empregados;
+        }
+        public static List<Spacecraft> loadSpacecrafts(int comp_ID)
+        {
+            List<Spacecraft> crafts = new List<Spacecraft>();
+            if (!verifySGBDConnection())
+                return crafts;
+
+            String command = "SELECT * FROM getSpacecraftFromSpaceCompany(" + comp_ID + ")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int Comp_ID = (int)reader["Comp_ID"];
+                int Veh_ID = (int)reader["Veh_ID"];
+                String Name = reader["Name"].ToString();
+                String Size = reader["Size"].ToString();
+                String Manufacturer = reader["Manufacturer"].ToString();
+                String Description = reader["Description"].ToString();
+                String Status = reader["Status"].ToString();
+                String Location = reader["Location"].ToString();
+                String Propulsion = reader["Propulsion"].ToString();
+                String Purpose = reader["Purpose"].ToString();
+
+                Spacecraft current = new Spacecraft(Comp_ID,Veh_ID, Name,Size,Manufacturer, Description,Status,Location,Propulsion,Purpose);
+                crafts.Add(current);
+            }
+            cn.Close();
+            return crafts;
+        }
+        public static List<Rover> loadRovers(int comp_ID)
+        {
+            List<Rover> rovers = new List<Rover>();
+            if (!verifySGBDConnection())
+                return rovers;
+
+            String command = "SELECT * FROM getRoverFromSpaceCompany(" + comp_ID + ")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int Comp_ID = (int)reader["Comp_ID"];
+                int Veh_ID = (int)reader["Veh_ID"];
+                String Name = reader["Name"].ToString();
+                String Size = reader["Size"].ToString();
+                String Manufacturer = reader["Manufacturer"].ToString();
+                String Description = reader["Description"].ToString();
+                String Status = reader["Status"].ToString();
+                String Location = reader["Location"].ToString();
+                String Autonomy = reader["Autonomy"].ToString();
+                String Purpose = reader["Purpose"].ToString();
+
+                Rover current = new Rover(Comp_ID, Veh_ID, Name, Size, Manufacturer, Description, Status, Location, Autonomy, Purpose);
+                rovers.Add(current);
+            }
+            cn.Close();
+            return rovers;
+        }
+        public static void AddPayload(int craftID, int missionID, int crewID,int RoverID)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand("EXEC addPayload '" + craftID + "','" + missionID +"','" + craftID + "','"+ RoverID + "';", cn);
+            cmd.ExecuteNonQuery();
+            cn.Close();
+        }
+        public static int createCrew(int supervisor)
+        {
+            if (!verifySGBDConnection())
+                return -1;
+            SqlCommand cmd = new SqlCommand("DECLARE @id INTEGER;\n EXEC addCrew '" +supervisor + "',@id=@id OUTPUT;\n SELECT @id AS OutputID;", cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int id = (int)reader["OutputID"];
+            cn.Close();
+            return id;
+        }
+        public static void addToCrew(int crewID,List<Employee> crew)
+        {
+            if (!verifySGBDConnection())
+                return;
+            foreach(Employee x in crew)
+            {
+                SqlCommand cmd = new SqlCommand("EXEC addToCrew '" + crewID + "','" + x.Per_ID + "';", cn);
+                cmd.ExecuteNonQuery(); 
+            }
+            cn.Close();
         }
     }
 }

@@ -28,3 +28,5 @@ C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Manage
 C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space Management.csproj.AssemblyReference.cache
 C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreateMission.resources
 C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.ManageMission.resources
+C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreatePayload.resources
+C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.PopupPayload.resources

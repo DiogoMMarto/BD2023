@@ -9,6 +9,7 @@ namespace Space_Management
     public class Employee
     {
         private int _comp_ID;
+        private int _per_ID;
         private String _fname;
         private String _lname;
         private String _birth;
@@ -21,6 +22,11 @@ namespace Space_Management
         {
             get { return _comp_ID; }
             set { _comp_ID = value; }
+        }
+        public int Per_ID
+        {
+            get { return _per_ID; }
+            set { _per_ID = value; }
         }
         public String FName
         {
@@ -57,9 +63,10 @@ namespace Space_Management
             get { return _role; }
             set { _role = value; }
         }
-        public Employee(int Comp_ID,String fname, String lname,String birth, String nationality, String role, String email = "", String phone = "")
+        public Employee(int Comp_ID,int Per_ID,String fname, String lname,String birth, String nationality, String role, String email = "", String phone = "")
         {
             this.Comp_ID = Comp_ID;
+            this.Per_ID = Per_ID;
             this.FName = fname;
             this.LName = lname;
             this.Birth = birth;

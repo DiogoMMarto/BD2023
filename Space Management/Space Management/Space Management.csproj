@@ -91,9 +91,16 @@
     </Compile>
     <Compile Include="Mediator.cs" />
     <Compile Include="Mission.cs" />
+    <Compile Include="PopupPayload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupPayload.Designer.cs">
+      <DependentUpon>PopupPayload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Programa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rover.cs" />
     <Compile Include="Testes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +109,7 @@
     </Compile>
     <Compile Include="Employee.cs" />
     <Compile Include="Payload.cs" />
+    <Compile Include="Spacecraft.cs" />
     <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="Astronaut.resx">
       <DependentUpon>Astronaut.cs</DependentUpon>
@@ -123,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageMission.resx">
       <DependentUpon>ManageMission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopupPayload.resx">
+      <DependentUpon>PopupPayload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

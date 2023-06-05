@@ -1,9 +1,12 @@
 USE PFinal
 GO
 
-CREATE PROCEDURE addMissionToProgram
-	@ProgramID INTEGER,
-	@MissionID INTEGER
+CREATE PROCEDURE addPayload
+	@CraftID INTEGER,
+	@MissionID INTEGER,
+	@CrewID INTEGER=NULL,
+	@RoverID INTEGER=NULL
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -12,9 +15,9 @@ BEGIN
 
     BEGIN TRY
 		BEGIN TRANSACTION 
-			INSERT INTO ProgramHasMission(Prog_ID,Mission_ID)
+			INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
 			VALUES
-				(@ProgramID,@MissionID)
+				(@CraftID,@MissionID,@CrewID,@RoverID)
 		COMMIT 
 	END TRY
 	BEGIN CATCH 

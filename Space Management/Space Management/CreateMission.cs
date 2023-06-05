@@ -55,8 +55,8 @@ namespace Space_Management
             int id=Mediator.AddMission(mission);
             mission.Mission_ID = id;
             Mediator.AddMissionToProgram(id, prog_ID);
-            ManageCompany form = (ManageCompany)this.Tag;
-            form.refresh();
+            PopupPayload form = new PopupPayload(id,this.company.Comp_ID);
+            form.Tag = this.Tag;
             form.Show();
             this.Close();
         }

@@ -32,7 +32,7 @@ namespace Space_Management
             get { return _rover_ID; }
             set { _rover_ID = value; }
         }
-        public Payload(int Mission=-1, int Craft,int Crew=-1, int Rover = -1)
+        public Payload(int Craft,int Mission=-1,int Crew=-1, int Rover = -1)
         {
             this.Mission_ID = Mission;
             this.Craft_ID = Craft;
