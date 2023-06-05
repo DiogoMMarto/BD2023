@@ -9,63 +9,70 @@ namespace Space_Management
     public class Vehicle
     {
         private int _comp_ID;
+        private int _veh_ID;
         private String _name;
-        private String _country;
-        private String _owner;
-        private String _acronym;
-        private String _type;
+        private String _size;
+        private String _manufacturer;
+        private String _description;
+        private String _status;
+        private String _location;
+
         public int Comp_ID
         {
             get { return _comp_ID; }
             set { _comp_ID = value; }
+        }
+        public int Veh_ID
+        {
+            get { return _veh_ID; }
+            set { _veh_ID = value; }
         }
         public String Name
         {
             get { return _name; }
             set { _name = value; }
         }
-        public String Country
+        public String Manufacturer
         {
-            get { return _country; }
-            set { _country = value; }
+            get { return _manufacturer; }
+            set { _manufacturer = value; }
         }
-        public String Acronym
+        public String Size
         {
-            get { return _acronym; }
-            set { _acronym = value; }
+            get { return _size; }
+            set { _size = value; }
         }
-        public String Owner
+        public String Description
         {
-            get { return _owner; }
-            set { _owner = value; }
+            get { return _description; }
+            set { _description = value; }
         }
-        public String Type
+        public String Status
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _status; }
+            set { _status = value; }
         }
-        public Vehicle(int Comp_ID,String name, String Country,String Owner,String Type,String Acronym= "")
+        public String Location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }   
+        public Vehicle(int Comp_ID,int Veh_ID,String Name, String Size, String Manufacturer, String Description, String Status="", String Location="")
         {
             this.Comp_ID = Comp_ID;
-            this.Name = name;
-            this.Country = Country;
-            this.Owner = Owner;
-            this.Type = Type;
-            this.Acronym = Acronym;
+            this.Veh_ID = Veh_ID;
+            this.Name = Name;
+            this.Size = Size;
+            this.Manufacturer = Manufacturer;
+            this.Description = Description;
+            this.Status = Status;
+            this.Location = Location;
 
         }
-        public Vehicle( String name, String Country, String Owner, String Type, String Acronym = "")
-        {
-            this.Name = name;
-            this.Country = Country;
-            this.Owner = Owner;
-            this.Type = Type;
-            this.Acronym = Acronym;
-
-        }
+        
         public override String ToString()
         {
-            return $"{this._comp_ID,-5} {this._name,-45} {this._acronym, -5}";
+            return $"{this.Veh_ID,-5} {this.Name,-25} {this.Manufacturer,-35} {this.Description} ";
         }
 
     }

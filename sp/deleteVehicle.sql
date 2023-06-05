@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE deleteVehicule
+CREATE PROCEDURE deleteVehicle
 	@id INTEGER
 AS
 BEGIN
@@ -18,7 +18,7 @@ BEGIN
 		BEGIN TRANSACTION 
 			
 			if(not exists(select * from Vehicle where Veh_ID = @id))
-				RAISERROR('No such company.', 16, 1);
+				RAISERROR('No such Vehicle.', 16, 1);
 
 			delete from Vehicle where Veh_ID = @id
 

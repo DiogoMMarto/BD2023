@@ -194,8 +194,7 @@ namespace Space_Management
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(1185, 28);
             this.textBox7.TabIndex = 17;
-            this.textBox7.Text = "Select the desired Space Companies and press <Manage> or create a new one <Create" +
-    ">";
+            this.textBox7.Text = "Select the desired Space Company and press <Manage> or create a new one <Create>";
             this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 

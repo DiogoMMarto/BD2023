@@ -57,7 +57,7 @@ namespace Space_Management
 
         public override String ToString()
         {
-            return $"{this._mission_ID,-5} {this._description,-45} {this._beg_date, -5}";
+            return $"{this._mission_ID,-5} {this._description,-45} {this.Budget+" M€", -10} {this.Beg_Date}";
         }
 
     }
