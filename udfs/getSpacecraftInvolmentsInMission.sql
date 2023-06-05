@@ -7,7 +7,8 @@ GO
 
 CREATE FUNCTION getSpacecraftInvolmentsInMission
 (	
-	@MissionID INTEGER
+	@MissionID INTEGER , 
+	@SpacecraftID INTEGER
 )
 RETURNS TABLE 
 AS
@@ -20,12 +21,14 @@ RETURN
 		ls.[Name] as LaunchSiteName , ls.[Location] as LaunchSiteLocation  from
 			SpaceCraft as sc JOIN
 			Payload as pl ON sc.Veh_ID = pl.Craft_ID JOIN
-			Vehicle as v ON v.Veh_ID = sc.Veh_ID JOIN
+			Vehicle as v ON v.Veh_ID = sc.Veh_ID LEFT JOIN
 			LaunchHasSpacecraft as lsc ON lsc.Craft_ID = sc.Veh_ID JOIN
 			Launch as l ON lsc.Launch_ID = l.Launch_ID JOIN
 			LaunchVehicle as lv ON lv.Veh_ID = l.LaunchV_ID JOIN
 			Vehicle as v2 ON v2.Veh_ID = lv.Veh_ID JOIN
 			LaunchSite as ls ON ls.LaunchS_ID = l.LaunchS_ID
-				WHERE pl.Mission_ID = @MissionID and l.Mission_ID = @MissionID
+				WHERE pl.Mission_ID = @MissionID and 
+					  l.Mission_ID = @MissionID and
+					  sc.Veh_ID = @SpacecraftID
 )
 GO
