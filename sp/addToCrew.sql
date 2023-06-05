@@ -10,19 +10,8 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    BEGIN TRY
-		BEGIN TRANSACTION 
-			INSERT INTO CrewHasAstronaut(Crew_ID,Ast_ID,[Role])
-			VALUES
-				(@CrewID,@Ast_ID,'')
-		COMMIT 
-	END TRY
-	BEGIN CATCH 
-		IF (@@TRANCOUNT > 0)
-			BEGIN
-				ROLLBACK TRANSACTION 
-				PRINT 'Error detected, all changes reversed'
-			END 
-	END CATCH
+	INSERT INTO CrewHasAstronaut(Crew_ID,Ast_ID,[Role])
+		VALUES (@CrewID,@Ast_ID,'')
+
 END
 GO
