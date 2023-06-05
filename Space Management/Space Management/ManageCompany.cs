@@ -22,6 +22,8 @@ namespace Space_Management
         {
             this.loadMissions();
             this.loadEmployees();
+            this.loadVehicles();
+            this.loadPrograms();
         }
         public void loadMissions()
         {
@@ -39,6 +41,24 @@ namespace Space_Management
             foreach (Employee m in empregados)
             {
                 this.lbEmployees.Items.Add(m);
+            }
+        }
+        public void loadVehicles()
+        {
+            this.lbVehicles.Items.Clear();
+            List<Vehicle> empregados = Mediator.loadVehicles(this.comp.Comp_ID);
+            foreach (Vehicle m in empregados)
+            {
+                this.lbVehicles.Items.Add(m);
+            }
+        }
+        public void loadPrograms()
+        {
+            this.lbPrograms.Items.Clear();
+            List<Programa> empregados = Mediator.loadPrograms(this.comp.Comp_ID);
+            foreach (Programa m in empregados)
+            {
+                this.lbPrograms.Items.Add(m);
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -62,7 +82,8 @@ namespace Space_Management
             tbType.Text = comp.Type;
             this.loadMissions();
             this.loadEmployees();
-
+            this.loadVehicles();
+            this.loadPrograms();
         }
         
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -86,6 +107,7 @@ namespace Space_Management
             groupMissions.Visible = false;
             groupOverview.Visible = false;
             groupVehicles.Visible = false;
+            gbPrograms.Visible = false;
         }
 
 
@@ -96,6 +118,8 @@ namespace Space_Management
             groupStaff.Visible = false;
             groupOverview.Visible = false;
             groupVehicles.Visible = false;
+            gbPrograms.Visible = false;
+
         }
 
         private void btnVehicles_Click_1(object sender, EventArgs e)
@@ -104,6 +128,8 @@ namespace Space_Management
             groupStaff.Visible = false;
             groupOverview.Visible = false;
             groupMissions.Visible = false;
+            gbPrograms.Visible = false;
+
         }
 
         private void groupVehicles_Enter(object sender, EventArgs e)
@@ -156,6 +182,60 @@ namespace Space_Management
                 this.Hide();
             }
             
+        }
+
+        private void btnRemMission_Click(object sender, EventArgs e)
+        {
+            Mission mission = (Mission)lbMissions.SelectedItem;
+            Mediator.deleteMission(mission.Mission_ID);
+            this.refresh();
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            Vehicle vehicle = (Vehicle)lbVehicles.SelectedItem;
+            Mediator.deleteVehicle(vehicle.Veh_ID);
+            this.refresh();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CreateProgram form = new CreateProgram(this.comp.Comp_ID);
+            form.Tag = this;
+            form.Show();
+            
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Programa prog = (Programa)lbPrograms.SelectedItem;
+            Mediator.deleteProgram(prog.Prog_ID);
+            this.refresh();
+        }
+
+        private void btnPrograms_Click(object sender, EventArgs e)
+        {
+            groupVehicles.Visible = false;
+            groupStaff.Visible = false;
+            groupOverview.Visible = false;
+            groupMissions.Visible = false;
+            gbPrograms.Visible = true;
+        }
+
+        private void btnNewVehicle_Click(object sender, EventArgs e)
+        {
+            CreateProgram form = new CreateProgram(this.comp.Comp_ID);
+            form.Tag = this;
+            form.Show();
+            form.Hide();
         }
     }
 }

@@ -13,7 +13,7 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT SP.Comp_ID,V.[Name],[Size],[Manufacturer],[Description],[Status],[Location] from 
+	SELECT SP.Comp_ID,V.Veh_ID,V.[Name],[Size],[Manufacturer],[Description],[Status],[Location] from 
 	SpaceCompany as SP JOIN
 	Vehicle as V ON V.[Owner]=SP.Comp_ID
 	WHERE SP.Comp_ID = @SpaceCompanyID

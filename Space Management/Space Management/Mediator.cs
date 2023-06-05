@@ -184,6 +184,32 @@ namespace Space_Management
             cn.Close();
             return empregados;
         }
+        public static List<Vehicle> loadVehicles(int comp_ID)
+        {
+            List<Vehicle> veiculos = new List<Vehicle>();
+            if (!verifySGBDConnection())
+                return veiculos;
+
+            String command = "SELECT * FROM getVehiclesFromSpaceCompany(" + comp_ID + ")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int Comp_ID = (int)reader["Comp_ID"];
+                int Veh_ID = (int)reader["Veh_ID"];
+                String Name = reader["Name"].ToString();
+                String Size = reader["Size"].ToString();
+                String Manufacturer = reader["Manufacturer"].ToString();
+                String Description = reader["Description"].ToString();
+                String Status = reader["Status"].ToString();
+                String Location = reader["Location"].ToString();
+                Vehicle current = new Vehicle(Comp_ID, Veh_ID,Name, Size, Description, Status, Location);
+                veiculos.Add(current);
+            }
+            cn.Close();
+            return veiculos;
+        }
         public static List<Spacecraft> loadSpacecrafts(int comp_ID)
         {
             List<Spacecraft> crafts = new List<Spacecraft>();
@@ -270,6 +296,44 @@ namespace Space_Management
                 SqlCommand cmd = new SqlCommand("EXEC addToCrew '" + crewID + "','" + x.Per_ID + "';", cn);
                 cmd.ExecuteNonQuery(); 
             }
+            cn.Close();
+        }
+        public static void deleteMission(int missionID)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand("EXEC deleteMission '" + missionID + "';", cn);
+            cmd.ExecuteNonQuery();
+            
+            cn.Close();
+        }
+        public static void deleteVehicle(int vehicleID)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand("EXEC deleteVehicle '" + vehicleID + "';", cn);
+            cmd.ExecuteNonQuery();
+
+            cn.Close();
+        }
+        public static int addProgram(int compID,String Name)
+        {
+            if (!verifySGBDConnection())
+                return -1;
+            SqlCommand cmd = new SqlCommand("DECLARE @id INTEGER;\n EXEC addProgram '" + Name + "','" +compID + "',@id=@id OUTPUT;\n SELECT @id AS OutputID;", cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int id = (int)reader["OutputID"];
+            cn.Close();
+            return id;
+        }
+        public static void deleteProgram(int progID)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand("EXEC deleteProgram '" + progID + "';", cn);
+            cmd.ExecuteNonQuery();
+
             cn.Close();
         }
     }

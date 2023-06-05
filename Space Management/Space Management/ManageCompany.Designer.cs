@@ -51,6 +51,7 @@ namespace Space_Management
             this.groupOverview = new System.Windows.Forms.GroupBox();
             this.tbOwner = new System.Windows.Forms.RichTextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
+            this.overPicture = new System.Windows.Forms.PictureBox();
             this.groupMissions = new System.Windows.Forms.GroupBox();
             this.btnRemMission = new System.Windows.Forms.Button();
             this.btnAddMission = new System.Windows.Forms.Button();
@@ -72,21 +73,27 @@ namespace Space_Management
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.btnHome = new System.Windows.Forms.Button();
-            this.overPicture = new System.Windows.Forms.PictureBox();
+            this.btnPrograms = new System.Windows.Forms.Button();
+            this.gbPrograms = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.lbPrograms = new System.Windows.Forms.ListBox();
             this.groupOverview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
             this.groupMissions.SuspendLayout();
             this.groupStaff.SuspendLayout();
             this.groupVehicles.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
+            this.gbPrograms.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOverview
             // 
             this.btnOverview.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnOverview.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOverview.Location = new System.Drawing.Point(144, 176);
+            this.btnOverview.Location = new System.Drawing.Point(82, 176);
             this.btnOverview.Name = "btnOverview";
-            this.btnOverview.Size = new System.Drawing.Size(385, 78);
+            this.btnOverview.Size = new System.Drawing.Size(338, 78);
             this.btnOverview.TabIndex = 0;
             this.btnOverview.Text = "Overview";
             this.btnOverview.UseVisualStyleBackColor = false;
@@ -95,9 +102,9 @@ namespace Space_Management
             // btnMissions
             // 
             this.btnMissions.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMissions.Location = new System.Drawing.Point(910, 176);
+            this.btnMissions.Location = new System.Drawing.Point(779, 176);
             this.btnMissions.Name = "btnMissions";
-            this.btnMissions.Size = new System.Drawing.Size(369, 78);
+            this.btnMissions.Size = new System.Drawing.Size(304, 78);
             this.btnMissions.TabIndex = 1;
             this.btnMissions.Text = "Missions";
             this.btnMissions.UseVisualStyleBackColor = true;
@@ -106,9 +113,9 @@ namespace Space_Management
             // btnVehicles
             // 
             this.btnVehicles.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVehicles.Location = new System.Drawing.Point(1285, 176);
+            this.btnVehicles.Location = new System.Drawing.Point(1398, 176);
             this.btnVehicles.Name = "btnVehicles";
-            this.btnVehicles.Size = new System.Drawing.Size(389, 78);
+            this.btnVehicles.Size = new System.Drawing.Size(307, 78);
             this.btnVehicles.TabIndex = 2;
             this.btnVehicles.Text = "Vehicles";
             this.btnVehicles.UseVisualStyleBackColor = true;
@@ -117,9 +124,9 @@ namespace Space_Management
             // btnEmployees
             // 
             this.btnEmployees.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmployees.Location = new System.Drawing.Point(547, 176);
+            this.btnEmployees.Location = new System.Drawing.Point(426, 176);
             this.btnEmployees.Name = "btnEmployees";
-            this.btnEmployees.Size = new System.Drawing.Size(357, 78);
+            this.btnEmployees.Size = new System.Drawing.Size(347, 78);
             this.btnEmployees.TabIndex = 4;
             this.btnEmployees.Text = "Employees";
             this.btnEmployees.UseVisualStyleBackColor = true;
@@ -309,6 +316,16 @@ namespace Space_Management
             this.textBox12.TabIndex = 59;
             this.textBox12.Text = "Owner:";
             // 
+            // overPicture
+            // 
+            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
+            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.overPicture.Location = new System.Drawing.Point(1200, 144);
+            this.overPicture.Name = "overPicture";
+            this.overPicture.Size = new System.Drawing.Size(558, 587);
+            this.overPicture.TabIndex = 58;
+            this.overPicture.TabStop = false;
+            // 
             // groupMissions
             // 
             this.groupMissions.Controls.Add(this.btnRemMission);
@@ -327,13 +344,14 @@ namespace Space_Management
             // btnRemMission
             // 
             this.btnRemMission.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemMission.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnRemMission.ForeColor = System.Drawing.Color.Red;
             this.btnRemMission.Location = new System.Drawing.Point(759, 85);
             this.btnRemMission.Name = "btnRemMission";
             this.btnRemMission.Size = new System.Drawing.Size(246, 53);
             this.btnRemMission.TabIndex = 23;
-            this.btnRemMission.Text = "Archive";
+            this.btnRemMission.Text = "Delete(-)";
             this.btnRemMission.UseVisualStyleBackColor = true;
+            this.btnRemMission.Click += new System.EventHandler(this.btnRemMission_Click);
             // 
             // btnAddMission
             // 
@@ -375,9 +393,9 @@ namespace Space_Management
             this.lbMissions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbMissions.FormattingEnabled = true;
             this.lbMissions.ItemHeight = 33;
-            this.lbMissions.Location = new System.Drawing.Point(438, 160);
+            this.lbMissions.Location = new System.Drawing.Point(201, 160);
             this.lbMissions.Name = "lbMissions";
-            this.lbMissions.Size = new System.Drawing.Size(819, 367);
+            this.lbMissions.Size = new System.Drawing.Size(1372, 367);
             this.lbMissions.TabIndex = 19;
             this.lbMissions.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -474,6 +492,7 @@ namespace Space_Management
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "Delete (-)";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNewVehicle
             // 
@@ -485,6 +504,7 @@ namespace Space_Management
             this.btnNewVehicle.TabIndex = 26;
             this.btnNewVehicle.Text = "New (+)";
             this.btnNewVehicle.UseVisualStyleBackColor = true;
+            this.btnNewVehicle.Click += new System.EventHandler(this.btnNewVehicle_Click);
             // 
             // button4
             // 
@@ -513,9 +533,9 @@ namespace Space_Management
             this.lbVehicles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbVehicles.FormattingEnabled = true;
             this.lbVehicles.ItemHeight = 33;
-            this.lbVehicles.Location = new System.Drawing.Point(438, 160);
+            this.lbVehicles.Location = new System.Drawing.Point(218, 160);
             this.lbVehicles.Name = "lbVehicles";
-            this.lbVehicles.Size = new System.Drawing.Size(819, 367);
+            this.lbVehicles.Size = new System.Drawing.Size(1333, 367);
             this.lbVehicles.TabIndex = 23;
             // 
             // textBox11
@@ -553,15 +573,76 @@ namespace Space_Management
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // overPicture
+            // btnPrograms
             // 
-            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
-            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.overPicture.Location = new System.Drawing.Point(1200, 144);
-            this.overPicture.Name = "overPicture";
-            this.overPicture.Size = new System.Drawing.Size(558, 587);
-            this.overPicture.TabIndex = 58;
-            this.overPicture.TabStop = false;
+            this.btnPrograms.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrograms.Location = new System.Drawing.Point(1089, 176);
+            this.btnPrograms.Name = "btnPrograms";
+            this.btnPrograms.Size = new System.Drawing.Size(303, 78);
+            this.btnPrograms.TabIndex = 69;
+            this.btnPrograms.Text = "Programs";
+            this.btnPrograms.UseVisualStyleBackColor = true;
+            this.btnPrograms.Click += new System.EventHandler(this.btnPrograms_Click);
+            // 
+            // gbPrograms
+            // 
+            this.gbPrograms.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.gbPrograms.Controls.Add(this.button1);
+            this.gbPrograms.Controls.Add(this.button3);
+            this.gbPrograms.Controls.Add(this.textBox13);
+            this.gbPrograms.Controls.Add(this.lbPrograms);
+            this.gbPrograms.Location = new System.Drawing.Point(42, 279);
+            this.gbPrograms.Name = "gbPrograms";
+            this.gbPrograms.Size = new System.Drawing.Size(1811, 800);
+            this.gbPrograms.TabIndex = 66;
+            this.gbPrograms.TabStop = false;
+            this.gbPrograms.Visible = false;
+            this.gbPrograms.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.Location = new System.Drawing.Point(723, 85);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(264, 53);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Delete (-)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Blue;
+            this.button3.Location = new System.Drawing.Point(993, 85);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(264, 53);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "New (+)";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textBox13
+            // 
+            this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox13.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox13.Location = new System.Drawing.Point(438, 98);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(279, 40);
+            this.textBox13.TabIndex = 24;
+            this.textBox13.Text = "Programs List";
+            // 
+            // lbPrograms
+            // 
+            this.lbPrograms.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrograms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.lbPrograms.FormattingEnabled = true;
+            this.lbPrograms.ItemHeight = 33;
+            this.lbPrograms.Location = new System.Drawing.Point(218, 160);
+            this.lbPrograms.Name = "lbPrograms";
+            this.lbPrograms.Size = new System.Drawing.Size(1333, 367);
+            this.lbPrograms.TabIndex = 23;
             // 
             // ManageCompany
             // 
@@ -569,6 +650,7 @@ namespace Space_Management
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
+            this.Controls.Add(this.btnPrograms);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.tbTitle);
@@ -580,6 +662,7 @@ namespace Space_Management
             this.Controls.Add(this.groupStaff);
             this.Controls.Add(this.groupMissions);
             this.Controls.Add(this.groupOverview);
+            this.Controls.Add(this.gbPrograms);
             this.Name = "ManageCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageCompany";
@@ -587,13 +670,15 @@ namespace Space_Management
             this.Load += new System.EventHandler(this.ManageCompany_Load);
             this.groupOverview.ResumeLayout(false);
             this.groupOverview.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
             this.groupMissions.ResumeLayout(false);
             this.groupMissions.PerformLayout();
             this.groupStaff.ResumeLayout(false);
             this.groupStaff.PerformLayout();
             this.groupVehicles.ResumeLayout(false);
             this.groupVehicles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
+            this.gbPrograms.ResumeLayout(false);
+            this.gbPrograms.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,5 +729,11 @@ namespace Space_Management
         private System.Windows.Forms.Button btnRemoveEmp;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnRemMission;
+        private System.Windows.Forms.GroupBox gbPrograms;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.ListBox lbPrograms;
+        private System.Windows.Forms.Button btnPrograms;
     }
 }
