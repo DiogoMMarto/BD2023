@@ -1,7 +1,8 @@
 USE PFinal
 GO
 
-CREATE PROCEDURE addCompany 
+CREATE PROCEDURE updateCompany 
+	@ID INTEGER,
 	@Name varchar(100) ,
 	@Country varchar(100) ,
 	@Acronym varchar(10) ,
@@ -16,27 +17,33 @@ BEGIN
     BEGIN TRY
 		BEGIN TRANSACTION 
 			
-			INSERT INTO SpaceCompany ([Name],Acronym,Country)
-					VALUES
-						(@Name,@Acronym,@Country)
+			UPDATE SpaceCompany 
+			SET [Name] = @Name , [Country] = @Country , Acronym = @Acronym
+			WHERE Comp_ID = @ID
 
-			DECLARE @ID INT =  SCOPE_IDENTITY() 
 
 			IF @Type like 'Public'
 				BEGIN
-
+					IF NOT EXISTS ( Select * from PublicSpaceCompany where Comp_ID = @ID)
+					BEGIN
 					INSERT INTO PublicSpaceCompany( Comp_ID ,Gov )
 					VALUES
 						(@ID,@Owner)
+					DELETE from PrivateSpaceCompany where Comp_ID = @ID
+					END
 				END
 			ELSE IF @Type like 'Private'
 				BEGIN
-					IF EXISTS ( SELECT * from CEO where Per_ID = @Owner )
-					INSERT INTO PrivateSpaceCompany( Comp_ID ,CEO )
-					VALUES
-						(@ID,@Owner);
-					ELSE
-						RAISERROR('No such ceo',16,1);
+					IF NOT EXISTS (select * from PrivateSpaceCompany where Comp_ID = @ID)
+					BEGIN
+						IF EXISTS ( SELECT * from CEO where Per_ID = @Owner )
+							INSERT INTO PrivateSpaceCompany( Comp_ID ,CEO )
+								VALUES
+									(@ID,@Owner);
+						ELSE
+							RAISERROR('No such ceo',16,1);
+						DELETE from PublicSpaceCompany where Comp_ID = @ID
+					END
 				END
 			ELSE
 				RAISERROR('Not a valid Agency type.', 16, 1);

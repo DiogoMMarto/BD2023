@@ -28,6 +28,6 @@ RETURN
 					Vehicle as v2 ON v2.Veh_ID = lv.Veh_ID JOIN
 					LaunchSite as ls ON ls.LaunchS_ID = l.LaunchS_ID 
 			) as L ON L.Mission_ID = pl.Mission_ID
-				WHERE pl.Mission_ID = @MissionID and pl.Craft_ID = @CraftID
+				WHERE pl.Mission_ID = @MissionID and ( pl.Craft_ID = @CraftID or @CraftID = -1 )
 )
 GO
