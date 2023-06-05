@@ -48,21 +48,23 @@ namespace Space_Management
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.tbAcronym = new System.Windows.Forms.RichTextBox();
             this.tbVehicles = new System.Windows.Forms.RichTextBox();
-            this.overPicture = new System.Windows.Forms.PictureBox();
             this.groupOverview = new System.Windows.Forms.GroupBox();
             this.tbOwner = new System.Windows.Forms.RichTextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.groupMissions = new System.Windows.Forms.GroupBox();
+            this.btnRemMission = new System.Windows.Forms.Button();
             this.btnAddMission = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbMissions = new System.Windows.Forms.ListBox();
             this.groupStaff = new System.Windows.Forms.GroupBox();
+            this.btnRemoveEmp = new System.Windows.Forms.Button();
             this.btnAddEmployee = new System.Windows.Forms.Button();
             this.btnEmployeeDetails = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.lbEmployees = new System.Windows.Forms.ListBox();
             this.groupVehicles = new System.Windows.Forms.GroupBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnNewVehicle = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox10 = new System.Windows.Forms.TextBox();
@@ -70,14 +72,12 @@ namespace Space_Management
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.btnHome = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnRemoveEmp = new System.Windows.Forms.Button();
-            this.btnRemMission = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
+            this.overPicture = new System.Windows.Forms.PictureBox();
             this.groupOverview.SuspendLayout();
             this.groupMissions.SuspendLayout();
             this.groupStaff.SuspendLayout();
             this.groupVehicles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOverview
@@ -191,6 +191,7 @@ namespace Space_Management
             this.textBox5.Size = new System.Drawing.Size(421, 40);
             this.textBox5.TabIndex = 52;
             this.textBox5.Text = "Number of Employees:";
+            this.textBox5.Visible = false;
             // 
             // tbEmployees
             // 
@@ -200,6 +201,7 @@ namespace Space_Management
             this.tbEmployees.Size = new System.Drawing.Size(195, 32);
             this.tbEmployees.TabIndex = 53;
             this.tbEmployees.Text = "";
+            this.tbEmployees.Visible = false;
             // 
             // textBox6
             // 
@@ -210,6 +212,7 @@ namespace Space_Management
             this.textBox6.Size = new System.Drawing.Size(421, 40);
             this.textBox6.TabIndex = 54;
             this.textBox6.Text = "Number of Missions:";
+            this.textBox6.Visible = false;
             // 
             // tbMissions
             // 
@@ -219,6 +222,7 @@ namespace Space_Management
             this.tbMissions.Size = new System.Drawing.Size(195, 32);
             this.tbMissions.TabIndex = 55;
             this.tbMissions.Text = "";
+            this.tbMissions.Visible = false;
             // 
             // textBox7
             // 
@@ -229,6 +233,7 @@ namespace Space_Management
             this.textBox7.Size = new System.Drawing.Size(421, 40);
             this.textBox7.TabIndex = 56;
             this.textBox7.Text = "Number of Vehicles:";
+            this.textBox7.Visible = false;
             // 
             // textBox4
             // 
@@ -257,16 +262,7 @@ namespace Space_Management
             this.tbVehicles.Size = new System.Drawing.Size(195, 32);
             this.tbVehicles.TabIndex = 57;
             this.tbVehicles.Text = "";
-            // 
-            // overPicture
-            // 
-            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
-            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.overPicture.Location = new System.Drawing.Point(1200, 144);
-            this.overPicture.Name = "overPicture";
-            this.overPicture.Size = new System.Drawing.Size(558, 587);
-            this.overPicture.TabIndex = 58;
-            this.overPicture.TabStop = false;
+            this.tbVehicles.Visible = false;
             // 
             // groupOverview
             // 
@@ -319,13 +315,25 @@ namespace Space_Management
             this.groupMissions.Controls.Add(this.btnAddMission);
             this.groupMissions.Controls.Add(this.button2);
             this.groupMissions.Controls.Add(this.textBox9);
-            this.groupMissions.Controls.Add(this.listBox1);
+            this.groupMissions.Controls.Add(this.lbMissions);
             this.groupMissions.Location = new System.Drawing.Point(42, 279);
             this.groupMissions.Name = "groupMissions";
             this.groupMissions.Size = new System.Drawing.Size(1811, 800);
             this.groupMissions.TabIndex = 64;
             this.groupMissions.TabStop = false;
             this.groupMissions.Visible = false;
+            this.groupMissions.Enter += new System.EventHandler(this.groupMissions_Enter);
+            // 
+            // btnRemMission
+            // 
+            this.btnRemMission.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemMission.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnRemMission.Location = new System.Drawing.Point(759, 85);
+            this.btnRemMission.Name = "btnRemMission";
+            this.btnRemMission.Size = new System.Drawing.Size(246, 53);
+            this.btnRemMission.TabIndex = 23;
+            this.btnRemMission.Text = "Archive";
+            this.btnRemMission.UseVisualStyleBackColor = true;
             // 
             // btnAddMission
             // 
@@ -337,6 +345,7 @@ namespace Space_Management
             this.btnAddMission.TabIndex = 22;
             this.btnAddMission.Text = "New (+)";
             this.btnAddMission.UseVisualStyleBackColor = true;
+            this.btnAddMission.Click += new System.EventHandler(this.btnAddMission_Click);
             // 
             // button2
             // 
@@ -348,6 +357,7 @@ namespace Space_Management
             this.button2.TabIndex = 21;
             this.button2.Text = "View Details";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox9
             // 
@@ -359,16 +369,17 @@ namespace Space_Management
             this.textBox9.TabIndex = 20;
             this.textBox9.Text = "Missions List";
             // 
-            // listBox1
+            // lbMissions
             // 
-            this.listBox1.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 33;
-            this.listBox1.Location = new System.Drawing.Point(438, 160);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(819, 367);
-            this.listBox1.TabIndex = 19;
+            this.lbMissions.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMissions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.lbMissions.FormattingEnabled = true;
+            this.lbMissions.ItemHeight = 33;
+            this.lbMissions.Location = new System.Drawing.Point(438, 160);
+            this.lbMissions.Name = "lbMissions";
+            this.lbMissions.Size = new System.Drawing.Size(819, 367);
+            this.lbMissions.TabIndex = 19;
+            this.lbMissions.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // groupStaff
             // 
@@ -383,6 +394,17 @@ namespace Space_Management
             this.groupStaff.TabIndex = 65;
             this.groupStaff.TabStop = false;
             this.groupStaff.Visible = false;
+            // 
+            // btnRemoveEmp
+            // 
+            this.btnRemoveEmp.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveEmp.ForeColor = System.Drawing.Color.Red;
+            this.btnRemoveEmp.Location = new System.Drawing.Point(783, 85);
+            this.btnRemoveEmp.Name = "btnRemoveEmp";
+            this.btnRemoveEmp.Size = new System.Drawing.Size(225, 53);
+            this.btnRemoveEmp.TabIndex = 23;
+            this.btnRemoveEmp.Text = "Fire (X)";
+            this.btnRemoveEmp.UseVisualStyleBackColor = true;
             // 
             // btnAddEmployee
             // 
@@ -422,9 +444,9 @@ namespace Space_Management
             this.lbEmployees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbEmployees.FormattingEnabled = true;
             this.lbEmployees.ItemHeight = 33;
-            this.lbEmployees.Location = new System.Drawing.Point(438, 160);
+            this.lbEmployees.Location = new System.Drawing.Point(237, 160);
             this.lbEmployees.Name = "lbEmployees";
-            this.lbEmployees.Size = new System.Drawing.Size(819, 367);
+            this.lbEmployees.Size = new System.Drawing.Size(1336, 367);
             this.lbEmployees.TabIndex = 19;
             // 
             // groupVehicles
@@ -441,6 +463,17 @@ namespace Space_Management
             this.groupVehicles.TabIndex = 65;
             this.groupVehicles.TabStop = false;
             this.groupVehicles.Visible = false;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.Red;
+            this.btnDelete.Location = new System.Drawing.Point(723, 85);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(264, 53);
+            this.btnDelete.TabIndex = 27;
+            this.btnDelete.Text = "Delete (-)";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnNewVehicle
             // 
@@ -520,38 +553,15 @@ namespace Space_Management
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // btnDelete
+            // overPicture
             // 
-            this.btnDelete.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.Color.Red;
-            this.btnDelete.Location = new System.Drawing.Point(723, 85);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(264, 53);
-            this.btnDelete.TabIndex = 27;
-            this.btnDelete.Text = "Delete (-)";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveEmp
-            // 
-            this.btnRemoveEmp.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveEmp.ForeColor = System.Drawing.Color.Red;
-            this.btnRemoveEmp.Location = new System.Drawing.Point(783, 85);
-            this.btnRemoveEmp.Name = "btnRemoveEmp";
-            this.btnRemoveEmp.Size = new System.Drawing.Size(225, 53);
-            this.btnRemoveEmp.TabIndex = 23;
-            this.btnRemoveEmp.Text = "Fire (X)";
-            this.btnRemoveEmp.UseVisualStyleBackColor = true;
-            // 
-            // btnRemMission
-            // 
-            this.btnRemMission.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemMission.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnRemMission.Location = new System.Drawing.Point(759, 85);
-            this.btnRemMission.Name = "btnRemMission";
-            this.btnRemMission.Size = new System.Drawing.Size(246, 53);
-            this.btnRemMission.TabIndex = 23;
-            this.btnRemMission.Text = "Archive";
-            this.btnRemMission.UseVisualStyleBackColor = true;
+            this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
+            this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.overPicture.Location = new System.Drawing.Point(1200, 144);
+            this.overPicture.Name = "overPicture";
+            this.overPicture.Size = new System.Drawing.Size(558, 587);
+            this.overPicture.TabIndex = 58;
+            this.overPicture.TabStop = false;
             // 
             // ManageCompany
             // 
@@ -566,16 +576,15 @@ namespace Space_Management
             this.Controls.Add(this.btnVehicles);
             this.Controls.Add(this.btnMissions);
             this.Controls.Add(this.btnOverview);
-            this.Controls.Add(this.groupMissions);
-            this.Controls.Add(this.groupOverview);
             this.Controls.Add(this.groupVehicles);
             this.Controls.Add(this.groupStaff);
+            this.Controls.Add(this.groupMissions);
+            this.Controls.Add(this.groupOverview);
             this.Name = "ManageCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageCompany";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ManageCompany_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
             this.groupOverview.ResumeLayout(false);
             this.groupOverview.PerformLayout();
             this.groupMissions.ResumeLayout(false);
@@ -584,6 +593,7 @@ namespace Space_Management
             this.groupStaff.PerformLayout();
             this.groupVehicles.ResumeLayout(false);
             this.groupVehicles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -615,7 +625,7 @@ namespace Space_Management
         private System.Windows.Forms.Button btnAddMission;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbMissions;
         private System.Windows.Forms.GroupBox groupStaff;
         private System.Windows.Forms.Button btnAddEmployee;
         private System.Windows.Forms.Button btnEmployeeDetails;

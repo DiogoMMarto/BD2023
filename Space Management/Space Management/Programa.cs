@@ -26,15 +26,15 @@ namespace Space_Management
             get { return _name; }
             set { _name = value; }
         }
-        public Programa(int ProgramID, int MissionID, String Name)
+        public Programa(int ProgramID, int CompanyID, String Name)
         {
             this.Prog_ID = ProgramID;
-            this.Comp_ID = MissionID;
+            this.Comp_ID = CompanyID;
             this.Name = Name;
         }
-        public Programa( int MissionID, String Name)
+        public Programa( int CompanyID, String Name)
         {
-            this.Comp_ID = MissionID;
+            this.Comp_ID = CompanyID;
             this.Name = Name;
         }
 

@@ -7,28 +7,27 @@ GO
 
 CREATE FUNCTION getSpacecraftInvolmentsInMission
 (	
-	@MissionID INTEGER , 
-	@SpacecraftID INTEGER
+	@MissionID INTEGER,
+	@CraftID INTEGER
 )
 RETURNS TABLE 
 AS
 RETURN 
 (
 	SELECT v.Veh_ID as SpacecraftID, v.[Name] as SpacecraftName , 
-		pl.Mission_ID as MissionID , pl.Crew_ID as CrewID , pl.Rover_ID as RoverID , 
-		l.Launch_ID as LaunchID, 
-		v2.Veh_ID as LaunchVehicleID , v2.[Name] as LaunchVehicleName , 
-		ls.[Name] as LaunchSiteName , ls.[Location] as LaunchSiteLocation  from
+		pl.Mission_ID as MissionID , pl.Crew_ID as CrewID , pl.Rover_ID as RoverID , L.LaunchID as LaunchID, 
+		L.LaunchVehicleID as LaunchVehicleID , L.LaunchVehicleName as LaunchVehicleName , 
+		L.LaunchSiteName as LaunchSiteName , L.LaunchSiteLocation as LaunchSiteLocation  from
 			SpaceCraft as sc JOIN
 			Payload as pl ON sc.Veh_ID = pl.Craft_ID JOIN
-			Vehicle as v ON v.Veh_ID = sc.Veh_ID LEFT JOIN
-			LaunchHasSpacecraft as lsc ON lsc.Craft_ID = sc.Veh_ID JOIN
-			Launch as l ON lsc.Launch_ID = l.Launch_ID JOIN
-			LaunchVehicle as lv ON lv.Veh_ID = l.LaunchV_ID JOIN
-			Vehicle as v2 ON v2.Veh_ID = lv.Veh_ID JOIN
-			LaunchSite as ls ON ls.LaunchS_ID = l.LaunchS_ID
-				WHERE pl.Mission_ID = @MissionID and 
-					  l.Mission_ID = @MissionID and
-					  sc.Veh_ID = @SpacecraftID
+			Vehicle as v ON v.Veh_ID = sc.Veh_ID LEFT OUTER JOIN
+			( SELECT l.Launch_ID as LaunchID, l.Mission_ID as Mission_ID,
+					v2.Veh_ID as LaunchVehicleID , v2.[Name] as LaunchVehicleName , 
+					ls.[Name] as LaunchSiteName , ls.[Location] as LaunchSiteLocation from Launch as l JOIN
+					LaunchVehicle as lv ON lv.Veh_ID = l.LaunchV_ID JOIN
+					Vehicle as v2 ON v2.Veh_ID = lv.Veh_ID JOIN
+					LaunchSite as ls ON ls.LaunchS_ID = l.LaunchS_ID 
+			) as L ON L.Mission_ID = pl.Mission_ID
+				WHERE pl.Mission_ID = @MissionID and pl.Craft_ID = @CraftID
 )
 GO

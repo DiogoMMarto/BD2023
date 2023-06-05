@@ -34,9 +34,8 @@ namespace Space_Management
             this.cbAny = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.cbCountry = new System.Windows.Forms.ComboBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tbName = new System.Windows.Forms.RichTextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.lbCompanies = new System.Windows.Forms.ListBox();
@@ -45,6 +44,7 @@ namespace Space_Management
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
+            this.tbCountry = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // cbPrivate
@@ -107,16 +107,6 @@ namespace Space_Management
             this.textBox2.Text = "Country";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // cbCountry
-            // 
-            this.cbCountry.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCountry.FormattingEnabled = true;
-            this.cbCountry.Location = new System.Drawing.Point(1008, 550);
-            this.cbCountry.Name = "cbCountry";
-            this.cbCountry.Size = new System.Drawing.Size(246, 36);
-            this.cbCountry.TabIndex = 9;
-            this.cbCountry.SelectedIndexChanged += new System.EventHandler(this.cbCountry_SelectedIndexChanged);
-            // 
             // textBox3
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -128,15 +118,15 @@ namespace Space_Management
             this.textBox3.Text = "Name";
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // richTextBox1
+            // tbName
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(1008, 681);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(246, 32);
-            this.richTextBox1.TabIndex = 11;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.tbName.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbName.Location = new System.Drawing.Point(1008, 681);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(246, 32);
+            this.tbName.TabIndex = 11;
+            this.tbName.Text = "";
+            this.tbName.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // textBox4
             // 
@@ -224,12 +214,22 @@ namespace Space_Management
             // btnFilter
             // 
             this.btnFilter.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFilter.Location = new System.Drawing.Point(1309, 612);
+            this.btnFilter.Location = new System.Drawing.Point(1308, 602);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(182, 45);
             this.btnFilter.TabIndex = 19;
             this.btnFilter.Text = "Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // tbCountry
+            // 
+            this.tbCountry.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbCountry.Location = new System.Drawing.Point(1008, 550);
+            this.tbCountry.Name = "tbCountry";
+            this.tbCountry.Size = new System.Drawing.Size(246, 32);
+            this.tbCountry.TabIndex = 20;
+            this.tbCountry.Text = "";
             // 
             // Form1
             // 
@@ -238,6 +238,7 @@ namespace Space_Management
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
+            this.Controls.Add(this.tbCountry);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.textBox7);
@@ -246,9 +247,8 @@ namespace Space_Management
             this.Controls.Add(this.lbCompanies);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.tbName);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.cbCountry);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.cbAny);
@@ -273,9 +273,8 @@ namespace Space_Management
         private System.Windows.Forms.CheckBox cbAny;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox cbCountry;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox tbName;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.ListBox lbCompanies;
@@ -284,6 +283,7 @@ namespace Space_Management
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.RichTextBox tbCountry;
     }
 }
 

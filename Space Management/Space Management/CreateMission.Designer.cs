@@ -44,6 +44,8 @@ namespace Space_Management
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.lbPrograms = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.btnHome = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,9 +54,9 @@ namespace Space_Management
             this.btnCreate.Enabled = false;
             this.btnCreate.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate.ForeColor = System.Drawing.Color.Blue;
-            this.btnCreate.Location = new System.Drawing.Point(1305, 826);
+            this.btnCreate.Location = new System.Drawing.Point(1200, 823);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(286, 53);
+            this.btnCreate.Size = new System.Drawing.Size(362, 53);
             this.btnCreate.TabIndex = 51;
             this.btnCreate.Text = "Create (+)";
             this.btnCreate.UseMnemonic = false;
@@ -64,9 +66,9 @@ namespace Space_Management
             // tbDescription
             // 
             this.tbDescription.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDescription.Location = new System.Drawing.Point(793, 375);
+            this.tbDescription.Location = new System.Drawing.Point(688, 372);
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(798, 119);
+            this.tbDescription.Size = new System.Drawing.Size(874, 119);
             this.tbDescription.TabIndex = 46;
             this.tbDescription.Text = "";
             // 
@@ -74,7 +76,7 @@ namespace Space_Management
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(538, 368);
+            this.textBox2.Location = new System.Drawing.Point(433, 365);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(240, 40);
             this.textBox2.TabIndex = 41;
@@ -100,8 +102,7 @@ namespace Space_Management
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(1325, 28);
             this.textBox7.TabIndex = 36;
-            this.textBox7.Text = "Fill in the properties associated with your Mission, select a Program, and Select" +
-    " <Create>";
+            this.textBox7.Text = "Fill in the properties associated with your Mission and Select <Create>";
             this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
@@ -110,7 +111,7 @@ namespace Space_Management
             this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox13.Font = new System.Drawing.Font("Unispace", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.textBox13.Location = new System.Drawing.Point(923, 537);
+            this.textBox13.Location = new System.Drawing.Point(818, 534);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(225, 28);
             this.textBox13.TabIndex = 75;
@@ -119,9 +120,9 @@ namespace Space_Management
             // tbBudget
             // 
             this.tbBudget.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBudget.Location = new System.Drawing.Point(769, 537);
+            this.tbBudget.Location = new System.Drawing.Point(608, 534);
             this.tbBudget.Name = "tbBudget";
-            this.tbBudget.Size = new System.Drawing.Size(127, 32);
+            this.tbBudget.Size = new System.Drawing.Size(183, 32);
             this.tbBudget.TabIndex = 74;
             this.tbBudget.Text = "";
             // 
@@ -129,7 +130,7 @@ namespace Space_Management
             // 
             this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox10.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(538, 529);
+            this.textBox10.Location = new System.Drawing.Point(433, 526);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(225, 40);
             this.textBox10.TabIndex = 73;
@@ -138,17 +139,18 @@ namespace Space_Management
             // tbFinishDate
             // 
             this.tbFinishDate.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFinishDate.Location = new System.Drawing.Point(861, 742);
+            this.tbFinishDate.Location = new System.Drawing.Point(756, 739);
             this.tbFinishDate.Name = "tbFinishDate";
-            this.tbFinishDate.Size = new System.Drawing.Size(381, 32);
+            this.tbFinishDate.Size = new System.Drawing.Size(400, 32);
             this.tbFinishDate.TabIndex = 79;
             this.tbFinishDate.Text = "";
+            this.tbFinishDate.TextChanged += new System.EventHandler(this.tbFinishDate_TextChanged);
             // 
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(538, 742);
+            this.textBox1.Location = new System.Drawing.Point(433, 739);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(317, 40);
             this.textBox1.TabIndex = 78;
@@ -157,7 +159,7 @@ namespace Space_Management
             // tbBegDate
             // 
             this.tbBegDate.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBegDate.Location = new System.Drawing.Point(861, 650);
+            this.tbBegDate.Location = new System.Drawing.Point(756, 647);
             this.tbBegDate.Name = "tbBegDate";
             this.tbBegDate.Size = new System.Drawing.Size(400, 32);
             this.tbBegDate.TabIndex = 77;
@@ -167,7 +169,7 @@ namespace Space_Management
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(538, 650);
+            this.textBox3.Location = new System.Drawing.Point(433, 647);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(317, 40);
             this.textBox3.TabIndex = 76;
@@ -183,6 +185,7 @@ namespace Space_Management
             this.tbTitle.Size = new System.Drawing.Size(1232, 98);
             this.tbTitle.TabIndex = 80;
             this.tbTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
             // lbPrograms
             // 
@@ -190,11 +193,37 @@ namespace Space_Management
             this.lbPrograms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbPrograms.FormattingEnabled = true;
             this.lbPrograms.ItemHeight = 33;
-            this.lbPrograms.Location = new System.Drawing.Point(1305, 514);
+            this.lbPrograms.Location = new System.Drawing.Point(1200, 544);
             this.lbPrograms.Name = "lbPrograms";
-            this.lbPrograms.Size = new System.Drawing.Size(286, 268);
+            this.lbPrograms.Size = new System.Drawing.Size(362, 268);
             this.lbPrograms.TabIndex = 81;
+            this.lbPrograms.Tag = "";
             this.lbPrograms.SelectedIndexChanged += new System.EventHandler(this.lbPrograms_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1.Location = new System.Drawing.Point(433, 823);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(286, 53);
+            this.button1.TabIndex = 83;
+            this.button1.Text = "Add Payload (+)";
+            this.button1.UseMnemonic = false;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Font = new System.Drawing.Font("Unispace", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.Color.Blue;
+            this.textBox4.Location = new System.Drawing.Point(1200, 510);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(362, 28);
+            this.textBox4.TabIndex = 84;
+            this.textBox4.Text = "Select a Program:";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnHome
             // 
@@ -214,6 +243,8 @@ namespace Space_Management
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.lbPrograms);
             this.Controls.Add(this.tbTitle);
@@ -255,5 +286,7 @@ namespace Space_Management
         private System.Windows.Forms.TextBox tbTitle;
         private System.Windows.Forms.ListBox lbPrograms;
         private System.Windows.Forms.Button btnHome;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
