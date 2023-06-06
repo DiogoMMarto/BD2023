@@ -80,6 +80,10 @@ namespace Space_Management
         {
             return $"  {this.FName,-10} {this.LName,-15}{this.Phone, -20} {this.Email,-30}";
         }
+        public String ToString2()
+        {
+            return $"  {this.FName,-10} {this.LName,-15}{this.Role,-30}";
+        }
 
     }
 }

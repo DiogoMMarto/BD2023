@@ -13,6 +13,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT * from AstronautView as AV JOIN CrewHasAstronaut as CHA ON AV.Per_ID = CHA.Ast_ID WHERE CHA.Ast_ID = @CrewID
+	SELECT * from AstronautView as AV JOIN CrewHasAstronaut as CHA ON AV.Per_ID = CHA.Ast_ID WHERE CHA.Crew_ID = @CrewID
 )
 GO

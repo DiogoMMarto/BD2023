@@ -232,10 +232,15 @@ namespace Space_Management
 
         private void btnNewVehicle_Click(object sender, EventArgs e)
         {
-            CreateProgram form = new CreateProgram(this.comp.Comp_ID);
+            CreateVehicle form = new CreateVehicle(this.comp);
             form.Tag = this;
             form.Show();
-            form.Hide();
+            this.Hide();
+        }
+
+        private void groupStaff_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

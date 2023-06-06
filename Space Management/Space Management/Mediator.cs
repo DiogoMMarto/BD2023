@@ -92,13 +92,13 @@ namespace Space_Management
             while (reader.Read())
             {
 
-                int Comp_ID = int.Parse(reader["Comp_ID"].ToString());
+                int Mission_Id = int.Parse(reader["Mission_ID"].ToString());
                 Double Budget =Double.Parse(reader["Budget"].ToString());
                 String Description = reader["Description"].ToString();
                 String Conc_Date = reader["Conc_Date"].ToString();
                 String Beg_Date = reader["Beg_Date"].ToString();
 
-                Mission current = new Mission(Comp_ID,Budget,Description,Beg_Date,Conc_Date);
+                Mission current = new Mission(Mission_Id, Budget,Description,Beg_Date,Conc_Date);
                 missions.Add(current);
             }
             cn.Close();
@@ -268,6 +268,79 @@ namespace Space_Management
             cn.Close();
             return rovers;
         }
+        public static List<String> loadSpacecraftsOfMission(int missionID)
+        {
+            List<String> spacecrafts = new List<String>();
+            if (!verifySGBDConnection())
+                return spacecrafts;
+
+            String command = "SELECT * FROM getSpacecraftsOfMission(" + missionID + ")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int Mission_ID = (int)reader["Mission_ID"];
+                int Veh_ID = (int)reader["Veh_ID"];
+                String Name = reader["Name"].ToString();
+               
+                spacecrafts.Add($"{Veh_ID,-5} {Name,-45} ");
+            }
+            cn.Close();
+            return spacecrafts;
+        }
+        public static Dictionary<String,Dictionary<String, String>> loadSpacecraftInvolvments(int missionID)
+        {
+
+            Dictionary<String,Dictionary<String, String>> spacecrafts=new Dictionary<String,Dictionary<string, string>>();
+            if (!verifySGBDConnection())
+                return spacecrafts;
+
+            String command = "SELECT * FROM getSpacecraftInvolmentsInMission(" + missionID + ", -1)";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Dictionary<String, String> dic = new Dictionary<string, string>();
+                String SpacecraftID= reader["SpacecraftID"].ToString();
+                String Spacecraft = reader["SpacecraftName"].ToString();
+                String Name = reader["Name"].ToString();
+                String CrewId = reader["CrewID"].ToString();
+                dic["Name"] = Name;
+                dic["CrewID"] = CrewId;
+                spacecrafts[SpacecraftID]=dic;
+            }
+            cn.Close();
+            return spacecrafts;
+        }
+        public static List<Employee> loadCrew(int crewID)
+        {
+
+            List<Employee> empregados = new List<Employee>();
+            if (!verifySGBDConnection())
+                return empregados;
+
+            String command = "SELECT * FROM getAustronautsFromCrew(" + crewID + ")";
+            Console.WriteLine(command);
+            SqlCommand cmd = new SqlCommand(command, cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int Per_ID = (int)reader["Per_ID"];
+                String FName = reader["Fname"].ToString();
+                String LName = reader["Lname"].ToString();
+                String Birth = reader["Birth"].ToString();
+                String Nationality = reader["Nationality"].ToString();
+                String Role = reader["Role"].ToString();
+                String Email = reader["Email"].ToString();
+                String Phone = reader["Phone"].ToString();
+                Employee current = new Employee(1, Per_ID, FName, LName, Birth, Nationality, Role, Email, Phone);
+                empregados.Add(current);
+            }
+            cn.Close();
+            return empregados;
+        }
         public static void AddPayload(int craftID, int missionID, int crewID,int RoverID)
         {
             if (!verifySGBDConnection())
@@ -295,7 +368,58 @@ namespace Space_Management
             {
                 SqlCommand cmd = new SqlCommand("EXEC addToCrew '" + crewID + "','" + x.Per_ID + "';", cn);
                 cmd.ExecuteNonQuery(); 
+            }		
+
+            cn.Close();
+        }
+        public static void addVehicle(String tipo, String Name, int Owner, String Size, String Mass, String Manufacturer, String description, String Purpose = "", String Propulsion = "", String Autonomy = "", String Comm = "", String Scope="",String Min="", String Max="",String LaunchCost="", String DevCost="",String Fuel="",String Type="",String Range="", String Load="")
+        {
+            if (!verifySGBDConnection())
+                return;
+
+            SqlCommand cmd = new SqlCommand("DECLARE @id INTEGER; \nEXEC addVehicle '" + Name + "'," + Owner +",'" +Size  +"'," + Mass + ",'" + Manufacturer+"','" + description + "','OK','OK',@id=@id OUTPUT;\n SELECT @id AS OutputID;", cn);
+            Console.WriteLine("DECLARE @id INTEGER; \nEXEC addVehicle '" + Name + "'," + Owner + ",'" + Size + "'," + Mass + ",'" + Manufacturer + "','" + description + "','OK','OK',@id=@id OUTPUT;\n SELECT @id AS OutputID;");
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int id = (int)reader["OutputID"];
+            reader.Close();
+            if (tipo.Equals("Rover"))
+            {
+                cmd = new SqlCommand("EXEC addRover " + id + ",'" + Purpose +"',"+Autonomy+ ";", cn);
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return;
+
             }
+            if (tipo.Equals("LaunchVehicle"))
+            {
+                cmd = new SqlCommand("EXEC addSpaceProbe " + id + "," + LaunchCost + "," + DevCost + ",'" + Fuel + "'," + Range + ",'" + Load + "';", cn);
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                return;
+            }
+            cmd = new SqlCommand("EXEC addSpacecraft " + id + ",'" + Purpose + "','" + Propulsion + "';", cn);
+            cmd.ExecuteNonQuery();
+            if (tipo.Equals("SpaceProbe"))
+            {
+                cmd = new SqlCommand("EXEC addSpaceProbe " + id + ",'" + Comm + "','" + Scope + "';", cn);
+                cmd.ExecuteNonQuery();
+
+            }
+            if (tipo.Equals("SpaceStation"))
+            {
+                cmd = new SqlCommand("EXEC addSpaceStation " + id + "," + Min + "," + Max + ";", cn);
+                cmd.ExecuteNonQuery();
+
+            }
+            if (tipo.Equals("Satelite"))
+            {
+                cmd = new SqlCommand("EXEC addSatelite " + id+ ";", cn);
+                cmd.ExecuteNonQuery();
+
+            }
+            
+
             cn.Close();
         }
         public static void deleteMission(int missionID)

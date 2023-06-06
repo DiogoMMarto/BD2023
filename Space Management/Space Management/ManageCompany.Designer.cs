@@ -59,8 +59,6 @@ namespace Space_Management
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.lbMissions = new System.Windows.Forms.ListBox();
             this.groupStaff = new System.Windows.Forms.GroupBox();
-            this.btnRemoveEmp = new System.Windows.Forms.Button();
-            this.btnAddEmployee = new System.Windows.Forms.Button();
             this.btnEmployeeDetails = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.lbEmployees = new System.Windows.Forms.ListBox();
@@ -401,8 +399,6 @@ namespace Space_Management
             // 
             // groupStaff
             // 
-            this.groupStaff.Controls.Add(this.btnRemoveEmp);
-            this.groupStaff.Controls.Add(this.btnAddEmployee);
             this.groupStaff.Controls.Add(this.btnEmployeeDetails);
             this.groupStaff.Controls.Add(this.textBox8);
             this.groupStaff.Controls.Add(this.lbEmployees);
@@ -412,28 +408,7 @@ namespace Space_Management
             this.groupStaff.TabIndex = 65;
             this.groupStaff.TabStop = false;
             this.groupStaff.Visible = false;
-            // 
-            // btnRemoveEmp
-            // 
-            this.btnRemoveEmp.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveEmp.ForeColor = System.Drawing.Color.Red;
-            this.btnRemoveEmp.Location = new System.Drawing.Point(783, 85);
-            this.btnRemoveEmp.Name = "btnRemoveEmp";
-            this.btnRemoveEmp.Size = new System.Drawing.Size(225, 53);
-            this.btnRemoveEmp.TabIndex = 23;
-            this.btnRemoveEmp.Text = "Fire (X)";
-            this.btnRemoveEmp.UseVisualStyleBackColor = true;
-            // 
-            // btnAddEmployee
-            // 
-            this.btnAddEmployee.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddEmployee.ForeColor = System.Drawing.Color.Blue;
-            this.btnAddEmployee.Location = new System.Drawing.Point(1014, 85);
-            this.btnAddEmployee.Name = "btnAddEmployee";
-            this.btnAddEmployee.Size = new System.Drawing.Size(243, 53);
-            this.btnAddEmployee.TabIndex = 22;
-            this.btnAddEmployee.Text = "Hire (+)";
-            this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.groupStaff.Enter += new System.EventHandler(this.groupStaff_Enter);
             // 
             // btnEmployeeDetails
             // 
@@ -712,7 +687,6 @@ namespace Space_Management
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.ListBox lbMissions;
         private System.Windows.Forms.GroupBox groupStaff;
-        private System.Windows.Forms.Button btnAddEmployee;
         private System.Windows.Forms.Button btnEmployeeDetails;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.ListBox lbEmployees;
@@ -726,7 +700,6 @@ namespace Space_Management
         private System.Windows.Forms.RichTextBox tbOwner;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.Button btnHome;
-        private System.Windows.Forms.Button btnRemoveEmp;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnRemMission;
         private System.Windows.Forms.GroupBox gbPrograms;
