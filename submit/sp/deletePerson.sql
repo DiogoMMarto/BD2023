@@ -6,10 +6,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE <Procedure_Name, sysname, ProcedureName> 
-	-- Add the parameters for the stored procedure here
-	<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
-	<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+CREATE PROCEDURE deletePerson
+	@id INTEGER
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -19,7 +17,16 @@ BEGIN
     BEGIN TRY
 		BEGIN TRANSACTION 
 			
+			if(not exists(select * from Person where Per_ID = @id))
+				RAISERROR('No such Person.', 16, 1);
 
+			delete from PrivateSpaceCompany where CEO = @id
+
+			delete from Person where Per_ID=@id
+
+			delete from Astronaut where Per_ID = @id
+
+			delete from CEO where Per_ID = @id
 
 		COMMIT 
 	END TRY

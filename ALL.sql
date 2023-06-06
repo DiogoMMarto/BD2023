@@ -1,12 +1,7 @@
-DROP DATABASE PFinal
+USE p8g2;
 GO
 
-CREATE DATABASE PFinal
-GO
-
-USE PFinal;
-GO
-
+BEGIN TRANSACTION
 CREATE TABLE Person(
 	Per_ID int NOT NULL PRIMARY KEY identity(1,1),
 	Fname varchar(32) NOT NULL,
@@ -34,7 +29,7 @@ GO
 
 CREATE TABLE PrivateSpaceCompany(
 	 Comp_ID INT NOT NULL FOREIGN KEY REFERENCES SpaceCompany(Comp_ID),
-	 CEO INT NOT NULL FOREIGN KEY REFERENCES CEO(Per_ID),
+	 CEO INT FOREIGN KEY REFERENCES CEO(Per_ID),
 	 PRIMARY KEY (Comp_ID)
 );
 GO
@@ -254,8 +249,6 @@ CREATE TABLE [Payload] (
 	PRIMARY KEY([Craft_ID],[Mission_ID]),
 );
 GO
-
-USE PFinal
 
 INSERT INTO [Person] (Fname,Lname,Birth,Email,Phone,Nationality)
 VALUES
@@ -1020,9 +1013,7 @@ VALUES
 	(1027,4,NULL,NULL),
 	(1028,4,NULL,NULL);
 
-USE PFinal;
 GO
-
 CREATE TRIGGER NoradNullPositionNullS ON [Satelite]
 INSTEAD OF INSERT,UPDATE
 AS
@@ -1153,6 +1144,17 @@ CREATE VIEW CeoView AS
 		JOIN Person on Person.Per_ID = CEO.Per_ID
 
 GO
+
+CREATE VIEW SpaceCraftView AS
+	SELECT V.[Name] , V.[Owner] , V.[Status] , SC.Propulsion , LVV.[Name] as LaunchVehicleName , LS.[Name] as LaunchLocationName from SpaceCraft as SC JOIN 
+	Vehicle as V ON V.Veh_ID = SC.Veh_ID JOIN 
+	LaunchHasSpacecraft as LHS ON LHS.Craft_ID = SC.Veh_ID JOIN 
+	Launch as L ON L.Launch_ID = LHS.Launch_ID JOIN
+	LaunchVehicle as LV ON LV.Veh_ID = L.LaunchV_ID JOIN
+	Vehicle as LVV ON LV.Veh_ID = LVV.Veh_ID JOIN
+	LaunchSite as LS ON LS.LaunchS_ID = L.LaunchS_ID
+GO
+
 CREATE FUNCTION getAustronautsFromCrew
 (	
 	@CrewID INTEGER
@@ -1436,23 +1438,9 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    BEGIN TRY
-		BEGIN TRANSACTION 
-			
-			INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
-				VALUES
-				(@Name,@Date,@Status,@Mission_ID)
+	INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
+		VALUES (@Name,@Date,@Status,@Mission_ID)
 
-		COMMIT 
-	END TRY
-	BEGIN CATCH 
-		IF (@@TRANCOUNT > 0)
-			BEGIN
-				ROLLBACK TRANSACTION 
-				PRINT 'Error detected, all changes reversed'
-				PRINT ERROR_MESSAGE()
-			END 
-	END CATCH
 END
 GO
 
@@ -1628,24 +1616,22 @@ BEGIN
 	SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION 
+
 		IF (@CrewID!=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID,@RoverID)
-			COMMIT 
 		IF (@CrewID!=-1 AND @RoverID=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID)
 			COMMIT 
 		IF (@CrewID=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@RoverID)
-			COMMIT 
+		COMMIT 
 	END TRY
 	BEGIN CATCH 
 		IF (@@TRANCOUNT > 0)
@@ -1740,16 +1726,16 @@ GO
 
 CREATE PROCEDURE addSatelite
 	@Veh_ID INTEGER ,
-	@Norad_ID INTEGER ,
-	@Orbit_Type VARCHAR(8) ,
-	@Perigee INTEGER ,
-	@Apogee INTEGER,
-	@Inclination DECIMAL(8,5),
-	@Period TIME,
-	@Latitude DECIMAL(8,5),
-	@Longitude DECIMAL(8,5),
-	@Altitude DECIMAL(8,2),
-	@Speed DECIMAL(16,4)
+	@Norad_ID INTEGER=null ,
+	@Orbit_Type VARCHAR(8) =null,
+	@Perigee INTEGER=null ,
+	@Apogee INTEGER=null,
+	@Inclination DECIMAL(8,5)=null,
+	@Period TIME=null,
+	@Latitude DECIMAL(8,5)=null,
+	@Longitude DECIMAL(8,5)=null,
+	@Altitude DECIMAL(8,2)=null,
+	@Speed DECIMAL(16,4)=null
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -1850,19 +1836,19 @@ END
 GO
 
 CREATE PROCEDURE addSpaceStation
-	@Veh_ID INTEGER ,
-	@Norad_ID INTEGER ,
-	@Orbit_Type VARCHAR(8) ,
-	@Perigee INTEGER ,
-	@Apogee INTEGER,
-	@Inclination DECIMAL(8,5),
-	@Period TIME,
-	@Latitude DECIMAL(8,5),
-	@Longitude DECIMAL(8,5),
-	@Altitude DECIMAL(8,2),
-	@Speed DECIMAL(16,4) ,
-	@Max_Capacity INTEGER,
-	@Min_Capacity INTEGER
+	@Veh_ID INTEGER =null,
+	@Norad_ID INTEGER =null,
+	@Orbit_Type VARCHAR(8) =null ,
+	@Perigee INTEGER =null ,
+	@Apogee INTEGER =null,
+	@Inclination DECIMAL(8,5) =null,
+	@Period TIME =null,
+	@Latitude DECIMAL(8,5) =null,
+	@Longitude DECIMAL(8,5) =null,
+	@Altitude DECIMAL(8,2) =null,
+	@Speed DECIMAL(16,4) =null ,
+	@Max_Capacity INTEGER =null,
+	@Min_Capacity INTEGER =null
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -1965,7 +1951,9 @@ BEGIN
 		BEGIN TRANSACTION 
 			
 			if(not exists(select * from Person where Per_ID = @id))
-				RAISERROR('No such company.', 16, 1);
+				RAISERROR('No such Person.', 16, 1);
+
+			delete from PrivateSpaceCompany where CEO = @id
 
 			delete from Astronaut where Per_ID = @id
 
@@ -2074,6 +2062,11 @@ BEGIN
 END
 GO
 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE PROCEDURE deleteVehicle
 	@id INTEGER
 AS
@@ -2088,9 +2081,13 @@ BEGIN
 			if(not exists(select * from Vehicle where Veh_ID = @id))
 				RAISERROR('No such Vehicle.', 16, 1);
 
+			delete from Vehicle where Veh_ID = @id
+
 			delete from Rover where Veh_ID = @id
 
 			delete from LaunchVehicle where Veh_ID = @id
+
+			delete from SpaceCraft where Veh_ID = @id
 
 			delete from SpaceProbe where Craft_ID = @id
 
@@ -2104,9 +2101,9 @@ BEGIN
 
 			delete from LaunchHasSpacecraft where Craft_ID = @id
 
-			delete from SpaceCraft where Veh_ID = @id
-
-			delete from Vehicle where Veh_ID = @id
+			UPDATE Payload
+			SET Rover_ID = null
+			where Rover_ID = @id 
 
 			UPDATE Module
 			SET Craft_ID = null
@@ -2206,5 +2203,82 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE updateVehicle
+	@Veh_ID INT,
+	@Name varchar(50),
+	@Owner INT,
+	@Size varchar(30),
+	@Mass INT,
+	@Manufacturer varchar(50),
+	@Description varchar(100),
+	@Status varchar(50),
+	@Location varchar(200)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
 
+	UPDATE Vehicle 
+	SET [Name] = @Name, [Owner] =  @Owner, [Size] =  @Size, Mass =  @Mass, Manufacturer= @Manufacturer,[Description] =  @Description,[Status] =  @Status, [Location] =  @Location
+	where [Veh_ID] = @Veh_ID
+END
+GO
 
+CREATE PROCEDURE updateMission
+    @MissionID INT,
+    @Budget MONEY,
+    @Description VARCHAR(400),
+    @BegDate DATE,
+    @ConcDate DATE
+AS
+BEGIN
+    UPDATE Mission
+    SET
+        Budget = @Budget,
+        [Description] = @Description,
+        Beg_Date = @BegDate,
+        Conc_Date = @ConcDate
+    WHERE
+        Mission_ID = @MissionID;
+END;
+GO
+
+CREATE PROCEDURE updateProgram
+    @ProgramID INT,
+    @Name VARCHAR(50),
+    @CompanyID INT
+AS
+BEGIN
+    UPDATE Program
+    SET
+        [Name] = @Name,
+        Company = @CompanyID
+    WHERE
+        Prog_ID = @ProgramID;
+END;
+GO
+
+CREATE PROCEDURE updatePerson
+    @PersonID INT,
+    @FirstName VARCHAR(32),
+    @LastName VARCHAR(32),
+    @BirthDate DATE,
+    @Email VARCHAR(100),
+    @Phone VARCHAR(30),
+    @Nationality VARCHAR(100)
+AS
+BEGIN
+    UPDATE Person
+    SET
+        Fname = @FirstName,
+        Lname = @LastName,
+        Birth = @BirthDate,
+        Email = @Email,
+        Phone = @Phone,
+        Nationality = @Nationality
+    WHERE
+        Per_ID = @PersonID;
+END;
+GO
+COMMIT

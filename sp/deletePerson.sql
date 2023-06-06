@@ -18,7 +18,9 @@ BEGIN
 		BEGIN TRANSACTION 
 			
 			if(not exists(select * from Person where Per_ID = @id))
-				RAISERROR('No such company.', 16, 1);
+				RAISERROR('No such Person.', 16, 1);
+
+			delete from PrivateSpaceCompany where CEO = @id
 
 			delete from Person where Per_ID=@id
 
