@@ -393,7 +393,7 @@ namespace Space_Management
             }
             if (tipo.Equals("LaunchVehicle"))
             {
-                cmd = new SqlCommand("EXEC addSpaceProbe " + id + "," + LaunchCost + "," + DevCost + ",'" + Fuel + "'," + Range + ",'" + Load + "';", cn);
+                cmd = new SqlCommand("EXEC addLaunchVehicle " + id + "," + LaunchCost + "," + DevCost + ",'" + Fuel + "'," + Range + ",'" + Load + "';", cn);
                 cmd.ExecuteNonQuery();
                 cn.Close();
                 return;
@@ -418,7 +418,13 @@ namespace Space_Management
                 cmd.ExecuteNonQuery();
 
             }
-            
+            if (tipo.Equals("CrewedSpacecraft"))
+            {
+                cmd = new SqlCommand("EXEC addCrewedSpacecraft " + id + ";", cn);
+                cmd.ExecuteNonQuery();
+
+            }
+
 
             cn.Close();
         }
