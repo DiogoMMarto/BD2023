@@ -14,30 +14,29 @@ BEGIN
 	SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION 
+
 		IF (@CrewID!=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID,@RoverID)
-			COMMIT 
 		IF (@CrewID!=-1 AND @RoverID=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID)
 			COMMIT 
 		IF (@CrewID=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@RoverID)
-			COMMIT 
+		COMMIT 
 	END TRY
 	BEGIN CATCH 
 		IF (@@TRANCOUNT > 0)
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END

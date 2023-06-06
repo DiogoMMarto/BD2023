@@ -40,6 +40,10 @@ BEGIN
 
 			delete from LaunchHasSpacecraft where Craft_ID = @id
 
+			UPDATE Payload
+			SET Rover_ID = null
+			where Rover_ID = @id 
+
 			UPDATE Module
 			SET Craft_ID = null
 			where Craft_ID = @id

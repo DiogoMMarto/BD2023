@@ -35,6 +35,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -68,22 +69,9 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    BEGIN TRY
-		BEGIN TRANSACTION 
-			
-			INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
-				VALUES
-				(@Name,@Date,@Status,@Mission_ID)
+	INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
+		VALUES (@Name,@Date,@Status,@Mission_ID)
 
-		COMMIT 
-	END TRY
-	BEGIN CATCH 
-		IF (@@TRANCOUNT > 0)
-			BEGIN
-				ROLLBACK TRANSACTION 
-				PRINT 'Error detected, all changes reversed'
-			END 
-	END CATCH
 END
 GO
 
@@ -155,6 +143,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -205,39 +194,26 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
 GO
 
-CREATE PROCEDURE addPayload
-	@CraftID INTEGER,
-	@MissionID INTEGER,
-	@CrewID INTEGER=NULL,
-	@RoverID INTEGER=NULL
-
+CREATE PROCEDURE addMissionToProgram
+	@Program INTEGER,
+	@MissionID INTEGER
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    BEGIN TRY
-		BEGIN TRANSACTION 
-			INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
-			VALUES
-				(@CraftID,@MissionID,@CrewID,@RoverID)
-		COMMIT 
-	END TRY
-	BEGIN CATCH 
-		IF (@@TRANCOUNT > 0)
-			BEGIN
-				ROLLBACK TRANSACTION 
-				PRINT 'Error detected, all changes reversed'
-			END 
-	END CATCH
+	INSERT INTO ProgramHasMission(Prog_ID,Mission_ID)
+		VALUES (@Program,@MissionID)
 END
 GO
+
 
 CREATE PROCEDURE addModule
     @Type VARCHAR(16),
@@ -271,30 +247,29 @@ BEGIN
 	SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION 
+
 		IF (@CrewID!=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID,@RoverID)
-			COMMIT 
 		IF (@CrewID!=-1 AND @RoverID=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID)
 				VALUES
 					(@CraftID,@MissionID,@CrewID)
 			COMMIT 
 		IF (@CrewID=-1 AND @RoverID!=-1)
-			BEGIN TRANSACTION 
 				INSERT INTO Payload(Craft_ID,Mission_ID,Rover_ID)
 				VALUES
 					(@CraftID,@MissionID,@RoverID)
-			COMMIT 
+		COMMIT 
 	END TRY
 	BEGIN CATCH 
 		IF (@@TRANCOUNT > 0)
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -341,6 +316,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -450,6 +426,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -459,7 +436,7 @@ CREATE PROCEDURE addSpacecraft
 	@Veh_ID INT,
 	@Purpose varchar(32),
 	@Propulsion varchar(64),
-	@COSPAR_ID varchar(16)
+	@COSPAR_ID varchar(16) = ''
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -587,6 +564,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -604,7 +582,9 @@ BEGIN
 		BEGIN TRANSACTION 
 			
 			if(not exists(select * from Person where Per_ID = @id))
-				RAISERROR('No such company.', 16, 1);
+				RAISERROR('No such Person.', 16, 1);
+
+			delete from PrivateSpaceCompany where CEO = @id
 
 			delete from Astronaut where Per_ID = @id
 
@@ -619,6 +599,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -650,6 +631,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -705,9 +687,18 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
+GO
+
+USE PFinal
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE deleteVehicle
@@ -724,9 +715,13 @@ BEGIN
 			if(not exists(select * from Vehicle where Veh_ID = @id))
 				RAISERROR('No such Vehicle.', 16, 1);
 
+			delete from Vehicle where Veh_ID = @id
+
 			delete from Rover where Veh_ID = @id
 
 			delete from LaunchVehicle where Veh_ID = @id
+
+			delete from SpaceCraft where Veh_ID = @id
 
 			delete from SpaceProbe where Craft_ID = @id
 
@@ -740,9 +735,9 @@ BEGIN
 
 			delete from LaunchHasSpacecraft where Craft_ID = @id
 
-			delete from SpaceCraft where Veh_ID = @id
-
-			delete from Vehicle where Veh_ID = @id
+			UPDATE Payload
+			SET Rover_ID = null
+			where Rover_ID = @id 
 
 			UPDATE Module
 			SET Craft_ID = null
@@ -818,6 +813,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END
@@ -841,5 +837,81 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE updateVehicle
+	@Veh_ID INT,
+	@Name varchar(50),
+	@Owner INT,
+	@Size varchar(30),
+	@Mass INT,
+	@Manufacturer varchar(50),
+	@Description varchar(100),
+	@Status varchar(50),
+	@Location varchar(200)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
 
+	UPDATE Vehicle 
+	SET [Name] = @Name, [Owner] =  @Owner, [Size] =  @Size, Mass =  @Mass, Manufacturer= @Manufacturer,[Description] =  @Description,[Status] =  @Status, [Location] =  @Location
+	where [Veh_ID] = @Veh_ID
+END
+GO
 
+CREATE PROCEDURE updateMission
+    @MissionID INT,
+    @Budget MONEY,
+    @Description VARCHAR(400),
+    @BegDate DATE,
+    @ConcDate DATE
+AS
+BEGIN
+    UPDATE Mission
+    SET
+        Budget = @Budget,
+        [Description] = @Description,
+        Beg_Date = @BegDate,
+        Conc_Date = @ConcDate
+    WHERE
+        Mission_ID = @MissionID;
+END;
+GO
+
+CREATE PROCEDURE updateProgram
+    @ProgramID INT,
+    @Name VARCHAR(50),
+    @CompanyID INT
+AS
+BEGIN
+    UPDATE Program
+    SET
+        [Name] = @Name,
+        Company = @CompanyID
+    WHERE
+        Prog_ID = @ProgramID;
+END;
+GO
+
+CREATE PROCEDURE updatePerson
+    @PersonID INT,
+    @FirstName VARCHAR(32),
+    @LastName VARCHAR(32),
+    @BirthDate DATE,
+    @Email VARCHAR(100),
+    @Phone VARCHAR(30),
+    @Nationality VARCHAR(100)
+AS
+BEGIN
+    UPDATE Person
+    SET
+        Fname = @FirstName,
+        Lname = @LastName,
+        Birth = @BirthDate,
+        Email = @Email,
+        Phone = @Phone,
+        Nationality = @Nationality
+    WHERE
+        Per_ID = @PersonID;
+END;
+GO
