@@ -15,11 +15,12 @@ AS
 RETURN 
 (
 	SELECT v.Veh_ID as SpacecraftID, v.[Name] as SpacecraftName , 
-		pl.Mission_ID as MissionID , pl.Crew_ID as CrewID , pl.Rover_ID as RoverID , L.LaunchID as LaunchID, 
+		pl.Mission_ID as MissionID , pl.Crew_ID as CrewID , pl.Rover_ID as RoverID , R.[Name] , L.LaunchID as LaunchID, 
 		L.LaunchVehicleID as LaunchVehicleID , L.LaunchVehicleName as LaunchVehicleName , 
 		L.LaunchSiteName as LaunchSiteName , L.LaunchSiteLocation as LaunchSiteLocation  from
 			SpaceCraft as sc JOIN
-			Payload as pl ON sc.Veh_ID = pl.Craft_ID JOIN
+			Payload as pl ON sc.Veh_ID = pl.Craft_ID LEFT OUTER JOIN
+			Vehicle as R ON R.Veh_ID = pl.Rover_ID JOIN
 			Vehicle as v ON v.Veh_ID = sc.Veh_ID LEFT OUTER JOIN
 			( SELECT l.Launch_ID as LaunchID, l.Mission_ID as Mission_ID,
 					v2.Veh_ID as LaunchVehicleID , v2.[Name] as LaunchVehicleName , 

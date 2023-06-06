@@ -36,9 +36,17 @@ BEGIN
 
 			delete from SpaceStation where Craft_ID = @id
 
+			delete from Payload where Craft_ID = @id
+
+			delete from LaunchHasSpacecraft where Craft_ID = @id
+
 			UPDATE Module
 			SET Craft_ID = null
 			where Craft_ID = @id
+
+			UPDATE Launch
+			SET LaunchV_ID = null
+			where LaunchV_ID = @id
 
 		COMMIT 
 	END TRY
