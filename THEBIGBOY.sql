@@ -1804,7 +1804,7 @@ CREATE PROCEDURE addSpacecraft
 	@Veh_ID INT,
 	@Purpose varchar(32),
 	@Propulsion varchar(64),
-	@COSPAR_ID varchar(16)
+	@COSPAR_ID varchar(16) = ''
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
