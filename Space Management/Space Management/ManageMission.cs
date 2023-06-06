@@ -100,7 +100,7 @@ namespace Space_Management
             int craftID =int.Parse(lbSpacecrafts.SelectedItem.ToString().Substring(0,5).Trim());
             if (dic.ContainsKey(craftID.ToString()))
             {
-                if (dic[craftID.ToString()].ContainsKey("CrewID"))
+                if (dic[craftID.ToString()].ContainsKey("CrewID") && ! dic[craftID.ToString()]["CrewID"].Equals("") )
                     this.loadCrew(int.Parse(dic[craftID.ToString()]["CrewID"]));
                 if (dic[craftID.ToString()].ContainsKey("Name"))
                     this.tbRover.Text = dic[craftID.ToString()]["Name"];

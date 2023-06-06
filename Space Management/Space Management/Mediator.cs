@@ -15,7 +15,7 @@ namespace Space_Management
 
         private static SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source= localhost;integrated security=true;initial catalog=PFinal");
+            return new SqlConnection("data source= localhost\\NORTHWIND;integrated security=true;initial catalog=PFinal");
         }
 
         private static bool verifySGBDConnection()
@@ -458,6 +458,15 @@ namespace Space_Management
             SqlCommand cmd = new SqlCommand("EXEC deleteProgram '" + progID + "';", cn);
             cmd.ExecuteNonQuery();
 
+            cn.Close();
+        }
+
+        public static void updateSpaceCompany(int ID, string Name ,string Country  ,string Acronym ,string Type  ,string Owner )
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand("DECLARE @id INTEGER;\n EXEC updateCompany " + ID + ",'" + Name  + "','" + Country +  "','" + Acronym + "','" + Type + "','" + Owner+ "';", cn);
+            cmd.ExecuteReader();
             cn.Close();
         }
     }

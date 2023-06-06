@@ -55,6 +55,7 @@ BEGIN
 			BEGIN
 				ROLLBACK TRANSACTION 
 				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
 			END 
 	END CATCH
 END

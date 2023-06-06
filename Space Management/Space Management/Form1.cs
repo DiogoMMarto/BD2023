@@ -18,12 +18,19 @@ namespace Space_Management
         {
             InitializeComponent();
             loadCompanies();
+
+            this.Activated += Form1_Shown;
         }
         
        
         private void Form1_load(object sender, EventArgs e)
         {
-            
+            refresh();
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            refresh();
         }
 
         public void refresh()

@@ -50,3 +50,5 @@ C:\Users\Kikom\Desktop\BD\THINGS\BD2023\Space Management\Space Management\obj\De
 C:\Users\Kikom\Desktop\BD\THINGS\BD2023\Space Management\Space Management\obj\Debug\Space Management.pdb
 C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreateProgram.resources
 C:\Users\tiago\OneDrive\UA\2 Ano\2 Semestre\BD\Projeto Final\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreateVehicle.resources
+C:\Users\Kikom\Desktop\BD\THINGS\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreateProgram.resources
+C:\Users\Kikom\Desktop\BD\THINGS\BD2023\Space Management\Space Management\obj\Debug\Space_Management.CreateVehicle.resources

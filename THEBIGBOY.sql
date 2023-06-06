@@ -159,7 +159,7 @@ CREATE TABLE [SpaceCraft] (
 	[Veh_ID] INTEGER NOT NULL FOREIGN KEY REFERENCES Vehicle(Veh_ID),
 	[Purpose] VARCHAR(64) NULL,
 	[Propulsion] VARCHAR(64) NULL,
-	[COSPAR_ID] VARCHAR(16) NOT NULL,
+	[COSPAR_ID] VARCHAR(16) NULL,
 	PRIMARY KEY([Veh_ID]),
 	UNIQUE(COSPAR_ID)
 );
@@ -1114,6 +1114,14 @@ BEGIN
 END
 GO
 
+create index VehicleOwner ON Vehicle ( [Owner] )
+
+create index LaunchLaunchSite ON Launch ( [LaunchS_ID] )
+
+create unique index SateliteNorad ON Satelite ( [NORAD_ID] )
+
+GO
+
 CREATE FUNCTION getNumMissions (@ID INT)
 RETURNS INT
 AS
@@ -1132,4 +1140,1056 @@ END
 GO
 
 ALTER TABLE Astronaut ADD Num_Mission AS dbo.getNumMissions(Per_ID);
+
+go
+
+CREATE VIEW AstronautView AS
+	SELECT Person.Per_ID , Fname, Lname , Birth , Email , Phone, Nationality , Num_Mission FROM Astronaut 
+		JOIN Person on Person.Per_ID = Astronaut.Per_ID
+
+GO
+CREATE VIEW CeoView AS
+	SELECT Person.Per_ID , Fname, Lname , Birth , Email , Phone, Nationality , Networth FROM CEO 
+		JOIN Person on Person.Per_ID = CEO.Per_ID
+
+GO
+CREATE FUNCTION getAustronautsFromCrew
+(	
+	@CrewID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT * from AstronautView as AV JOIN CrewHasAstronaut as CHA ON AV.Per_ID = CHA.Ast_ID WHERE CHA.Crew_ID = @CrewID
+)
+GO
+
+CREATE FUNCTION getCompanyNumMissions (@ID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @NumMissions INT;
+    
+    SELECT @NumMissions = COUNT(*)
+    FROM Program as PR JOIN 
+	ProgramHasMission as PRM ON PRM.Prog_ID=PR.Prog_ID  
+    WHERE Company = @ID;
+    
+    RETURN @NumMissions;
+END
+GO
+
+CREATE FUNCTION getEmployeesFromSpaceCompany
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT Company as Comp_ID ,P.Per_ID as Per_ID, Fname,Lname,Birth,Email,Phone,Nationality, 'Astronaut' as [Role] FROM 
+	Program as PR JOIN 
+	ProgramHasMission as PRM ON PRM.Prog_ID=PR.Prog_ID JOIN 
+	Mission as M ON M.Mission_ID=PRM.Mission_ID JOIN
+	Payload as PL ON PL.Mission_ID=M.Mission_ID JOIN
+	Crew as C ON C.Crew_ID=PL.Crew_ID JOIN
+	CrewHasAstronaut as CA ON CA.Crew_ID=C.Crew_ID JOIN
+	Astronaut as A ON A.Per_ID=CA.Ast_ID JOIN
+	Person as P ON P.Per_ID = A.Per_ID
+	WHERE Company = @SpaceCompanyID
+	GROUP BY Company,P.Per_ID , Fname,Lname,Birth,Email,Phone,Nationality
+UNION
+SELECT SC.Comp_ID , P.Per_ID as Per_ID, Fname,Lname,Birth,Email,Phone,Nationality, 'CEO' as [Role]  FROM
+	SpaceCompany as SC JOIN
+	PrivateSpaceCompany as PSC ON PSC.Comp_ID = SC.Comp_ID JOIN
+	CEO ON CEO.Per_ID=PSC.CEO JOIN
+	Person as P ON P.Per_ID=CEO.Per_ID
+	WHERE SC.Comp_ID= @SpaceCompanyID
+)
+GO
+
+CREATE FUNCTION getMissionsFromSpaceCompany
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT Company as Comp_ID , M.Mission_ID , Budget , [Description] , Beg_Date, Conc_Date FROM 
+	Program as PR JOIN 
+	ProgramHasMission as PRM ON PRM.Prog_ID=PR.Prog_ID JOIN 
+	Mission as M ON M.Mission_ID=PRM.Mission_ID 
+	WHERE PR.Company=@SpaceCompanyID
+)
+GO
+
+CREATE FUNCTION getPerson
+(	
+	@id INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT * FROM Person WHERE Per_ID=@id
+)
+GO
+
+
+CREATE FUNCTION getProgramsOfCompany
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT * FROM Program 
+	WHERE Company=@SpaceCompanyID
+)
+GO
+
+CREATE FUNCTION getRoverFromSpaceCompany 
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT SP.Comp_ID,V.Veh_ID,V.[Name],[Size],[Manufacturer],[Description],[Status],[Location],R.Autonomy,R.Purpose from 
+	SpaceCompany as SP JOIN
+	Vehicle as V ON V.[Owner]=SP.Comp_ID JOIN
+	ROVER as R ON R.Veh_ID = V.Veh_ID
+	WHERE SP.Comp_ID = @SpaceCompanyID
+)
+GO
+
+CREATE FUNCTION getSpaceAgency(
+	@Private BIT = 1 , 
+	@Public BIT = 1,
+	@Country varchar(100) = '%',
+	@Name varchar(100) = '%')
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT C.Name , C.Comp_ID, C.Acronym , C.Country , P.Gov as [Owner] , 'Public' as Type from	
+		SpaceCompany as C JOIN PublicSpaceCompany as P ON P.Comp_ID=C.Comp_ID
+			where C.Country like @Country and C.Name like @Name and @Public*C.Comp_ID > 0
+	UNION
+	SELECT C.Name , C.Comp_ID, C.Acronym , C.Country , concat(Person.Fname,' ',Person.Lname) as [Owner] , 'Private' as Type from	
+		SpaceCompany as C JOIN 
+		PrivateSpaceCompany as P ON P.Comp_ID=C.Comp_ID JOIN
+		CEO ON CEO.Per_ID = P.CEO JOIN
+		Person ON CEO.Per_ID = Person.Per_ID
+			where C.Country like @Country and C.Name like @Name and @Private*C.Comp_ID > 0
+)
+GO
+
+CREATE FUNCTION getSpacecraftFromSpaceCompany
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT SP.Comp_ID,V.Veh_ID,V.[Name],[Size],[Manufacturer],[Description],[Status],[Location],S.Propulsion,S.Purpose from 
+	SpaceCompany as SP JOIN
+	Vehicle as V ON V.[Owner]=SP.Comp_ID JOIN
+	SpaceCraft as S ON S.Veh_ID = V.Veh_ID
+	WHERE SP.Comp_ID = @SpaceCompanyID
+)
+GO
+
+CREATE FUNCTION getSpacecraftInvolmentsInMission
+(	
+	@MissionID INTEGER,
+	@CraftID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT v.Veh_ID as SpacecraftID, v.[Name] as SpacecraftName , 
+		pl.Mission_ID as MissionID , pl.Crew_ID as CrewID , pl.Rover_ID as RoverID , R.[Name] , L.LaunchID as LaunchID, 
+		L.LaunchVehicleID as LaunchVehicleID , L.LaunchVehicleName as LaunchVehicleName , 
+		L.LaunchSiteName as LaunchSiteName , L.LaunchSiteLocation as LaunchSiteLocation  from
+			SpaceCraft as sc JOIN
+			Payload as pl ON sc.Veh_ID = pl.Craft_ID LEFT OUTER JOIN
+			Vehicle as R ON R.Veh_ID = pl.Rover_ID JOIN
+			Vehicle as v ON v.Veh_ID = sc.Veh_ID LEFT OUTER JOIN
+			( SELECT l.Launch_ID as LaunchID, l.Mission_ID as Mission_ID,
+					v2.Veh_ID as LaunchVehicleID , v2.[Name] as LaunchVehicleName , 
+					ls.[Name] as LaunchSiteName , ls.[Location] as LaunchSiteLocation from Launch as l JOIN
+					LaunchVehicle as lv ON lv.Veh_ID = l.LaunchV_ID JOIN
+					Vehicle as v2 ON v2.Veh_ID = lv.Veh_ID JOIN
+					LaunchSite as ls ON ls.LaunchS_ID = l.LaunchS_ID 
+			) as L ON L.Mission_ID = pl.Mission_ID
+				WHERE pl.Mission_ID = @MissionID and ( pl.Craft_ID = @CraftID or @CraftID = -1 )
+)
+GO
+
+CREATE FUNCTION getSpacecraftsOfMission 
+(	
+	@MissionID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT v.Veh_ID , v.Name , pl.Mission_ID from
+		SpaceCraft as sc JOIN
+		Payload as pl ON sc.Veh_ID = pl.Craft_ID JOIN
+		Vehicle as v ON v.Veh_ID = sc.Veh_ID
+		WHERE pl.Mission_ID = @MissionID
+)
+GO
+
+CREATE FUNCTION getVehiclesFromSpaceCompany 
+(	
+	@SpaceCompanyID INTEGER
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	SELECT SP.Comp_ID,V.Veh_ID,V.[Name],[Size],[Manufacturer],[Description],[Status],[Location] from 
+	SpaceCompany as SP JOIN
+	Vehicle as V ON V.[Owner]=SP.Comp_ID
+	WHERE SP.Comp_ID = @SpaceCompanyID
+)
+GO
+
+GO
+CREATE PROCEDURE addAustronaut
+	@Per_ID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    INSERT INTO Astronaut( [Per_ID] )
+	VALUES ( @Per_ID) 
+
+END
+GO
+
+CREATE PROCEDURE addCrew
+	@SupervisorID INTEGER,
+	@id INTEGER output
+
+AS
+BEGIN
+-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION
+			INSERT INTO Crew(Supervisor)
+			VALUES
+				(@SupervisorID)
+			SET @id=SCOPE_IDENTITY()
+		COMMIT
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addCrewedSpaceCraft
+	@Veh_ID INTEGER ,
+	@Min_Capacity INTEGER ,
+	@Max_Capacity INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO CrewedSpaceCraft ( Craft_ID , Max_Capacity , Min_Capacity )
+	VALUES
+		(@Veh_ID, @Max_Capacity , @Min_Capacity)
+
+END
+GO
+
+CREATE PROCEDURE addEvent
+	@Mission_ID INT,
+	@Name varchar(100),
+	@Date date,
+	@Status varchar(400)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			INSERT INTO [Event]( [Name], [Date], [Status], Mission_ID)
+				VALUES
+				(@Name,@Date,@Status,@Mission_ID)
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addLaunch
+	@Mission_ID INT ,
+	@LaunchS_ID INT ,
+	@LaunchV_ID INT ,
+	@id INT output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO Launch( Mission_ID , LaunchS_ID , LaunchV_ID )
+		VALUES ( @Mission_ID , @LaunchS_ID , @LaunchV_ID )
+
+	SET @id=SCOPE_IDENTITY()
+END
+GO
+
+CREATE PROCEDURE addLaunchSite
+	@Location varchar(150),
+	@Comp_ID INT,
+	@Name varchar(100),
+	@id INTEGER output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO LaunchSite( [Location] , [Comp_ID] ,[Name] )
+		VALUES ( @Location , @Comp_ID , @Name)
+
+	SET @id=SCOPE_IDENTITY()
+END
+GO
+
+
+CREATE PROCEDURE addLaunchToSpacecraft 
+	@Veh_ID INTEGER,
+	@Launch_ID INTEGER	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			INSERT INTO LaunchHasSpacecraft( Craft_ID , Launch_ID)
+					VALUES
+						(@Veh_ID , @Launch_ID)
+			
+			DECLARE @Mission_ID INTEGER;
+			Select @Mission_ID = Mission_ID from Launch 
+
+			IF NOT EXISTS ( SELECT * FROM Payload where Craft_ID=@Veh_ID and Mission_ID = @Mission_ID)
+			BEGIN
+				INSERT INTO Payload ( Mission_ID , Craft_ID )
+					VALUES ( @Mission_ID , @Veh_ID)
+			END
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addLaunchVehicle
+	@LaunchCost money,
+	@DevCost money,
+	@Fuel varchar(30),
+	@Type varchar(30),
+	@Range INT,
+	@Load varchar(100),
+	@Veh_ID INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO LaunchVehicle( Veh_ID , LaunchCost , DevCost , Fuel , [Type] , [Range] , [Load] )
+		VALUES ( @Veh_ID , @LaunchCost , @DevCost , @Fuel ,@Type , @Range , @Load )
+
+END
+GO
+
+CREATE PROCEDURE addMission
+	@Budget money,
+	@Description varchar(400),
+	@beg_date date,
+	@Conc_date date=NULL,
+	@id INTEGER output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			INSERT INTO Mission(Budget,[Description],Beg_Date,Conc_date)
+			VALUES
+				(@Budget,@Description,@beg_date,@Conc_date)
+			SET @id=SCOPE_IDENTITY()
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addModule
+    @Type VARCHAR(16),
+    @Description VARCHAR(256) ,
+    @Status VARCHAR(8),
+    @Craft_ID INTEGER,
+	@id INTEGER output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO Module( [Type] , [Description] , [Status] , Craft_ID )
+	VALUES
+		(@Type, @Description , @Status ,@Craft_ID)
+	SET @id=SCOPE_IDENTITY()
+END
+GO
+
+CREATE PROCEDURE addPayload
+	@CraftID INTEGER,
+	@MissionID INTEGER,
+	@CrewID INTEGER=-1,
+	@RoverID INTEGER=-1
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		IF (@CrewID!=-1 AND @RoverID!=-1)
+			BEGIN TRANSACTION 
+				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID,Rover_ID)
+				VALUES
+					(@CraftID,@MissionID,@CrewID,@RoverID)
+			COMMIT 
+		IF (@CrewID!=-1 AND @RoverID=-1)
+			BEGIN TRANSACTION 
+				INSERT INTO Payload(Craft_ID,Mission_ID,Crew_ID)
+				VALUES
+					(@CraftID,@MissionID,@CrewID)
+			COMMIT 
+		IF (@CrewID=-1 AND @RoverID!=-1)
+			BEGIN TRANSACTION 
+				INSERT INTO Payload(Craft_ID,Mission_ID,Rover_ID)
+				VALUES
+					(@CraftID,@MissionID,@RoverID)
+			COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addPerson
+	@Type varchar(16) ,
+	@Fname varchar(100) ,
+	@Lname varchar(10) ,
+	@Birth varchar(16) ,
+	@Email varchar(100) ,
+	@Phone varchar(30),
+	@Nationality varchar(100),
+	@Networth money = 0
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			INSERT INTO [Person] (Fname,Lname,Birth,Email,Phone,Nationality)
+			VALUES
+				(@Fname,@Lname,@Birth,@Email,@Phone,@Nationality)
+
+			DECLARE @ID INT =  SCOPE_IDENTITY() 
+
+			IF @Type = 'CEO'
+			INSERT INTO CEO (Per_ID,Networth)
+			VALUES
+				(@ID,@Networth)
+			ELSE IF @Type = 'Austronaut'
+			INSERT INTO Astronaut(Per_ID)
+			VALUES
+				(@ID)
+			ELSE IF @Type != 'None'
+				RAISERROR('Not a valid Person type.', 16, 1);
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addProgram
+	@Name varchar(50),
+	@Company INT,
+	@id INT output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    INSERT INTO Program ( [Name] , Company )
+	VALUES ( @Name , @Company) 
+
+	SET @id=SCOPE_IDENTITY()
+END
+GO
+
+CREATE PROCEDURE addRover
+	@Veh_ID INT,
+	@Purpose VARCHAR(64),
+	@Autonomy INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    INSERT INTO Rover ( Veh_ID,Purpose,Autonomy )
+	VALUES ( @Veh_ID,@Purpose,@Autonomy)  
+
+END
+GO
+
+CREATE PROCEDURE addSatelite
+	@Veh_ID INTEGER ,
+	@Norad_ID INTEGER ,
+	@Orbit_Type VARCHAR(8) ,
+	@Perigee INTEGER ,
+	@Apogee INTEGER,
+	@Inclination DECIMAL(8,5),
+	@Period TIME,
+	@Latitude DECIMAL(8,5),
+	@Longitude DECIMAL(8,5),
+	@Altitude DECIMAL(8,2),
+	@Speed DECIMAL(16,4)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO Satelite( Craft_ID , Norad_ID , Orbit_Type , Perigee , Apogee , Inclination , [Period] , Latitude , Longitude , Altitude ,Speed )
+	VALUES
+		(@Veh_ID, @Norad_ID , @Orbit_Type , @Perigee,@Apogee,@Inclination,@Period,@Latitude,@Longitude,@Altitude,@Speed)
+
+END
+GO
+
+CREATE PROCEDURE addCompany 
+	@Name varchar(100) ,
+	@Country varchar(100) ,
+	@Acronym varchar(10) ,
+	@Type varchar(16) ,
+	@Owner varchar(100)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			INSERT INTO SpaceCompany ([Name],Acronym,Country)
+					VALUES
+						(@Name,@Acronym,@Country)
+
+			DECLARE @ID INT =  SCOPE_IDENTITY() 
+
+			IF @Type like 'Public'
+				BEGIN
+
+					INSERT INTO PublicSpaceCompany( Comp_ID ,Gov )
+					VALUES
+						(@ID,@Owner)
+				END
+			ELSE IF @Type like 'Private'
+				BEGIN
+					IF EXISTS ( SELECT * from CEO where Per_ID = @Owner )
+					INSERT INTO PrivateSpaceCompany( Comp_ID ,CEO )
+					VALUES
+						(@ID,@Owner);
+					ELSE
+						RAISERROR('No such ceo',16,1);
+				END
+			ELSE
+				RAISERROR('Not a valid Agency type.', 16, 1);
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE addSpacecraft
+	@Veh_ID INT,
+	@Purpose varchar(32),
+	@Propulsion varchar(64),
+	@COSPAR_ID varchar(16)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO SpaceCraft ( Veh_ID , Purpose ,Propulsion, COSPAR_ID )
+		VALUES ( @Veh_ID , @Purpose , @Propulsion,@COSPAR_ID)
+
+END
+GO
+
+CREATE PROCEDURE addSpaceProbe
+	@Veh_ID INTEGER ,
+	@Comm_Type VARCHAR(32) ,
+	@Scope VARCHAR(16)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO SpaceProbe( Craft_ID , Comm_Type , Scope )
+	VALUES
+		(@Veh_ID, @Comm_Type , @Scope)
+
+END
+GO
+
+CREATE PROCEDURE addSpaceStation
+	@Veh_ID INTEGER ,
+	@Norad_ID INTEGER ,
+	@Orbit_Type VARCHAR(8) ,
+	@Perigee INTEGER ,
+	@Apogee INTEGER,
+	@Inclination DECIMAL(8,5),
+	@Period TIME,
+	@Latitude DECIMAL(8,5),
+	@Longitude DECIMAL(8,5),
+	@Altitude DECIMAL(8,2),
+	@Speed DECIMAL(16,4) ,
+	@Max_Capacity INTEGER,
+	@Min_Capacity INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO SpaceStation( Craft_ID , Norad_ID , Orbit_Type , Perigee , Apogee , Inclination , [Period] , Latitude , Longitude , Altitude ,Speed , Max_Capacity, Min_Capacity  )
+	VALUES
+		(@Veh_ID, @Norad_ID , @Orbit_Type , @Perigee,@Apogee,@Inclination,@Period,@Latitude,@Longitude,@Altitude,@Speed,@Max_Capacity,@Min_Capacity)
+
+END
+GO
+
+CREATE PROCEDURE addToCrew
+	@CrewID INTEGER,
+	@Ast_ID INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO CrewHasAstronaut(Crew_ID,Ast_ID,[Role])
+		VALUES (@CrewID,@Ast_ID,'')
+
+END
+GO
+
+CREATE PROCEDURE addVehicle
+	@Name varchar(50),
+	@Owner INT,
+	@Size varchar(30),
+	@Mass INT,
+	@Manufacturer varchar(50),
+	@Description varchar(100),
+	@Status varchar(50),
+	@Location varchar(200),
+	@id INTEGER output
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO Vehicle( [Name], [Owner], Size, Mass, Manufacturer, [Description], [Status], [Location])
+		VALUES ( @Name, @Owner, @Size, @Mass, @Manufacturer, @Description, @Status, @Location)
+
+	SET @id=SCOPE_IDENTITY()
+END
+GO
+
+CREATE PROCEDURE deleteMission
+	@id INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			if(not exists(select * from Mission where Mission_ID = @id))
+				RAISERROR('No such company.', 16, 1);
+
+			delete from Payload where Mission_ID = @id
+
+			delete from ProgramHasMission where Mission_ID = @id
+
+			delete from [Event] where Mission_ID = @id
+
+			UPDATE Launch
+			SET Mission_ID = null
+			where Mission_ID = @id
+
+			delete from Mission where Mission_ID = @id
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE deletePerson
+	@id INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			if(not exists(select * from Person where Per_ID = @id))
+				RAISERROR('No such company.', 16, 1);
+
+			delete from Astronaut where Per_ID = @id
+
+			delete from CEO where Per_ID = @id
+
+			delete from Person where Per_ID=@id
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+
+CREATE PROCEDURE deleteProgram
+	@id INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			if(not exists(select * from Program where Prog_ID = @id))
+				RAISERROR('No such program.', 16, 1);
+
+			delete from ProgramHasMission where Prog_ID = @id
+
+			delete from Program where Prog_ID = @id
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE deleteSpaceCompany
+	@id INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			if(not exists(select * from SpaceCompany where Comp_ID = @id))
+				RAISERROR('No such company.', 16, 1);
+
+			delete from PrivateSpaceCompany where Comp_ID = @id
+
+			delete from PrivateSpaceCompany where Comp_ID = @id
+
+			UPDATE Vehicle
+			SET [Owner] = null
+			where [Owner] = @id
+
+			DECLARE @pid as int , @comp as int;
+
+			DECLARE C CURSOR FAST_FORWARD
+			FOR select Prog_ID,Company from Program
+
+			OPEN C
+
+			FETCH C into @pid , @comp
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				if @comp = @id
+					EXEC deleteProgram @pid;
+				FETCH C into @pid , @comp;
+			END
+
+			CLOSE C;
+			DEALLOCATE C;	
+
+			delete from SpaceCompany where Comp_ID = @id
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE deleteVehicle
+	@id INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			if(not exists(select * from Vehicle where Veh_ID = @id))
+				RAISERROR('No such Vehicle.', 16, 1);
+
+			delete from Rover where Veh_ID = @id
+
+			delete from LaunchVehicle where Veh_ID = @id
+
+			delete from SpaceProbe where Craft_ID = @id
+
+			delete from CrewedSpaceCraft where Craft_ID = @id
+
+			delete from Satelite where Craft_ID = @id
+
+			delete from SpaceStation where Craft_ID = @id
+
+			delete from Payload where Craft_ID = @id
+
+			delete from LaunchHasSpacecraft where Craft_ID = @id
+
+			delete from SpaceCraft where Veh_ID = @id
+
+			delete from Vehicle where Veh_ID = @id
+
+			UPDATE Module
+			SET Craft_ID = null
+			where Craft_ID = @id
+
+			UPDATE Launch
+			SET LaunchV_ID = null
+			where LaunchV_ID = @id
+
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE updateCompany 
+	@ID INTEGER,
+	@Name varchar(100) ,
+	@Country varchar(100) ,
+	@Acronym varchar(10) ,
+	@Type varchar(16) ,
+	@Owner varchar(100)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    BEGIN TRY
+		BEGIN TRANSACTION 
+			
+			UPDATE SpaceCompany 
+			SET [Name] = @Name , [Country] = @Country , Acronym = @Acronym
+			WHERE Comp_ID = @ID
+
+
+			IF @Type like 'Public'
+				BEGIN
+					IF NOT EXISTS ( Select * from PublicSpaceCompany where Comp_ID = @ID)
+					BEGIN
+					INSERT INTO PublicSpaceCompany( Comp_ID ,Gov )
+					VALUES
+						(@ID,@Owner)
+					DELETE from PrivateSpaceCompany where Comp_ID = @ID
+					END
+				END
+			ELSE IF @Type like 'Private'
+				BEGIN
+					IF NOT EXISTS (select * from PrivateSpaceCompany where Comp_ID = @ID)
+					BEGIN
+						IF EXISTS ( SELECT * from CEO where Per_ID = @Owner )
+							INSERT INTO PrivateSpaceCompany( Comp_ID ,CEO )
+								VALUES
+									(@ID,@Owner);
+						ELSE
+							RAISERROR('No such ceo',16,1);
+						DELETE from PublicSpaceCompany where Comp_ID = @ID
+					END
+				END
+			ELSE
+				RAISERROR('Not a valid Agency type.', 16, 1);
+		COMMIT 
+	END TRY
+	BEGIN CATCH 
+		IF (@@TRANCOUNT > 0)
+			BEGIN
+				ROLLBACK TRANSACTION 
+				PRINT 'Error detected, all changes reversed'
+				PRINT ERROR_MESSAGE()
+			END 
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE updateModule
+	@Module_ID INTEGER,
+    @Type VARCHAR(16),
+    @Description VARCHAR(256) ,
+    @Status VARCHAR(8),
+    @Craft_ID INTEGER
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE Module SET [Type] = @Type , [Description] = @Description , [Status] = @Status , Craft_ID = @Craft_ID
+	WHERE [Module_ID] = @Module_ID
+
+END
+GO
+
+
 

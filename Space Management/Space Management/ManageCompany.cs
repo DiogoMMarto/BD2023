@@ -242,5 +242,11 @@ namespace Space_Management
         {
 
         }
+
+        private void btnUpdateSC_Click(object sender, EventArgs e)
+        {
+            Mediator.updateSpaceCompany(this.comp.Comp_ID, tbName.Text, tbCountry.Text, tbAcronym.Text, tbType.Text, tbOwner.Text);
+            Console.WriteLine(this.comp.Comp_ID+tbName.Text+ tbCountry.Text+ tbAcronym.Text+ tbType.Text+ tbOwner.Text);
+        }
     }
 }
