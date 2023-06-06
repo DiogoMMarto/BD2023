@@ -90,10 +90,10 @@ namespace Space_Management
             // 
             this.btnOverview.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnOverview.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOverview.Location = new System.Drawing.Point(62, 143);
-            this.btnOverview.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOverview.Location = new System.Drawing.Point(83, 176);
+            this.btnOverview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOverview.Name = "btnOverview";
-            this.btnOverview.Size = new System.Drawing.Size(254, 63);
+            this.btnOverview.Size = new System.Drawing.Size(339, 78);
             this.btnOverview.TabIndex = 0;
             this.btnOverview.Text = "Overview";
             this.btnOverview.UseVisualStyleBackColor = false;
@@ -102,10 +102,10 @@ namespace Space_Management
             // btnMissions
             // 
             this.btnMissions.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMissions.Location = new System.Drawing.Point(584, 143);
-            this.btnMissions.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMissions.Location = new System.Drawing.Point(779, 176);
+            this.btnMissions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMissions.Name = "btnMissions";
-            this.btnMissions.Size = new System.Drawing.Size(228, 63);
+            this.btnMissions.Size = new System.Drawing.Size(304, 78);
             this.btnMissions.TabIndex = 1;
             this.btnMissions.Text = "Missions";
             this.btnMissions.UseVisualStyleBackColor = true;
@@ -114,10 +114,10 @@ namespace Space_Management
             // btnVehicles
             // 
             this.btnVehicles.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVehicles.Location = new System.Drawing.Point(1048, 143);
-            this.btnVehicles.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVehicles.Location = new System.Drawing.Point(1397, 176);
+            this.btnVehicles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnVehicles.Name = "btnVehicles";
-            this.btnVehicles.Size = new System.Drawing.Size(230, 63);
+            this.btnVehicles.Size = new System.Drawing.Size(307, 78);
             this.btnVehicles.TabIndex = 2;
             this.btnVehicles.Text = "Vehicles";
             this.btnVehicles.UseVisualStyleBackColor = true;
@@ -126,10 +126,10 @@ namespace Space_Management
             // btnEmployees
             // 
             this.btnEmployees.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmployees.Location = new System.Drawing.Point(320, 143);
-            this.btnEmployees.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEmployees.Location = new System.Drawing.Point(427, 176);
+            this.btnEmployees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEmployees.Name = "btnEmployees";
-            this.btnEmployees.Size = new System.Drawing.Size(260, 63);
+            this.btnEmployees.Size = new System.Drawing.Size(347, 78);
             this.btnEmployees.TabIndex = 4;
             this.btnEmployees.Text = "Employees";
             this.btnEmployees.UseVisualStyleBackColor = true;
@@ -139,10 +139,10 @@ namespace Space_Management
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(76, 212);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.Location = new System.Drawing.Point(101, 261);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(192, 32);
+            this.textBox2.Size = new System.Drawing.Size(256, 40);
             this.textBox2.TabIndex = 46;
             this.textBox2.Text = "Type:";
             // 
@@ -150,30 +150,30 @@ namespace Space_Management
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(76, 56);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox3.Location = new System.Drawing.Point(101, 69);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(207, 32);
+            this.textBox3.Size = new System.Drawing.Size(276, 40);
             this.textBox3.TabIndex = 47;
             this.textBox3.Text = "Name:";
             // 
             // tbName
             // 
             this.tbName.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbName.Location = new System.Drawing.Point(248, 62);
-            this.tbName.Margin = new System.Windows.Forms.Padding(2);
+            this.tbName.Location = new System.Drawing.Point(331, 76);
+            this.tbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(608, 27);
+            this.tbName.Size = new System.Drawing.Size(809, 32);
             this.tbName.TabIndex = 48;
             this.tbName.Text = "";
             // 
             // tbType
             // 
             this.tbType.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbType.Location = new System.Drawing.Point(248, 218);
-            this.tbType.Margin = new System.Windows.Forms.Padding(2);
+            this.tbType.Location = new System.Drawing.Point(331, 268);
+            this.tbType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbType.Name = "tbType";
-            this.tbType.Size = new System.Drawing.Size(186, 27);
+            this.tbType.Size = new System.Drawing.Size(247, 32);
             this.tbType.TabIndex = 49;
             this.tbType.Text = "";
             // 
@@ -181,20 +181,20 @@ namespace Space_Management
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(494, 211);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Location = new System.Drawing.Point(659, 260);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(192, 32);
+            this.textBox1.Size = new System.Drawing.Size(256, 40);
             this.textBox1.TabIndex = 50;
             this.textBox1.Text = "Country:";
             // 
             // tbCountry
             // 
             this.tbCountry.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCountry.Location = new System.Drawing.Point(664, 217);
-            this.tbCountry.Margin = new System.Windows.Forms.Padding(2);
+            this.tbCountry.Location = new System.Drawing.Point(885, 267);
+            this.tbCountry.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbCountry.Name = "tbCountry";
-            this.tbCountry.Size = new System.Drawing.Size(186, 27);
+            this.tbCountry.Size = new System.Drawing.Size(247, 32);
             this.tbCountry.TabIndex = 51;
             this.tbCountry.Text = "";
             // 
@@ -202,10 +202,10 @@ namespace Space_Management
             // 
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(76, 297);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox5.Location = new System.Drawing.Point(101, 366);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(316, 32);
+            this.textBox5.Size = new System.Drawing.Size(421, 40);
             this.textBox5.TabIndex = 52;
             this.textBox5.Text = "Number of Employees:";
             this.textBox5.Visible = false;
@@ -213,10 +213,10 @@ namespace Space_Management
             // tbEmployees
             // 
             this.tbEmployees.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEmployees.Location = new System.Drawing.Point(406, 297);
-            this.tbEmployees.Margin = new System.Windows.Forms.Padding(2);
+            this.tbEmployees.Location = new System.Drawing.Point(541, 366);
+            this.tbEmployees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbEmployees.Name = "tbEmployees";
-            this.tbEmployees.Size = new System.Drawing.Size(147, 27);
+            this.tbEmployees.Size = new System.Drawing.Size(195, 32);
             this.tbEmployees.TabIndex = 53;
             this.tbEmployees.Text = "";
             this.tbEmployees.Visible = false;
@@ -225,10 +225,10 @@ namespace Space_Management
             // 
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox6.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(76, 386);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox6.Location = new System.Drawing.Point(101, 475);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(316, 32);
+            this.textBox6.Size = new System.Drawing.Size(421, 40);
             this.textBox6.TabIndex = 54;
             this.textBox6.Text = "Number of Missions:";
             this.textBox6.Visible = false;
@@ -236,10 +236,10 @@ namespace Space_Management
             // tbMissions
             // 
             this.tbMissions.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbMissions.Location = new System.Drawing.Point(406, 386);
-            this.tbMissions.Margin = new System.Windows.Forms.Padding(2);
+            this.tbMissions.Location = new System.Drawing.Point(541, 475);
+            this.tbMissions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMissions.Name = "tbMissions";
-            this.tbMissions.Size = new System.Drawing.Size(147, 27);
+            this.tbMissions.Size = new System.Drawing.Size(195, 32);
             this.tbMissions.TabIndex = 55;
             this.tbMissions.Text = "";
             this.tbMissions.Visible = false;
@@ -248,10 +248,10 @@ namespace Space_Management
             // 
             this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox7.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(76, 467);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox7.Location = new System.Drawing.Point(101, 575);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(316, 32);
+            this.textBox7.Size = new System.Drawing.Size(421, 40);
             this.textBox7.TabIndex = 56;
             this.textBox7.Text = "Number of Vehicles:";
             this.textBox7.Visible = false;
@@ -260,30 +260,30 @@ namespace Space_Management
             // 
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(900, 56);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox4.Location = new System.Drawing.Point(1200, 69);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(295, 32);
+            this.textBox4.Size = new System.Drawing.Size(393, 40);
             this.textBox4.TabIndex = 8;
             this.textBox4.Text = "Acronym:";
             // 
             // tbAcronym
             // 
             this.tbAcronym.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbAcronym.Location = new System.Drawing.Point(1071, 62);
-            this.tbAcronym.Margin = new System.Windows.Forms.Padding(2);
+            this.tbAcronym.Location = new System.Drawing.Point(1428, 76);
+            this.tbAcronym.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbAcronym.Name = "tbAcronym";
-            this.tbAcronym.Size = new System.Drawing.Size(246, 27);
+            this.tbAcronym.Size = new System.Drawing.Size(327, 32);
             this.tbAcronym.TabIndex = 36;
             this.tbAcronym.Text = "";
             // 
             // tbVehicles
             // 
             this.tbVehicles.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbVehicles.Location = new System.Drawing.Point(406, 467);
-            this.tbVehicles.Margin = new System.Windows.Forms.Padding(2);
+            this.tbVehicles.Location = new System.Drawing.Point(541, 575);
+            this.tbVehicles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbVehicles.Name = "tbVehicles";
-            this.tbVehicles.Size = new System.Drawing.Size(147, 27);
+            this.tbVehicles.Size = new System.Drawing.Size(195, 32);
             this.tbVehicles.TabIndex = 57;
             this.tbVehicles.Text = "";
             this.tbVehicles.Visible = false;
@@ -308,32 +308,35 @@ namespace Space_Management
             this.groupOverview.Controls.Add(this.tbName);
             this.groupOverview.Controls.Add(this.textBox3);
             this.groupOverview.Controls.Add(this.textBox2);
-            this.groupOverview.Location = new System.Drawing.Point(32, 227);
-            this.groupOverview.Margin = new System.Windows.Forms.Padding(2);
+            this.groupOverview.Location = new System.Drawing.Point(43, 279);
+            this.groupOverview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupOverview.Name = "groupOverview";
-            this.groupOverview.Padding = new System.Windows.Forms.Padding(2);
-            this.groupOverview.Size = new System.Drawing.Size(1363, 650);
+            this.groupOverview.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupOverview.Size = new System.Drawing.Size(1817, 800);
             this.groupOverview.TabIndex = 63;
             this.groupOverview.TabStop = false;
             this.groupOverview.Enter += new System.EventHandler(this.groupOverview_Enter_1);
             // 
             // btnUpdateSC
             // 
-            this.btnUpdateSC.Location = new System.Drawing.Point(764, 529);
+            this.btnUpdateSC.BackColor = System.Drawing.Color.Lime;
+            this.btnUpdateSC.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateSC.Location = new System.Drawing.Point(1200, 610);
+            this.btnUpdateSC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnUpdateSC.Name = "btnUpdateSC";
-            this.btnUpdateSC.Size = new System.Drawing.Size(92, 42);
+            this.btnUpdateSC.Size = new System.Drawing.Size(557, 52);
             this.btnUpdateSC.TabIndex = 61;
             this.btnUpdateSC.Text = "Update";
-            this.btnUpdateSC.UseVisualStyleBackColor = true;
+            this.btnUpdateSC.UseVisualStyleBackColor = false;
             this.btnUpdateSC.Click += new System.EventHandler(this.btnUpdateSC_Click);
             // 
             // tbOwner
             // 
             this.tbOwner.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOwner.Location = new System.Drawing.Point(248, 144);
-            this.tbOwner.Margin = new System.Windows.Forms.Padding(2);
+            this.tbOwner.Location = new System.Drawing.Point(331, 177);
+            this.tbOwner.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbOwner.Name = "tbOwner";
-            this.tbOwner.Size = new System.Drawing.Size(608, 27);
+            this.tbOwner.Size = new System.Drawing.Size(809, 32);
             this.tbOwner.TabIndex = 60;
             this.tbOwner.Text = "";
             // 
@@ -341,10 +344,10 @@ namespace Space_Management
             // 
             this.textBox12.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox12.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox12.Location = new System.Drawing.Point(76, 138);
-            this.textBox12.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox12.Location = new System.Drawing.Point(101, 170);
+            this.textBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(207, 32);
+            this.textBox12.Size = new System.Drawing.Size(276, 40);
             this.textBox12.TabIndex = 59;
             this.textBox12.Text = "Owner:";
             // 
@@ -352,10 +355,10 @@ namespace Space_Management
             // 
             this.overPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("overPicture.BackgroundImage")));
             this.overPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.overPicture.Location = new System.Drawing.Point(900, 117);
-            this.overPicture.Margin = new System.Windows.Forms.Padding(2);
+            this.overPicture.Location = new System.Drawing.Point(1200, 142);
+            this.overPicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.overPicture.Name = "overPicture";
-            this.overPicture.Size = new System.Drawing.Size(418, 477);
+            this.overPicture.Size = new System.Drawing.Size(557, 520);
             this.overPicture.TabIndex = 58;
             this.overPicture.TabStop = false;
             // 
@@ -366,11 +369,11 @@ namespace Space_Management
             this.groupMissions.Controls.Add(this.button2);
             this.groupMissions.Controls.Add(this.textBox9);
             this.groupMissions.Controls.Add(this.lbMissions);
-            this.groupMissions.Location = new System.Drawing.Point(32, 227);
-            this.groupMissions.Margin = new System.Windows.Forms.Padding(2);
+            this.groupMissions.Location = new System.Drawing.Point(43, 279);
+            this.groupMissions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupMissions.Name = "groupMissions";
-            this.groupMissions.Padding = new System.Windows.Forms.Padding(2);
-            this.groupMissions.Size = new System.Drawing.Size(1358, 650);
+            this.groupMissions.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupMissions.Size = new System.Drawing.Size(1811, 800);
             this.groupMissions.TabIndex = 64;
             this.groupMissions.TabStop = false;
             this.groupMissions.Visible = false;
@@ -380,10 +383,10 @@ namespace Space_Management
             // 
             this.btnRemMission.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemMission.ForeColor = System.Drawing.Color.Red;
-            this.btnRemMission.Location = new System.Drawing.Point(569, 69);
-            this.btnRemMission.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemMission.Location = new System.Drawing.Point(759, 85);
+            this.btnRemMission.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRemMission.Name = "btnRemMission";
-            this.btnRemMission.Size = new System.Drawing.Size(184, 43);
+            this.btnRemMission.Size = new System.Drawing.Size(245, 53);
             this.btnRemMission.TabIndex = 23;
             this.btnRemMission.Text = "Delete(-)";
             this.btnRemMission.UseVisualStyleBackColor = true;
@@ -393,10 +396,10 @@ namespace Space_Management
             // 
             this.btnAddMission.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddMission.ForeColor = System.Drawing.Color.Blue;
-            this.btnAddMission.Location = new System.Drawing.Point(758, 69);
-            this.btnAddMission.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddMission.Location = new System.Drawing.Point(1011, 85);
+            this.btnAddMission.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddMission.Name = "btnAddMission";
-            this.btnAddMission.Size = new System.Drawing.Size(184, 43);
+            this.btnAddMission.Size = new System.Drawing.Size(245, 53);
             this.btnAddMission.TabIndex = 22;
             this.btnAddMission.Text = "New (+)";
             this.btnAddMission.UseVisualStyleBackColor = true;
@@ -406,10 +409,10 @@ namespace Space_Management
             // 
             this.button2.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Blue;
-            this.button2.Location = new System.Drawing.Point(328, 424);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Location = new System.Drawing.Point(437, 522);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(614, 50);
+            this.button2.Size = new System.Drawing.Size(819, 62);
             this.button2.TabIndex = 21;
             this.button2.Text = "View Details";
             this.button2.UseVisualStyleBackColor = true;
@@ -419,10 +422,10 @@ namespace Space_Management
             // 
             this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox9.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(328, 80);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox9.Location = new System.Drawing.Point(437, 98);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(295, 32);
+            this.textBox9.Size = new System.Drawing.Size(393, 40);
             this.textBox9.TabIndex = 20;
             this.textBox9.Text = "Missions List";
             // 
@@ -431,11 +434,11 @@ namespace Space_Management
             this.lbMissions.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMissions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbMissions.FormattingEnabled = true;
-            this.lbMissions.ItemHeight = 26;
-            this.lbMissions.Location = new System.Drawing.Point(151, 130);
-            this.lbMissions.Margin = new System.Windows.Forms.Padding(2);
+            this.lbMissions.ItemHeight = 33;
+            this.lbMissions.Location = new System.Drawing.Point(201, 160);
+            this.lbMissions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lbMissions.Name = "lbMissions";
-            this.lbMissions.Size = new System.Drawing.Size(1030, 290);
+            this.lbMissions.Size = new System.Drawing.Size(1372, 334);
             this.lbMissions.TabIndex = 19;
             this.lbMissions.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -444,11 +447,11 @@ namespace Space_Management
             this.groupStaff.Controls.Add(this.btnEmployeeDetails);
             this.groupStaff.Controls.Add(this.textBox8);
             this.groupStaff.Controls.Add(this.lbEmployees);
-            this.groupStaff.Location = new System.Drawing.Point(32, 227);
-            this.groupStaff.Margin = new System.Windows.Forms.Padding(2);
+            this.groupStaff.Location = new System.Drawing.Point(43, 279);
+            this.groupStaff.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupStaff.Name = "groupStaff";
-            this.groupStaff.Padding = new System.Windows.Forms.Padding(2);
-            this.groupStaff.Size = new System.Drawing.Size(1358, 650);
+            this.groupStaff.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupStaff.Size = new System.Drawing.Size(1811, 800);
             this.groupStaff.TabIndex = 65;
             this.groupStaff.TabStop = false;
             this.groupStaff.Visible = false;
@@ -458,10 +461,10 @@ namespace Space_Management
             // 
             this.btnEmployeeDetails.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmployeeDetails.ForeColor = System.Drawing.Color.Blue;
-            this.btnEmployeeDetails.Location = new System.Drawing.Point(328, 424);
-            this.btnEmployeeDetails.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEmployeeDetails.Location = new System.Drawing.Point(437, 522);
+            this.btnEmployeeDetails.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEmployeeDetails.Name = "btnEmployeeDetails";
-            this.btnEmployeeDetails.Size = new System.Drawing.Size(614, 50);
+            this.btnEmployeeDetails.Size = new System.Drawing.Size(819, 62);
             this.btnEmployeeDetails.TabIndex = 21;
             this.btnEmployeeDetails.Text = "View Details";
             this.btnEmployeeDetails.UseVisualStyleBackColor = true;
@@ -470,10 +473,10 @@ namespace Space_Management
             // 
             this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox8.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(328, 80);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox8.Location = new System.Drawing.Point(437, 98);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(295, 32);
+            this.textBox8.Size = new System.Drawing.Size(393, 40);
             this.textBox8.TabIndex = 20;
             this.textBox8.Text = "Employees List";
             // 
@@ -482,11 +485,11 @@ namespace Space_Management
             this.lbEmployees.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEmployees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbEmployees.FormattingEnabled = true;
-            this.lbEmployees.ItemHeight = 26;
-            this.lbEmployees.Location = new System.Drawing.Point(178, 130);
-            this.lbEmployees.Margin = new System.Windows.Forms.Padding(2);
+            this.lbEmployees.ItemHeight = 33;
+            this.lbEmployees.Location = new System.Drawing.Point(237, 160);
+            this.lbEmployees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lbEmployees.Name = "lbEmployees";
-            this.lbEmployees.Size = new System.Drawing.Size(1003, 290);
+            this.lbEmployees.Size = new System.Drawing.Size(1336, 334);
             this.lbEmployees.TabIndex = 19;
             // 
             // groupVehicles
@@ -497,11 +500,11 @@ namespace Space_Management
             this.groupVehicles.Controls.Add(this.button4);
             this.groupVehicles.Controls.Add(this.textBox10);
             this.groupVehicles.Controls.Add(this.lbVehicles);
-            this.groupVehicles.Location = new System.Drawing.Point(32, 227);
-            this.groupVehicles.Margin = new System.Windows.Forms.Padding(2);
+            this.groupVehicles.Location = new System.Drawing.Point(43, 279);
+            this.groupVehicles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupVehicles.Name = "groupVehicles";
-            this.groupVehicles.Padding = new System.Windows.Forms.Padding(2);
-            this.groupVehicles.Size = new System.Drawing.Size(1358, 650);
+            this.groupVehicles.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupVehicles.Size = new System.Drawing.Size(1811, 800);
             this.groupVehicles.TabIndex = 65;
             this.groupVehicles.TabStop = false;
             this.groupVehicles.Visible = false;
@@ -510,10 +513,10 @@ namespace Space_Management
             // 
             this.btnDelete.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.Red;
-            this.btnDelete.Location = new System.Drawing.Point(542, 69);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelete.Location = new System.Drawing.Point(723, 85);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(198, 43);
+            this.btnDelete.Size = new System.Drawing.Size(264, 53);
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "Delete (-)";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -523,10 +526,10 @@ namespace Space_Management
             // 
             this.btnNewVehicle.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewVehicle.ForeColor = System.Drawing.Color.Blue;
-            this.btnNewVehicle.Location = new System.Drawing.Point(745, 69);
-            this.btnNewVehicle.Margin = new System.Windows.Forms.Padding(2);
+            this.btnNewVehicle.Location = new System.Drawing.Point(993, 85);
+            this.btnNewVehicle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewVehicle.Name = "btnNewVehicle";
-            this.btnNewVehicle.Size = new System.Drawing.Size(198, 43);
+            this.btnNewVehicle.Size = new System.Drawing.Size(264, 53);
             this.btnNewVehicle.TabIndex = 26;
             this.btnNewVehicle.Text = "New (+)";
             this.btnNewVehicle.UseVisualStyleBackColor = true;
@@ -536,10 +539,10 @@ namespace Space_Management
             // 
             this.button4.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Blue;
-            this.button4.Location = new System.Drawing.Point(328, 424);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Location = new System.Drawing.Point(437, 522);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(614, 50);
+            this.button4.Size = new System.Drawing.Size(819, 62);
             this.button4.TabIndex = 25;
             this.button4.Text = "View Details";
             this.button4.UseVisualStyleBackColor = true;
@@ -548,10 +551,10 @@ namespace Space_Management
             // 
             this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox10.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(328, 80);
-            this.textBox10.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox10.Location = new System.Drawing.Point(437, 98);
+            this.textBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(295, 32);
+            this.textBox10.Size = new System.Drawing.Size(393, 40);
             this.textBox10.TabIndex = 24;
             this.textBox10.Text = "Vehicles List";
             // 
@@ -560,21 +563,21 @@ namespace Space_Management
             this.lbVehicles.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbVehicles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbVehicles.FormattingEnabled = true;
-            this.lbVehicles.ItemHeight = 26;
-            this.lbVehicles.Location = new System.Drawing.Point(164, 130);
-            this.lbVehicles.Margin = new System.Windows.Forms.Padding(2);
+            this.lbVehicles.ItemHeight = 33;
+            this.lbVehicles.Location = new System.Drawing.Point(219, 160);
+            this.lbVehicles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lbVehicles.Name = "lbVehicles";
-            this.lbVehicles.Size = new System.Drawing.Size(1001, 290);
+            this.lbVehicles.Size = new System.Drawing.Size(1333, 334);
             this.lbVehicles.TabIndex = 23;
             // 
             // textBox11
             // 
             this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox11.Font = new System.Drawing.Font("Unispace", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(294, 65);
-            this.textBox11.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox11.Location = new System.Drawing.Point(392, 80);
+            this.textBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(889, 23);
+            this.textBox11.Size = new System.Drawing.Size(1185, 28);
             this.textBox11.TabIndex = 67;
             this.textBox11.Text = "Make use of the Presented Options and Menus to Manage the Company";
             this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -584,10 +587,10 @@ namespace Space_Management
             this.tbTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbTitle.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbTitle.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.tbTitle.Location = new System.Drawing.Point(271, 0);
-            this.tbTitle.Margin = new System.Windows.Forms.Padding(2);
+            this.tbTitle.Location = new System.Drawing.Point(361, 0);
+            this.tbTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(924, 59);
+            this.tbTitle.Size = new System.Drawing.Size(1232, 74);
             this.tbTitle.TabIndex = 66;
             this.tbTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbTitle.TextChanged += new System.EventHandler(this.textBox12_TextChanged);
@@ -597,10 +600,10 @@ namespace Space_Management
             this.btnHome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHome.BackgroundImage")));
             this.btnHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnHome.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHome.Location = new System.Drawing.Point(1283, 143);
-            this.btnHome.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHome.Location = new System.Drawing.Point(1711, 176);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(122, 63);
+            this.btnHome.Size = new System.Drawing.Size(163, 78);
             this.btnHome.TabIndex = 68;
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
@@ -608,10 +611,10 @@ namespace Space_Management
             // btnPrograms
             // 
             this.btnPrograms.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrograms.Location = new System.Drawing.Point(817, 143);
-            this.btnPrograms.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPrograms.Location = new System.Drawing.Point(1089, 176);
+            this.btnPrograms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPrograms.Name = "btnPrograms";
-            this.btnPrograms.Size = new System.Drawing.Size(227, 63);
+            this.btnPrograms.Size = new System.Drawing.Size(303, 78);
             this.btnPrograms.TabIndex = 69;
             this.btnPrograms.Text = "Programs";
             this.btnPrograms.UseVisualStyleBackColor = true;
@@ -624,11 +627,11 @@ namespace Space_Management
             this.gbPrograms.Controls.Add(this.button3);
             this.gbPrograms.Controls.Add(this.textBox13);
             this.gbPrograms.Controls.Add(this.lbPrograms);
-            this.gbPrograms.Location = new System.Drawing.Point(32, 227);
-            this.gbPrograms.Margin = new System.Windows.Forms.Padding(2);
+            this.gbPrograms.Location = new System.Drawing.Point(43, 279);
+            this.gbPrograms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbPrograms.Name = "gbPrograms";
-            this.gbPrograms.Padding = new System.Windows.Forms.Padding(2);
-            this.gbPrograms.Size = new System.Drawing.Size(1358, 650);
+            this.gbPrograms.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbPrograms.Size = new System.Drawing.Size(1811, 800);
             this.gbPrograms.TabIndex = 66;
             this.gbPrograms.TabStop = false;
             this.gbPrograms.Visible = false;
@@ -638,10 +641,10 @@ namespace Space_Management
             // 
             this.button1.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(542, 69);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(723, 85);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(198, 43);
+            this.button1.Size = new System.Drawing.Size(264, 53);
             this.button1.TabIndex = 27;
             this.button1.Text = "Delete (-)";
             this.button1.UseVisualStyleBackColor = true;
@@ -651,10 +654,10 @@ namespace Space_Management
             // 
             this.button3.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.Blue;
-            this.button3.Location = new System.Drawing.Point(745, 69);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Location = new System.Drawing.Point(993, 85);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(198, 43);
+            this.button3.Size = new System.Drawing.Size(264, 53);
             this.button3.TabIndex = 26;
             this.button3.Text = "New (+)";
             this.button3.UseVisualStyleBackColor = true;
@@ -664,10 +667,10 @@ namespace Space_Management
             // 
             this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox13.Font = new System.Drawing.Font("Unispace", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox13.Location = new System.Drawing.Point(328, 80);
-            this.textBox13.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox13.Location = new System.Drawing.Point(437, 98);
+            this.textBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(209, 32);
+            this.textBox13.Size = new System.Drawing.Size(279, 40);
             this.textBox13.TabIndex = 24;
             this.textBox13.Text = "Programs List";
             // 
@@ -676,19 +679,19 @@ namespace Space_Management
             this.lbPrograms.Font = new System.Drawing.Font("Unispace", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPrograms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbPrograms.FormattingEnabled = true;
-            this.lbPrograms.ItemHeight = 26;
-            this.lbPrograms.Location = new System.Drawing.Point(164, 130);
-            this.lbPrograms.Margin = new System.Windows.Forms.Padding(2);
+            this.lbPrograms.ItemHeight = 33;
+            this.lbPrograms.Location = new System.Drawing.Point(219, 160);
+            this.lbPrograms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lbPrograms.Name = "lbPrograms";
-            this.lbPrograms.Size = new System.Drawing.Size(1001, 290);
+            this.lbPrograms.Size = new System.Drawing.Size(1333, 334);
             this.lbPrograms.TabIndex = 23;
             // 
             // ManageCompany
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1426, 839);
+            this.ClientSize = new System.Drawing.Size(1901, 1033);
             this.Controls.Add(this.btnPrograms);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBox11);
@@ -702,7 +705,7 @@ namespace Space_Management
             this.Controls.Add(this.groupVehicles);
             this.Controls.Add(this.groupStaff);
             this.Controls.Add(this.groupMissions);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ManageCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageCompany";
