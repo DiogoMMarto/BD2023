@@ -15,7 +15,7 @@ namespace Space_Management
 
         private static SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source= localhost;integrated security=true;initial catalog=PFinal");
+            return new SqlConnection("Data Source = mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g2; uid = p8g2; password = !TD108546108298");
         }
 
         private static bool verifySGBDConnection()
